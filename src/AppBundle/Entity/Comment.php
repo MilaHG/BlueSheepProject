@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Activity;
 
 /**
  * Comment
@@ -48,7 +50,7 @@ class Comment {
 	
 	/**
 	 *
-	 * @var user
+	 * @var User
 	 * @ORM\ManyToOne(targetEntity="User")
 	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
 	 */
@@ -56,7 +58,7 @@ class Comment {
 	
 	/**
 	 *
-	 * @var activity
+	 * @var Activity
 	 * @ORM\ManyToOne(targetEntity="Activity")
 	 * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false)
 	 */
@@ -107,12 +109,12 @@ class Comment {
 		return $this;
 	}
 
-	public function setUser($user) {
+	public function setUser(User $user) {
 		$this->id_user = $user;
 		return $this;
 	}
 
-	public function setActivity($activity) {
+	public function setActivity(Activity $activity) {
 		$this->id_activity = $activity;
 		return $this;
 	}

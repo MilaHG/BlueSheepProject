@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Activity;
 
 /**
  * Photo
@@ -32,8 +33,7 @@ class Photo {
 	
 	/**
 	 *
-	 * @var int 
-	 * @ORM\Column(name="activity", type="integer")
+	 * @var Activity
 	 * @ORM\ManyToOne(targetEntity="Activity", inversedBy="photos")
 	 * @ORM\JoinColumn (name="activity_id", referencedColumnName="id", nullable=false)
 	 */
@@ -61,7 +61,7 @@ class Photo {
 		return $this;
 	}
 
-	public function setActivity($activity) {
+	public function setActivity(Activity $activity) {
 		$this->activity = $activity;
 		return $this;
 	}

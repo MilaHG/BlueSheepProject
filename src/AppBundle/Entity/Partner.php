@@ -26,7 +26,7 @@ class Partner {
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	private $idPartner;
+	private $id;
 
 	/**
 	 *
@@ -187,8 +187,8 @@ class Partner {
 	private $activities;
 
 
-	public function getIdPartner() {
-		return $this->id_partner;
+	public function getId() {
+		return $this->id;
 	}
 
 	public function getCompany() {
@@ -231,8 +231,8 @@ class Partner {
 		return $this->registerDate;
 	}
 
-	public function setIdPartner($id_partner) {
-		$this->id_partner = $id_partner;
+	public function setId($id) {
+		$this->id = $id;
 		return $this;
 	}
 

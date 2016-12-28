@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Entity\Product;
 
 /**
  * ProductAttribute
@@ -40,8 +41,7 @@ class ProductAttribute {
 	
 	/**
 	 *
-	 * @var int 
-	 * @ORM\Column(name="product", type="integer")
+	 * @var Product
 	 * @ORM\ManyToOne(targetEntity="Product")
 	 * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
 	 */
@@ -90,7 +90,7 @@ class ProductAttribute {
 		return $this;
 	}
 
-	public function setProduct($product) {
+	public function setProduct(Product $product) {
 		$this->product = $product;
 		return $this;
 	}
