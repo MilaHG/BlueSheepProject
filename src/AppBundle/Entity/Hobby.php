@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +26,9 @@ class Hobby
      * @var int
      *
      * @ORM\Column(name="note", type="integer")
+     * @Assert\Choice(
+     *          choices = {1,2,3,4,5}
+     * )
      */
     private $note;
 
@@ -119,6 +123,8 @@ class Hobby
         $this->category = $category;
         return $this;
     }
+    
+    
 
 
 }

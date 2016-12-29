@@ -92,6 +92,8 @@ class DetailReservation
         return $this;
     }
 
+    
+    
 
 }
 

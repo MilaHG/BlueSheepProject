@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,6 +29,10 @@ class User
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=10)
+     * @Assert\Choice(
+     *       choices = {"M", "Mme"}, 
+     *       message = "Chosse a valid gender M or Mme"
+     * )
      */
     private $gender;
 
@@ -35,6 +40,12 @@ class User
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *          max=45, 
+     *          maxMessage = "Your firstname cannot be longer than {{ limit }} characters."
+     * )
+     * 
      */
     private $firstname;
 
@@ -42,6 +53,11 @@ class User
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *         max=45, 
+     *         maxMessage = "Your lastname cannot be longer than {{ limit }} characters."
+     * )
      */
     private $lastname;
 
@@ -49,6 +65,11 @@ class User
      * @var string
      *
      * @ORM\Column(name="pseudo", type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *          max=45, 
+     *          maxMessage ="Your pseudo cannot be longer than {{ limit }} characters."
+     * )
      */
     private $pseudo;
 
@@ -56,6 +77,11 @@ class User
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=100, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *        message ="The email '{{ value }}' is not a valid email.",
+     *        checkMX = true
+     * )
      */
     private $email;
 
@@ -63,6 +89,10 @@ class User
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *          min=6,
+     *          minMessage = "Password may have less {{ limit }} characters.")
      */
     private $password;
 
@@ -70,29 +100,37 @@ class User
      * @var DateTime
      *
      * @ORM\Column(name="birthdate", type="date")
+     * @Assert\DateTime()
      */
     private $birthdate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="address", type="string", length=255)
+     * @ORM\Column(name="address", type="string", length=250)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *          min= 10,
+     *          max= 250
+     * )
      */
     private $address;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="zip_code", type="string", length=10)
+     * @ORM\Column(name="zip", type="string", length=10)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4, max=10)
      */
-    private $zipCode;
+    private $zip;
 
     /**
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=10)
      */
-    private $role;
+    private $role = "ROLE_USER";
 
     /**
      * @var DateTime
@@ -128,6 +166,11 @@ class User
      */
     private $hobbies;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     */
+    private $comments;
+    
     
     
     
@@ -136,6 +179,7 @@ class User
     public function __construct() {
         $this->reservations = new ArrayCollection();
         $this->hobbies = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -341,27 +385,27 @@ class User
     }
 
     /**
-     * Set zipCode
+     * Set zip
      *
-     * @param string $zipCode
+     * @param string $zip
      *
      * @return User
      */
-    public function setZipCode($zipCode)
+    public function setZip($zip)
     {
-        $this->zipCode = $zipCode;
+        $this->zip = $zip;
 
         return $this;
     }
 
     /**
-     * Get zipCode
+     * Get zip
      *
      * @return string
      */
-    public function getZipCode()
+    public function getZip()
     {
-        return $this->zipCode;
+        return $this->zip;
     }
 
     /**
@@ -436,6 +480,67 @@ class User
         return $this->photo;
     }
     
+    
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getReservations() {
+        return $this->reservations;
+    }
+
+    
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getHobbies() {
+        return $this->hobbies;
+    }
+
+    
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getComments() {
+        return $this->comments;
+    }
+
+    
+    /**
+     * 
+     * @param \AppBundle\Entity\Reservation $reservations
+     * @return \AppBundle\Entity\User
+     */
+    public function setReservations(Reservation $reservations) {
+        $this->reservations = $reservations;
+        return $this;
+    }
+
+    
+    /**
+     * 
+     * @param \AppBundle\Entity\Hobby $hobbies
+     * @return \AppBundle\Entity\User
+     */
+    public function setHobbies(Hobby $hobbies) {
+        $this->hobbies = $hobbies;
+        return $this;
+    }
+
+    
+    /**
+     * 
+     * @param ArrayCollection
+     * @return \AppBundle\Entity\User
+     */
+    public function setComments(ArrayCollection $comments) {
+        $this->comments = $comments;
+        return $this;
+    }
+
+
     
     
 }

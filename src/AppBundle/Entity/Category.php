@@ -1,7 +1,7 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,6 +27,9 @@ class Category
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(100)
+     * 
      */
     private $name;
 
@@ -34,6 +37,9 @@ class Category
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(100)
+     * 
      */
     private $description;
 
@@ -45,11 +51,20 @@ class Category
     private $photo;
     
     /**
+     * @var ArrayCollection
      * 
      * @ORM\OneToMany(targetEntity="Hobby", mappedBy="category")
      * 
      */
     private $hobbies;
+    
+    
+    /**
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="category")
+     */
+    private $activities;
     
     
     public function __construct() {
@@ -150,13 +165,36 @@ class Category
 
     /**
      * 
-     * @param type $hobbies
+     * @param ArrayCollection 
      * @return \AppBundle\Entity\Hobby $hobbies
      */
-    public function setHobbies($hobbies) {
+    public function setHobbies(ArrayCollection $hobbies) {
         $this->hobbies = $hobbies;
         return $this;
     }
+    
+    /**
+     * 
+     * @return ArrayCollection
+     */
+    public function getActivities() {
+        return $this->activities;
+    }
+
+    /**
+     * 
+     * @param ArrayCollection $activities
+     * @return \AppBundle\Entity\Category
+     */
+    public function setActivities(ArrayCollection $activities) {
+        $this->activities = $activities;
+        return $this;
+    }
+
+
+    
+    
+    
 
 
 }

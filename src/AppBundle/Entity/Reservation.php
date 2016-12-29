@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Repository\ReservationRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,6 +29,7 @@ class Reservation
      * @var DateTime
      *
      * @ORM\Column(name="date", type="date")
+     * 
      */
     private $date;
     
@@ -130,6 +132,8 @@ class Reservation
         $this->detailsReservations = $detailsReservations;
         return $this;
     }
+    
+    
 
 
 }
