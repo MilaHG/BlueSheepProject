@@ -28,7 +28,7 @@ class Category
      *
      * @ORM\Column(name="name", type="string", length=100)
      * @Assert\NotBlank()
-     * @Assert\Length(100)
+     * @Assert\Length(min = 100, max = 100)
      * 
      */
     private $name;
@@ -38,7 +38,7 @@ class Category
      *
      * @ORM\Column(name="description", type="text")
      * @Assert\NotBlank()
-     * @Assert\Length(100)
+     * @Assert\Length(min = 100, max = 100)
      * 
      */
     private $description;

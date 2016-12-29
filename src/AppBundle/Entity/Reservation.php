@@ -14,127 +14,111 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="reservation")
  * @ORM\Entity(repositoryClass="ReservationRepository")
  */
-class Reservation
-{
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+class Reservation {
 
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="date", type="date")
-     * 
-     */
-    private $date;
-    
-    
-    /**
-     * Many reservation belong One one 
-     * 
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="reservations")
-     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
-     */
-    private $user;
-    
-    
-    /**
-     * One reservation Many details
-     * @var DetailReservation
-     * 
-     * @ORM\OneToMany(targetEntity="DetailReservation", mappedBy="reservation")
-     * 
-     */
-    private $detailsReservations;
-    
-    public function __construct() {
-        $this->detailsReservations = new ArrayCollection();
-    }
-    
-    
-    
+	/**
+	 * @var int
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $id;
 
+	/**
+	 * @var DateTime
+	 *
+	 * @ORM\Column(name="date", type="date")
+	 * 
+	 */
+	private $date;
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+	/**
+	 * Many reservation belong One one 
+	 * 
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="reservations")
+	 * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+	 */
+	private $user;
 
-    /**
-     * Set date
-     *
-     * @param DateTime $date
-     *
-     * @return Reservation
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
+	/**
+	 * One reservation Many details
+	 * @var DetailReservation
+	 * 
+	 * @ORM\OneToMany(targetEntity="DetailReservation", mappedBy="reservation")
+	 * 
+	 */
+	private $detailsReservations;
 
-        return $this;
-    }
+	public function __construct() {
+		$this->detailsReservations = new ArrayCollection();
+	}
 
-    /**
-     * Get date
-     *
-     * @return DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-    
-    
-    /**
-     * 
-     * @return User
-     */
-    public function getUser() {
-        return $this->user;
-    }
+	/**
+	 * Get id
+	 *
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-    /**
-     * 
-     * @return DetailReservation
-     */
-    public function getDetailsReservations() {
-        return $this->detailsReservations;
-    }
+	/**
+	 * Set date
+	 *
+	 * @param DateTime $date
+	 *
+	 * @return Reservation
+	 */
+	public function setDate($date) {
+		$this->date = $date;
 
-    
-    /**
-     * 
-     * @param type $user
-     * @return \AppBundle\Entity\Reservation
-     */
-    public function setUser($user) {
-        $this->user = $user;
-        return $this;
-    }
+		return $this;
+	}
 
-    
-    /**
-     * 
-     * @param \AppBundle\Entity\DetailReservation $detailsReservations
-     * @return \AppBundle\Entity\Reservation
-     */
-    public function setDetailsReservations(DetailReservation $detailsReservations) {
-        $this->detailsReservations = $detailsReservations;
-        return $this;
-    }
-    
-    
+	/**
+	 * Get date
+	 *
+	 * @return DateTime
+	 */
+	public function getDate() {
+		return $this->date;
+	}
 
+	/**
+	 * 
+	 * @return User
+	 */
+	public function getUser() {
+		return $this->user;
+	}
+
+	/**
+	 * 
+	 * @return DetailReservation
+	 */
+	public function getDetailsReservations() {
+		return $this->detailsReservations;
+	}
+
+	/**
+	 * 
+	 * @param type $user
+	 * @return \AppBundle\Entity\Reservation
+	 */
+	public function setUser($user) {
+		$this->user = $user;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @param \AppBundle\Entity\DetailReservation $detailsReservations
+	 * @return \AppBundle\Entity\Reservation
+	 */
+	public function setDetailsReservations(DetailReservation $detailsReservations) {
+		$this->detailsReservations = $detailsReservations;
+		return $this;
+	}
 
 }
-
