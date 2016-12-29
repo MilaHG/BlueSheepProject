@@ -27,28 +27,28 @@ class Activity {
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participantSolo", type="boolean")
+	 * @ORM\Column(name="participant_solo", type="boolean")
 	 */
 	private $participantSolo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participantDuo", type="boolean")
+	 * @ORM\Column(name="participant_duo", type="boolean")
 	 */
 	private $participantDuo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participantFamily", type="boolean")
+	 * @ORM\Column(name="participant_family", type="boolean")
 	 */
 	private $participantFamily;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participantFriend", type="boolean")
+	 * @ORM\Column(name="participant_friend", type="boolean")
 	 */
 	private $participantFriend;
 
@@ -58,11 +58,11 @@ class Activity {
 	 * @ORM\Column(name="title", type="string", length=255)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
-     *      min = 3,
-     *      max = 255,
-     *      minMessage = "Your activity's title must be at least {{ limit }} characters long",
-     *      maxMessage = "Your activity's title cannot be longer than {{ limit }} characters"
-     * )
+	 *      min = 3,
+	 *      max = 255,
+	 *      minMessage = "Your activity's title must be at least {{ limit }} characters long",
+	 *      maxMessage = "Your activity's title cannot be longer than {{ limit }} characters"
+	 * )
 	 * 
 	 */
 	private $title;
@@ -73,11 +73,11 @@ class Activity {
 	 * @ORM\Column(name="address", type="string", length=255)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
-     *      min = 3,
-     *      max = 255,
-     *      minMessage = "Your activity's address must be at least {{ limit }} characters long",
-     *      maxMessage = "Your activity's address cannot be longer than {{ limit }} characters"
-     * )
+	 *      min = 3,
+	 *      max = 255,
+	 *      minMessage = "Your activity's address must be at least {{ limit }} characters long",
+	 *      maxMessage = "Your activity's address cannot be longer than {{ limit }} characters"
+	 * )
 	 */
 	private $address;
 
@@ -87,10 +87,10 @@ class Activity {
 	 * @ORM\Column(name="zip", type="string", length=5)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
-     *      min = 5,
-     *      max = 5,
-     *      exactMessage = "Your activity's zip should have exactly {{ limit }} characters"
-     * )
+	 *      min = 5,
+	 *      max = 5,
+	 *      exactMessage = "Your activity's zip should have exactly {{ limit }} characters"
+	 * )
 	 */
 	private $zip;
 
@@ -98,6 +98,7 @@ class Activity {
 	 * @var string
 	 *
 	 * @ORM\Column(name="city", type="string", length=100)
+	 * @Assert\NotBlank()
 	 */
 	private $city;
 
@@ -107,11 +108,11 @@ class Activity {
 	 * @ORM\Column(name="description", type="text", nullable=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
-     *      min = 3,
-     *      max = 100,
-     *      minMessage = "Your activity's city must be at least {{ limit }} characters long",
-     *      maxMessage = "Your activity's city cannot be longer than {{ limit }} characters"
-     * )
+	 *      min = 3,
+	 *      max = 100,
+	 *      minMessage = "Your activity's city must be at least {{ limit }} characters long",
+	 *      maxMessage = "Your activity's city cannot be longer than {{ limit }} characters"
+	 * )
 	 */
 	private $description;
 
@@ -125,8 +126,7 @@ class Activity {
 	/**
 	 * @var Category
 	 *
-	 * @ORM\Column(name="category", type="integer")
-	 * @ORM\ManyToOne(targetEntity="Category")
+	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="activities")
 	 * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)	
 	 */
 	private $category;
@@ -134,35 +134,32 @@ class Activity {
 	/**
 	 * @var Partner
 	 *
-	 * @ORM\Column(name="partner", type="integer")
-	 * @ORM\ManyToOne(targetEntity="Partner")
+	 * @ORM\ManyToOne(targetEntity="Partner", inversedBy="activities")
 	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
 	private $partner;
-	
 
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Product", mappedBy="activities")
+	 * @ORM\OneToMany(targetEntity="Product", mappedBy="activity")
 	 */
 	private $products;
-	
+
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activities")
+	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity")
 	 */
 	private $photos;
-	
+
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="activities")
+	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="activity")
 	 */
 	private $comments;
-
 
 	/**
 	 * Get id
@@ -436,32 +433,65 @@ class Activity {
 	public function getPartner() {
 		return $this->partner;
 	}
+
+	/**
+	 * 
+	 * @return Product
+	 * 
+	 */
 	public function getProducts() {
 		return $this->products;
 	}
 
+	/**
+	 * 
+	 * @return ArrayCollection
+	 */
 	public function getPhotos() {
 		return $this->photos;
 	}
 
+	/**
+	 * 
+	 * @return ArrayCollection
+	 */
 	public function getComments() {
 		return $this->comments;
 	}
 
+	/**
+	 * 
+	 * @param ArrayCollection $products
+	 * @return $this
+	 */
 	public function setProducts(ArrayCollection $products) {
 		$this->products = $products;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param ArrayCollection $photos
+	 * @return $this
+	 */
 	public function setPhotos(ArrayCollection $photos) {
 		$this->photos = $photos;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param ArrayCollection $comments
+	 * @return $this
+	 */
 	public function setComments(ArrayCollection $comments) {
 		$this->comments = $comments;
 		return $this;
 	}
 
-
+	function __construct() {
+		$this->products = new ArrayCollection();
+		$this->photos = new ArrayCollection();
+		$this->comments = new ArrayCollection();
+	}
 }

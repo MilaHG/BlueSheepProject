@@ -6,6 +6,7 @@ use AppBundle\Entity\Activity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
+use DateTime;
 
 
 /**
@@ -40,15 +41,15 @@ class Product {
 	/**
 	 *
 	 * @var float
-	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Column(name="price", type="float")
 	 * @Assert\NotBlank()
 	 */
 	private $price;
 
 	/**
 	 *
-	 * @var date
-	 * @ORM\Column(name="id", type="integer")
+	 * @var DateTime
+	 * @ORM\Column(name="DateTime", type="DateTime")
 	 */
 	private $date;
 
@@ -62,8 +63,8 @@ class Product {
 
 	/**
 	 *
-	 * @var arrayCollection
-	 * @ORM\OneToMany(targetEntity="Article", mappedBy="product")
+	 * @var ArrayCollection
+	 * @ORM\OneToMany(targetEntity="ProductAttribute", mappedBy="product")
 	 */
 	private $productAttributes;
 
@@ -75,49 +76,98 @@ class Product {
 	public function getId() {
 		return $this->id;
 	}
+	
+	/**
+	 * 
+	 * @return int
+	 */
 	public function getStock() {
 		return $this->stock;
 	}
 
+	/**
+	 * 
+	 * @return float
+	 */
 	public function getPrice() {
 		return $this->price;
 	}
 
+	/**
+	 * 
+	 * @return DateTime
+	 */
 	public function getDate() {
 		return $this->date;
 	}
 
+	/**
+	 * 
+	 * @return Activity
+	 */
 	public function getActivity() {
 		return $this->activity;
 	}
 
+	/**
+	 * 
+	 * @return ArrayCollection
+	 */
 	public function getProductAttributes() {
 		return $this->productAttributes;
 	}
 
+	/**
+	 * 
+	 * @param int $stock
+	 * @return $this
+	 */
 	public function setStock($stock) {
 		$this->stock = $stock;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param float $price
+	 * @return $this
+	 */
 	public function setPrice($price) {
 		$this->price = $price;
 		return $this;
 	}
 
-	public function setDate(date $date) {
+	/**
+	 * 
+	 * @param DateTime $date
+	 * @return $this
+	 */
+	public function setDate(DateTime $date) {
 		$this->date = $date;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param Activity $activity
+	 * @return $this
+	 */
 	public function setActivity(Activity $activity) {
 		$this->activity = $activity;
 		return $this;
 	}
 
-	public function setProductAttributes(arrayCollection $productAttributes) {
+	/**
+	 * 
+	 * @param ArrayCollection $productAttributes
+	 * @return $this
+	 */
+	public function setProductAttributes(ArrayCollection $productAttributes) {
 		$this->productAttributes = $productAttributes;
 		return $this;
 	}
 
+	function __construct() {
+		$this->productAttributes = new ArrayCollection();
+	}
 }

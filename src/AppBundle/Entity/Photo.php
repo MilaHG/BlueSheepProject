@@ -48,19 +48,37 @@ class Photo {
 		return $this->id;
 	}
 	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getName() {
 		return $this->name;
 	}
 
+	/**
+	 * 
+	 * @return Activity
+	 */
 	public function getActivity() {
 		return $this->activity;
 	}
 
+	/**
+	 * 
+	 * @param string $name
+	 * @return $this
+	 */
 	public function setName($name) {
 		$this->name = $name;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param Activity $activity
+	 * @return $this
+	 */
 	public function setActivity(Activity $activity) {
 		$this->activity = $activity;
 		return $this;

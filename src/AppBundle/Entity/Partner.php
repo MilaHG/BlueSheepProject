@@ -2,19 +2,20 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use AppBundle\Repository\PartnerRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Partner
  *
  * @ORM\Table(name="partner")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerRepository")
+ * @ORM\Entity(repositoryClass="PartnerRepository")
  * @UniqueEntity(fields="email", message="This email already exists")
  * @UniqueEntity(fields="pseudo", message="This username is not available")
- * @UniqueEntity(fields="company", message="This company has already an account")
  * @UniqueEntity(fields="commercialRegistry", message="This commercial registry is already used")
  */
 class Partner {
@@ -31,7 +32,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=100, unique=true)
+	 * @ORM\Column (type="string", name="company", length=100)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 3,
@@ -45,7 +46,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=45)
+	 * @ORM\Column (name="firstname", type="string", length=45)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 3,
@@ -59,7 +60,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string" , length=45)
+	 * @ORM\Column (name="lastname", type="string" , length=45)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 3,
@@ -73,7 +74,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=45)
+	 * @ORM\Column (name="pseudo", type="string", length=45)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 3,
@@ -87,7 +88,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=45, unique=true)
+	 * @ORM\Column (name="email", type="string", length=45, unique=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Email(
 	 *     message = "The email '{{ value }}' is not a valid email.",
@@ -99,7 +100,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string")
+	 * @ORM\Column (name="password", type="string")
 	 * 
 	 */
 	private $password;
@@ -107,7 +108,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=14, unique=true)
+	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Regex(
 	 *     pattern="/^[0-9]$/",
@@ -115,8 +116,8 @@ class Partner {
 	 *     message="Your commercial registry must contain numbers only"
 	 * )
 	 * @Assert\Length(
-	 *      min = 14,
-	 *      max = 14,
+	 *      min = 9,
+	 *      max = 9,
 	 *      exactMessage = "This value should have exactly {{ limit }} characters."
 	 * )
 	 */
@@ -125,7 +126,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=250)
+	 * @ORM\Column (name="address", type="string", length=250)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 5,
@@ -139,7 +140,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=5)
+	 * @ORM\Column (name="zip", type="string", length=5)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 5,
@@ -152,7 +153,7 @@ class Partner {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", length=100)
+	 * @ORM\Column (name="city", type="string", length=100)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *      min = 5,
@@ -165,8 +166,8 @@ class Partner {
 
 	/**
 	 *
-	 * @var date
-	 * @ORM\Column (type="date")
+	 * @var DateTime
+	 * @ORM\Column (name="register_date", type="DateTime")
 	 */
 	private $registerDate;
 
@@ -182,137 +183,257 @@ class Partner {
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="id_partner")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
 	 */
 	private $activities;
 
-
+	
+	function __construct() {
+		$this->activities = new ArrayCollection();
+	}
+	
+	/**
+	 * 
+	 * @return int
+	 */
 	public function getId() {
 		return $this->id;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getCompany() {
 		return $this->company;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getFirstname() {
 		return $this->firstname;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getLastname() {
 		return $this->lastname;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getPseudo() {
 		return $this->pseudo;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getEmail() {
 		return $this->email;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getCommercialRegistry() {
 		return $this->commercialRegistry;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getAddress() {
 		return $this->address;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getZip() {
 		return $this->zip;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getCity() {
 		return $this->city;
 	}
 
+	/**
+	 * 
+	 * @return DateTime
+	 */
 	public function getRegisterDate() {
 		return $this->registerDate;
 	}
 
+	/**
+	 * 
+	 * @param int $id
+	 * @return $this
+	 */
 	public function setId($id) {
 		$this->id = $id;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $company
+	 * @return $this
+	 */
 	public function setCompany($company) {
 		$this->company = $company;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $firstname
+	 * @return $this
+	 */
 	public function setFirstname($firstname) {
 		$this->firstname = $firstname;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $lastname
+	 * @return $this
+	 */
 	public function setLastname($lastname) {
 		$this->lastname = $lastname;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $pseudo
+	 * @return $this
+	 */
 	public function setPseudo($pseudo) {
 		$this->pseudo = $pseudo;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $email
+	 * @return $this
+	 */
 	public function setEmail($email) {
 		$this->email = $email;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $commercialRegistry
+	 * @return $this
+	 */
 	public function setCommercialRegistry($commercialRegistry) {
 		$this->commercialRegistry = $commercialRegistry;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $address
+	 * @return $this
+	 */
 	public function setAddress($address) {
 		$this->address = $address;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $zip
+	 * @return $this
+	 */
 	public function setZip($zip) {
 		$this->zip = $zip;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $city
+	 * @return $this
+	 */
 	public function setCity($city) {
 		$this->city = $city;
 		return $this;
 	}
 
-	public function setRegisterDate(date $registerDate) {
+	/**
+	 * 
+	 * @param DateTime $registerDate
+	 * @return $this
+	 */
+	public function setRegisterDate(DateTime $registerDate) {
 		$this->registerDate = $registerDate;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getPassword() {
 		return $this->password;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getPlainPassword() {
 		return $this->plainPassword;
 	}
 
+	/**
+	 * 
+	 * @param string $password
+	 * @return $this
+	 */
 	public function setPassword($password) {
 		$this->password = $password;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $plainPassword
+	 * @return $this
+	 */
 	public function setPlainPassword($plainPassword) {
 		$this->plainPassword = $plainPassword;
 		return $this;
 	}
 	
+	/**
+	 * 
+	 * @param ArrayCollection $activities
+	 * @return $this
+	 */
 	public function setActivities(ArrayCollection $activities){
 		$this->articles= $activities;
+		return $this;
 	}
-	
-	public function addActivity(Activity $activity){
-		$this->articles[]= $activity;
-	}
-	
-	public function removeActivity(Activity $activity){
-		$this->articles->removeElement($activity);
-	}
+
 }

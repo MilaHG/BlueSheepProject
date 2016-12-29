@@ -42,7 +42,7 @@ class ProductAttribute {
 	/**
 	 *
 	 * @var Product
-	 * @ORM\ManyToOne(targetEntity="Product")
+	 * @ORM\ManyToOne(targetEntity="Product", inversedBy="productAttributes")
 	 * @ORM\JoinColumn(name="product_id", referencedColumnName="id", nullable=false)
 	 */
 	private $product;
@@ -64,39 +64,77 @@ class ProductAttribute {
 	public function getId() {
 		return $this->id;
 	}
+	
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getName() {
 		return $this->name;
 	}
 
+	/**
+	 * 
+	 * @return string
+	 */
 	public function getValue() {
 		return $this->value;
 	}
 
+	/**
+	 * 
+	 * @return Product
+	 */
 	public function getProduct() {
 		return $this->product;
 	}
 
+	/**
+	 * 
+	 * @return float
+	 */
 	public function getExtraFee() {
 		return $this->extraFee;
 	}
 
+	/**
+	 * 
+	 * @param string $name
+	 * @return $this
+	 */
 	public function setName($name) {
 		$this->name = $name;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param string $value
+	 * @return $this
+	 */
 	public function setValue($value) {
 		$this->value = $value;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param Product $product
+	 * @return $this
+	 */
 	public function setProduct(Product $product) {
 		$this->product = $product;
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @param float $extraFee
+	 * @return $this
+	 */
 	public function setExtraFee($extraFee) {
 		$this->extraFee = $extraFee;
 		return $this;
 	}
+	
 }
