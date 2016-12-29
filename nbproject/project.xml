@@ -4,6 +4,7 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/php-project/1">
             <name>BlueSheepProject</name>
+            <name>blueSheep</name>
         </data>
     </configuration>
 </project>
