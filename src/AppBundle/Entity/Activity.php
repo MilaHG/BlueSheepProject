@@ -123,7 +123,7 @@ class Activity {
 	private $recordingDate;
 
 	/**
-	 * @var int
+	 * @var Category
 	 *
 	 * @ORM\Column(name="category", type="integer")
 	 * @ORM\ManyToOne(targetEntity="Category")
@@ -400,7 +400,7 @@ class Activity {
 	 *
 	 * @return Activity
 	 */
-	public function setCategory($category) {
+	public function setCategory(Category $category) {
 		$this->category = $category;
 
 		return $this;
