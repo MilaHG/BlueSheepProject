@@ -167,7 +167,7 @@ class Partner {
 	/**
 	 *
 	 * @var DateTime
-	 * @ORM\Column (name="register_date", type="DateTime")
+	 * @ORM\Column (name="register_date", type="datetime")
 	 */
 	private $registerDate;
 
@@ -175,7 +175,7 @@ class Partner {
 	 *
 	 * @var string
 	 * @Assert\NotBlank()
-	 * @Assert\Length(min="6")
+	 * @Assert\Length(min=6)
 	 */
 	private $plainPassword; //password en clair, pas encore encrypté
 
