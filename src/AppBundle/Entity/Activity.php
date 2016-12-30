@@ -170,6 +170,10 @@ class Activity {
 		return $this->id;
 	}
 
+	public function __toString() {
+		return $this->getTitle(). ' (toString Method)';
+	}
+
 	/**
 	 * Set participantSolo
 	 *
@@ -494,4 +498,5 @@ class Activity {
 		$this->photos = new ArrayCollection();
 		$this->comments = new ArrayCollection();
 	}
+
 }

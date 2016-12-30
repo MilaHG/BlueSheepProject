@@ -68,6 +68,10 @@ class Product {
 	 */
 	private $productAttributes;
 
+	public function __toString() {
+		return $this->getActivity()->getTitle() . ' - '. $this->date . ' (toString Method)';
+	}
+	
 	/**
 	 * Get id
 	 *

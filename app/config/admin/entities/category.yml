@@ -1,0 +1,37 @@
+## YAML Template.
+# This file sets the configuration of the 'Category' entity.
+
+easy_admin:
+    entities:
+        Category:
+            class: AppBundle\Entity\Category
+            label: 'Categories'
+            list:
+                title: 'Category %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'photo', type: 'image' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'photo', type: 'image' }
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-4' }
+                    - { property: 'name', label: 'Name', css_class: 'large', help: 'Name of the category' }
+                    - { property: 'description', label: 'Description', css_class: 'large', help: 'Name of the category' }
+                    - { property: 'photo', label: 'Photo', css_class: 'large', help: 'Name of the category' }
+
+                    # if you want to add products when creating categories, add the 'by_reference' option
+            edit:
+                title: '%%entity_label%%_edit'
+            new:
+                title: 'New %%entity_label%%'
