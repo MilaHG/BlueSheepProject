@@ -1,0 +1,31 @@
+easy_admin:
+    entities:
+        Partner:
+            class: AppBundle\Entity\Partner
+            label: 'Partners - suppliers'
+            list:
+                title: 'Partner %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'company', label: 'Company name' }
+                    - { property: 'commercialRegistry', label: 'Company commercial registry' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'registerDate', label: 'Register Date' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'company', label: 'Company name' }
+                    - { property: 'commercialRegistry', label: 'Company commercial registry' }
+                    - { property: 'firstname', label: 'Firstname contact' }
+                    - { property: 'lastname', label: 'Lastname contact' }
+                    - { property: 'pseudo', label: 'Contact pseudo' }
+                    - { property: 'email', label: 'Contact email' }
+                    - { property: 'address', label: 'Company address' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'registerDate', label: 'Register Date' }

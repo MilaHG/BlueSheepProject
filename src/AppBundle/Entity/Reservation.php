@@ -53,6 +53,10 @@ class Reservation {
 	public function __construct() {
 		$this->detailsReservations = new ArrayCollection();
 	}
+	
+	public function __toString() {
+		return $this->getId(). ' - ' . $this->getUser()->getPseudo(). ' (toString Method)';
+	}
 
 	/**
 	 * Get id

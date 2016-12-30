@@ -192,6 +192,10 @@ class Partner {
 		$this->activities = new ArrayCollection();
 	}
 	
+	function __toString() {
+		return $this->getCompany() . ' (toString Method)';
+	}
+	
 	/**
 	 * 
 	 * @return int

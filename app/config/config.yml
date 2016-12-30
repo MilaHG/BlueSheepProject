@@ -2,11 +2,15 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    # Bundle Easy admin, added by Florent
+    - { resource: admin/ } # Bundle Easy admin, added by Florent
+    
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    app.path.product_images: /uploads/images/product
 
 framework:
     #esi:             ~
@@ -68,10 +72,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+# Bundle Vic Uploacer, added by Florent
+vich_uploader:
+    db_driver: orm
+    mappings:
+        cat_images:
+            uri_prefix: %app.path.product_images%
+            upload_destination: %kernel.root_dir%/../web/img/cat
 
-# Bundle Easy admin, ajouté par Florent
-easy_admin:
-    entities:
-        - AppBundle\Entity\Product
-        - AppBundle\Entity\Category
-        - AppBundle\Entity\Partner
+
