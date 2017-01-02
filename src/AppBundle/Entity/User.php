@@ -3,16 +3,18 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @Vich\Uploadable
  */
 class User {
 
@@ -28,11 +30,7 @@ class User {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="gender", type="string", length=10)
-	 * @Assert\Choice(
-	 *       choices = {"M", "Mme"}, 
-	 *       message = "Chosse a valid gender M or Mme"
-	 * )
+	 * @ORM\Column(name="gender", type="string", length=3)
 	 */
 	private $gender;
 
@@ -134,7 +132,7 @@ class User {
 	 * @Assert\Length(min=3, max=100)
 	 */
 	private $city;
-	
+
 	/**
 	 * @var string
 	 *
@@ -155,6 +153,12 @@ class User {
 	 * @ORM\Column(name="photo", type="string", length=255)
 	 */
 	private $photo;
+
+	/**
+	 * @Vich\UploadableField(mapping="user_images", fileNameProperty="photo")
+	 * @var File
+	 */
+	private $imageFile;
 
 	/**
 	 * One User have Many Reservations
@@ -179,12 +183,12 @@ class User {
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */
 	private $comments;
-	
 
 	public function __construct() {
 		$this->reservations = new ArrayCollection();
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();
+		$this->registerDate=new DateTime();
 	}
 
 	public function __toString() {
@@ -527,5 +531,24 @@ class User {
 		return $this;
 	}
 
+	public function setImageFile(File $image = null) {
+		$this->imageFile = $image;
+
+		// VERY IMPORTANT:
+		// It is required that at least one field changes if you are using Doctrine,
+		// otherwise the event listeners won't be called and the file is lost
+		/* if ($image) {
+		  // if 'updatedAt' is not defined in your entity, use another property
+		  $this->updatedAt = new \DateTime('now');
+		  } */
+	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public function getImageFile() {
+		return $this->imageFile;
+	}
 
 }

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-//use AppBundle\Repository\PartnerRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Partner
  *
  * @ORM\Table(name="partner")
- * @ORM\Entity(repositoryClass="PartnerRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerRepository")
  * @UniqueEntity(fields="email", message="This email already exists")
  * @UniqueEntity(fields="pseudo", message="This username is not available")
  * @UniqueEntity(fields="commercialRegistry", message="This commercial registry is already used")
@@ -188,6 +187,7 @@ class Partner {
 
 	function __construct() {
 		$this->activities = new ArrayCollection();
+		$this->registerDate=new DateTime();
 	}
 
 	function __toString() {

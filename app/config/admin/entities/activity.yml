@@ -36,17 +36,16 @@ easy_admin:
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'recordingDate', label: 'Recording Date' }
-                    
-#            form:
-#                fields:
-#                    - { property: 'title', label: 'Title' }
-#                    - { property: 'description', label: 'Desciption' }
-#                    - { property: 'partner', label: 'Partner' }
-#                    - { property: 'category', label: 'Category' }
-#                    - { property: 'participantSolo', label: 'Solo' }
-#                    - { property: 'participantDuo', label: 'Duo' }
-#                    - { property: 'participantFamily', label: 'Family' }
-#                    - { property: 'participantFriend', label: 'Friend' }
-#                    - { property: 'address', label: 'Address' }
-#                    - { property: 'zip', label: 'Zip code' }
-#                    - { property: 'city', label: 'City' }
+            form:
+                fields:
+                    - { property: 'title', label: 'Title' }
+                    - { property: 'description', label: 'Desciption' }
+                    - { property: 'partner', label: 'Partner' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'participantSolo', label: 'Solo' }
+                    - { property: 'participantDuo', label: 'Duo' }
+                    - { property: 'participantFamily', label: 'Family' }
+                    - { property: 'participantFriend', label: 'Friend' }
+                    - { property: 'address', label: 'Address' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }

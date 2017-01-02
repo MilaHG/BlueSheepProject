@@ -29,3 +29,5 @@ easy_admin:
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'registerDate', label: 'Register Date' }
+                    
+                    #ne pas mettre la date sur le formulaire

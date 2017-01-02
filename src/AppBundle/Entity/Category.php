@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="CategoryRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  * @Vich\Uploadable
  */
 class Category {
@@ -81,7 +80,7 @@ class Category {
 	}
 
 	public function __toString() {
-		return $this->getName(). ' (toString Method)';
+		return $this->getName() . ' (toString Method)';
 	}
 
 	/**
@@ -207,31 +206,17 @@ class Category {
 		  } */
 	}
 
+	/**
+	 * 
+	 * @return 
+	 */
 	public function getImageFile() {
 		return $this->imageFile;
 	}
-
-	/**
-	 * Add a activity in the category.
-	 *
-	 * @param Activity $activity
-	 */
-	public function addActivity($activity) {
-		if ($this->activities->contains($activity)) {
-			return;
-		}
-		$this->activities->add($activity);
-		$activity->addActivity($this);
+	
+	public function setId($id) {
+		$this->id = $id;
+		return $this;
 	}
 
-	/**
-	 * @param Activity $activity
-	 */
-	public function removeActivity($activity) {
-		if (!$this->activities->contains($activity)) {
-			return;
-		}
-		$this->activities->removeElement($activity);
-		$activity->removeActivity($this);
-	}
 }

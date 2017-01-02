@@ -4,8 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Partner;
 use Doctrine\Common\Collections\ArrayCollection;
+use\DateTime;
 
 /**
  * Activity
@@ -117,7 +117,7 @@ class Activity {
 	private $description;
 
 	/**
-	 * @var \Date
+	 * @var \DateTime
 	 *
 	 * @ORM\Column(name="recordingDate", type="date")
 	 */
@@ -161,6 +161,18 @@ class Activity {
 	 */
 	private $comments;
 
+	
+	function __construct() {
+		$this->products = new ArrayCollection();
+		$this->photos = new ArrayCollection();
+		$this->comments = new ArrayCollection();
+		$this->recordingDate = new DateTime();
+	}
+	
+	public function __toString() {
+		return $this->getTitle(). ' (toString Method)';
+	}
+	
 	/**
 	 * Get id
 	 *
@@ -168,10 +180,6 @@ class Activity {
 	 */
 	public function getId() {
 		return $this->id;
-	}
-
-	public function __toString() {
-		return $this->getTitle(). ' (toString Method)';
 	}
 
 	/**
@@ -379,7 +387,7 @@ class Activity {
 	 *
 	 * @return Activity
 	 */
-	public function setRecordingDate($recordingDate) {
+	public function setRecordingDate(DateTime $recordingDate) {
 		$this->recordingDate = $recordingDate;
 
 		return $this;
@@ -493,10 +501,5 @@ class Activity {
 		return $this;
 	}
 
-	function __construct() {
-		$this->products = new ArrayCollection();
-		$this->photos = new ArrayCollection();
-		$this->comments = new ArrayCollection();
-	}
 
 }

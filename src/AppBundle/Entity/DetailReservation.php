@@ -45,7 +45,11 @@ class DetailReservation {
 	 */
 	private $reservation;
 
-	/**
+	public function __toString() {
+		return $this->getProduct(). ', quantity :  ' . $this->getQuantity();
+	}
+
+		/**
 	 * Get id
 	 *
 	 * @return int
