@@ -77,6 +77,7 @@ class Category {
 
 	public function __construct() {
 		$this->hobbies = new ArrayCollection();
+		$this->activities = new ArrayCollection();
 	}
 
 	public function __toString() {
@@ -210,4 +211,27 @@ class Category {
 		return $this->imageFile;
 	}
 
+	/**
+	 * Add a activity in the category.
+	 *
+	 * @param Activity $activity
+	 */
+	public function addActivity($activity) {
+		if ($this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->add($activity);
+		$activity->addActivity($this);
+	}
+
+	/**
+	 * @param Activity $activity
+	 */
+	public function removeActivity($activity) {
+		if (!$this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->removeElement($activity);
+		$activity->removeActivity($this);
+	}
 }

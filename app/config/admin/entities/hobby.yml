@@ -11,12 +11,12 @@ easy_admin:
                     - { name: 'delete', label: '', icon: 'trash' }
                 fields:
                     - 'id'
-                    - { property: '$note', label: 'Rating' }
-                    - { property: '$user', label: 'User name' }
-                    - { property: '$category', label: 'Category' }
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'note', label: 'Rating' }
             show:
                 fields:
                     - 'id'
-                    - { property: '$note', label: 'Rating' }
-                    - { property: '$user', label: 'User name' }
-                    - { property: '$category', label: 'Category' }
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'note', label: 'Rating' }

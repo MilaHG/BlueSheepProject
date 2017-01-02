@@ -2,7 +2,7 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Repository\PartnerRepository;
+//use AppBundle\Repository\PartnerRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -179,7 +179,6 @@ class Partner {
 	 */
 	private $plainPassword; //password en clair, pas encore encrypté
 
-	
 	/**
 	 *
 	 * @var ArrayCollection
@@ -187,15 +186,14 @@ class Partner {
 	 */
 	private $activities;
 
-	
 	function __construct() {
 		$this->activities = new ArrayCollection();
 	}
-	
+
 	function __toString() {
 		return $this->getCompany() . ' (toString Method)';
 	}
-	
+
 	/**
 	 * 
 	 * @return int
@@ -429,15 +427,47 @@ class Partner {
 		$this->plainPassword = $plainPassword;
 		return $this;
 	}
-	
+
 	/**
 	 * 
 	 * @param ArrayCollection $activities
 	 * @return $this
 	 */
-	public function setActivities(ArrayCollection $activities){
-		$this->articles= $activities;
+	public function setActivities(ArrayCollection $activities) {
+		$this->articles = $activities;
 		return $this;
+	}
+
+	/**
+	 * 
+	 * @return ArrayCollection
+	 */
+	public function getActivities() {
+		return $this->activities;
+	}
+
+	/**
+	 * Add a activity in the category.
+	 *
+	 * @param Activity $activity
+	 */
+	public function addActivity($activity) {
+		if ($this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->add($activity);
+		$activity->addActivity($this);
+	}
+
+	/**
+	 * @param Activity $activity
+	 */
+	public function removeActivity($activity) {
+		if (!$this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->removeElement($activity);
+		$activity->removeActivity($this);
 	}
 
 }

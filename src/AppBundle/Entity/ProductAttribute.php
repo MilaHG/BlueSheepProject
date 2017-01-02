@@ -137,4 +137,8 @@ class ProductAttribute {
 		return $this;
 	}
 	
+	public function __toString() {
+		return $this->getName(). ' : ' . $this->getValue(). ' (extrafee : '.$this->getExtraFee().')';
+	}
+	
 }

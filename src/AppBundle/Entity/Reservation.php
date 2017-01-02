@@ -52,6 +52,7 @@ class Reservation {
 
 	public function __construct() {
 		$this->detailsReservations = new ArrayCollection();
+		$this->date=new DateTime;
 	}
 	
 	public function __toString() {

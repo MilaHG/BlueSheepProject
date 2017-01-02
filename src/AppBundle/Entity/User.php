@@ -119,12 +119,22 @@ class User {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="zip", type="string", length=10)
+	 * @ORM\Column(name="zip", type="string", length=5)
 	 * @Assert\NotBlank()
-	 * @Assert\Length(min=4, max=10)
+	 * @Assert\Length(min=5, max=5)
 	 */
 	private $zip;
 
+	/**
+	 *
+	 * @var string
+	 * 
+	 * @ORM\Column(name="city", type="string", length=100)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(min=3, max=100)
+	 */
+	private $city;
+	
 	/**
 	 * @var string
 	 *
@@ -169,6 +179,7 @@ class User {
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */
 	private $comments;
+	
 
 	public function __construct() {
 		$this->reservations = new ArrayCollection();
@@ -506,5 +517,15 @@ class User {
 		$this->comments = $comments;
 		return $this;
 	}
+
+	public function getCity() {
+		return $this->city;
+	}
+
+	public function setCity($city) {
+		$this->city = $city;
+		return $this;
+	}
+
 
 }

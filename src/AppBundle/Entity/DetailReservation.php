@@ -22,6 +22,15 @@ class DetailReservation {
 	private $id;
 
 	/**
+	 *
+	 * @var Product
+	 * 
+	 * @ORM\ManyToOne(targetEntity="Product", inversedBy="detailsReservations")
+	 * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
+	 */
+	private $product;
+	
+	/**
 	 * @var int
 	 *
 	 * @ORM\Column(name="quantity", type="integer")
@@ -84,5 +93,25 @@ class DetailReservation {
 		$this->reservation = $reservation;
 		return $this;
 	}
+	
+	/**
+	 * 
+	 * @return Product
+	 */
+	public function getProduct() {
+		return $this->product;
+	}
+
+	/**
+	 * 
+	 * @param Product $product
+	 * @return $this
+	 */
+	public function setProduct(Product $product) {
+		$this->product = $product;
+		return $this;
+	}
+
+
 
 }
