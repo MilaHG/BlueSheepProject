@@ -1,0 +1,9 @@
+{# empty Twig template #}
+{% extends "layout.html.twig" %}
+{% block title %}Blue Sheep{% endblock %}
+
+{% block content %}
+    {% include 'nav.html.twig'  %}
+    {% block page_title %} <h1> Connexion </h1> {% endblock %}    
+    {% block fos_user_content %}{% endblock %}
+{% endblock %}
