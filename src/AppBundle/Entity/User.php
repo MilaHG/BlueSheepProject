@@ -1,4 +1,9 @@
 <?php
+/**
+ * @todo 
+ * - delete attribut pseudo ? already have usename in fos user model 
+ * - delete email and password in this class 
+ */
 
 namespace AppBundle\Entity;
 
@@ -7,14 +12,18 @@ use AppBundle\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="This email already exists")
+ * @UniqueEntity(fields="pseudo", message="This username is not available")
+ * @UniqueEntity(fields="commercialRegistry", message="This commercial registry is already used")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -23,7 +32,21 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+    
+    /**
+    *
+    * @var string
+    * @ORM\Column (type="string", name="company", length=100)
+    * @Assert\NotBlank()
+    * @Assert\Length(
+    *      min = 3,
+    *      max = 100,
+    *      minMessage = "Your company name must be at least {{ limit }} characters long",
+    *      maxMessage = "Your company name cannot be longer than {{ limit }} characters"
+    * )
+    */
+   private $company;
 
     /**
      * @var string
@@ -64,8 +87,8 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="pseudo", type="string", length=45)
-     * @Assert\NotBlank()
+     * @ORM\Column(name="pseudo", type="string", length=45, nullable=true)
+     * 
      * @Assert\Length(
      *          max=45, 
      *          maxMessage ="Your pseudo cannot be longer than {{ limit }} characters."
@@ -73,6 +96,10 @@ class User
      */
     private $pseudo;
 
+    
+# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
+#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
+#field. So you simply need to remove the $username and $email fields from your class.
     /**
      * @var string
      *
@@ -83,7 +110,7 @@ class User
      *        checkMX = true
      * )
      */
-    private $email;
+    # protected $email;
 
     /**
      * @var string
@@ -94,7 +121,25 @@ class User
      *          min=6,
      *          minMessage = "Password may have less {{ limit }} characters.")
      */
-    private $password;
+    # protected $password;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^[0-9]$/",
+     *     match=true,
+     *     message="Your commercial registry must contain numbers only"
+     * )
+     * @Assert\Length(
+     *      min = 9,
+     *      max = 9,
+     *      exactMessage = "This value should have exactly {{ limit }} characters."
+     * )
+     */
+    private $commercialRegistry;
 
     /**
      * @var DateTime
@@ -124,6 +169,27 @@ class User
      * @Assert\Length(min=4, max=10)
      */
     private $zip;
+    
+    /**
+    *
+    * @var string
+    * @ORM\Column (name="city", type="string", length=100)
+    * @Assert\NotBlank()
+    * @Assert\Length(
+    *      min = 5,
+    *      max = 250,
+    *      minMessage = "The city must be at least {{ limit }} characters long",
+    *      maxMessage = "The city cannot be longer than {{ limit }} characters"
+    * )
+    */
+   private $city;
+   
+   /**
+    *
+    * @var ArrayCollection
+    * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
+    */
+   private $activities;
 
     /**
      * @var string
@@ -135,14 +201,14 @@ class User
     /**
      * @var DateTime
      *
-     * @ORM\Column(name="register_date", type="datetime")
+     * @ORM\Column(name="register_date", type="date")
      */
     private $registerDate;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="photo", type="string", length=255)
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
      */
     private $photo;
 
@@ -177,9 +243,13 @@ class User
     
     
     public function __construct() {
+        # For FOSUserBundle 
+        parent::__construct();
+        $this->activities = new ArrayCollection();
         $this->reservations = new ArrayCollection();
         $this->hobbies = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->registerDate = new DateTime();
     }
 
     /**
@@ -191,8 +261,43 @@ class User
     {
         return $this->id;
     }
+    public function getCompany() {
+        return $this->company;
+    }
 
-    /**
+    public function getCommercialRegistry() {
+        return $this->commercialRegistry;
+    }
+
+    public function getCity() {
+        return $this->city;
+    }
+
+    public function getActivities(): ArrayCollection {
+        return $this->activities;
+    }
+
+    public function setCompany($company) {
+        $this->company = $company;
+        return $this;
+    }
+
+    public function setCommercialRegistry($commercialRegistry) {
+        $this->commercialRegistry = $commercialRegistry;
+        return $this;
+    }
+
+    public function setCity($city) {
+        $this->city = $city;
+        return $this;
+    }
+
+    public function setActivities(ArrayCollection $activities) {
+        $this->activities = $activities;
+        return $this;
+    }
+
+        /**
      * Set gender
      *
      * @param string $gender
@@ -539,9 +644,7 @@ class User
         $this->comments = $comments;
         return $this;
     }
-
-
-    
+ 
     
 }
 
