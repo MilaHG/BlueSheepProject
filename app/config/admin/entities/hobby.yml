@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        Hobby:
+            class: AppBundle\Entity\Hobby
+            label: 'Users categories choice'
+            list:
+                title: 'Hobby %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'note', label: 'Rating' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'note', label: 'Rating' }

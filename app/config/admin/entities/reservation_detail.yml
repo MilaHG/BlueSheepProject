@@ -1,0 +1,22 @@
+easy_admin:
+    entities:
+        DetailReservation:
+            class: AppBundle\Entity\DetailReservation
+            label: 'Reservation details'
+            list:
+                title: 'Reservation detail %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'reservation', label: 'Reservation' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'quantity', label: 'Quantity' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'reservation', label: 'Reservation' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'quantity', label: 'Quantity' }

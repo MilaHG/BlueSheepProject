@@ -14,6 +14,10 @@ namespace AppBundle\Form;
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+<<<<<<< HEAD
+=======
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+>>>>>>> master
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,9 +39,20 @@ class RegistrationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+<<<<<<< HEAD
             ->add('gender',  
                     TextType::class,
                     array(
+=======
+            ->add('gender', 
+                    ChoiceType::class,
+                    array(
+                        'choices' => array(
+                          
+                            'Monsieur' => 'M',
+                            'Madame' => 'MME'
+                        ),
+>>>>>>> master
                         'label' => 'Civilite'
                         ))  
                 
@@ -70,6 +85,15 @@ class RegistrationType extends AbstractType
                         'label' => 'Code postal'
                     )) 
                 
+<<<<<<< HEAD
+=======
+            ->add('city',
+            TextType::class,
+                    array(
+                        'label' => 'Ville'
+                    )) 
+                
+>>>>>>> master
             ->add('photo',
             \Symfony\Component\Form\Extension\Core\Type\FileType::class,
                     array(
@@ -77,6 +101,7 @@ class RegistrationType extends AbstractType
                         'required' => FALSE
                     ))    
                 
+<<<<<<< HEAD
             ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
             ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
             ->add('plainPassword', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\RepeatedType'), array(
@@ -86,6 +111,9 @@ class RegistrationType extends AbstractType
                 'second_options' => array('label' => 'form.password_confirmation'),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
+=======
+
+>>>>>>> master
         ;
     }
 

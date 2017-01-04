@@ -1,5 +1,15 @@
 {% extends "@FOSUser/layout.html.twig" %}
 
+<<<<<<< HEAD
 {% block fos_user_content %}
 {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock fos_user_content %}
+=======
+
+{% block content %}
+{% include 'nav.html.twig'  %}
+{% block fos_user_content %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
+{% endblock %}
+>>>>>>> master

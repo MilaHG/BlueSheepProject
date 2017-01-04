@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 overide !
+=======
+{% block page_title  %}       <h1> Connexion </h1>   {% endblock %}
+>>>>>>> master
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% if error %}
@@ -19,5 +23,9 @@ overide !
     <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
     <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
 
+<<<<<<< HEAD
     <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+=======
+    <input type="submit" class="btn btn-primary"  id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+>>>>>>> master
 </form>

@@ -1,0 +1,13 @@
+# This file sets the configuration options related to the backend design.
+# If your backend is simple, you probably can rely on the default values of
+# the options and just define the value of the 'site_name' option.
+
+easy_admin:
+    site_name: 'Blue Sheep : Back Office'
+    design:
+        form_theme:   'vertical'
+        color_scheme: 'dark'
+#        assets:
+#            css:
+#                - '/bundles/app/stylesheets/demo.css'
+                
