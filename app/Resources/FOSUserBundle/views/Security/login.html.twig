@@ -1,16 +1,7 @@
-{% extends "@FOSUser/layout.html.twig" %}
-
-<<<<<<< HEAD
-
-{% block fos_user_content %}
-    {{ include('FOSUserBundle:Security:login_content.html.twig') }}
-{% endblock fos_user_content %}
-=======
+{% extends "layout.html.twig" %}
 {% block content  %}
-{% include 'nav.html.twig'  %}
-{% block page_title  %}       <h1> Connexion </h1>   {% endblock %}
+{% block page_title  %}       <h1>Connexion</h1>   {% endblock %}
 {% block fos_user_content %}
     {{ include('FOSUserBundle:Security:login_content.html.twig') }}
 {% endblock fos_user_content %}
 {% endblock %}
->>>>>>> master
