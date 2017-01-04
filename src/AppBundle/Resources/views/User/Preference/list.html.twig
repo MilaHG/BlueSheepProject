@@ -1,0 +1,21 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Blue Sheep{% endblock %}
+
+{% block content %}
+    {% include 'nav.html.twig'  %}
+    
+{% block page_title %} <h1>Welcome to the User\Preference:list page</h1>  {% endblock %}
+
+{# bloc displaying messages flash with bootstrap style #}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %} {#on re-boucle pour chacun des messages à l'intérieur des types de messages#}
+            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}
+            <div class='alert alert-{{ label }}'>
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+    {{ dump() }}
+    
+{% endblock %}
