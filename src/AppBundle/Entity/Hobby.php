@@ -2,8 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Hobby
@@ -99,7 +99,7 @@ class Hobby {
 
 	/**
 	 * 
-	 * @param \AppBundle\Entity\User $user
+	 * @param User $user
 	 */
 	public function setUser(User $user) {
 		$this->user = $user;
@@ -108,7 +108,7 @@ class Hobby {
 
 	/**
 	 * 
-	 * @param \AppBundle\Entity\Category $category
+	 * @param Category $category
 	 */
 	public function setCategory(Category $category) {
 		$this->category = $category;

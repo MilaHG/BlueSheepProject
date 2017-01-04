@@ -11,10 +11,12 @@ easy_admin:
                     - { name: 'delete', label: '', icon: 'trash' }
                 fields:
                     - 'id'
-                    - { property: 'quantity', label: 'Quantity' }
                     - { property: 'reservation', label: 'Reservation' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'quantity', label: 'Quantity' }
             show:
                 fields:
                     - 'id'
-                    - { property: 'quantity', label: 'Quantity' }
                     - { property: 'reservation', label: 'Reservation' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'quantity', label: 'Quantity' }

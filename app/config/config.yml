@@ -10,7 +10,9 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    app.path.product_images: /uploads/images/product
+    path.category_img: /img/cat
+    path.user_img: /img/user
+    path.activity_img: /img/activity
 
 framework:
     #esi:             ~
@@ -78,7 +80,16 @@ vich_uploader:
     db_driver: orm
     mappings:
         cat_images:
-            uri_prefix: %app.path.product_images%
+            uri_prefix: /img/cat
+            namer: vich_uploader.namer_origname
             upload_destination: %kernel.root_dir%/../web/img/cat
+        user_images:
+            uri_prefix: %path.user_img%
+            namer: vich_uploader.namer_origname
+            upload_destination: %kernel.root_dir%/../web/img/user
+        activity_images:
+            uri_prefix: %path.activity_img%
+            namer: vich_uploader.namer_origname
+            upload_destination: %kernel.root_dir%/../web/img/activity
 
 

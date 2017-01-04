@@ -1,6 +1,3 @@
-## YAML Template.
-# This file sets the configuration of the 'Category' entity.
-
 easy_admin:
     entities:
         User:
@@ -17,35 +14,44 @@ easy_admin:
                     - { property: 'gender', label: 'Gender' }
                     - { property: 'firstname', label: 'Firstname' }
                     - { property: 'lastname', label: 'Lastname' }
-                    - { property: 'pseudo', label: 'image' }
+                    - { property: 'username', label: 'image' }
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'role', label: 'Access' }
-                    - { property: 'photo', type: 'image' }
+                    - { property: 'photo', type: 'image', base_path: %path.user_img%}
             show:
                 fields:
                     - 'id'
                     - { property: 'gender', label: 'Gender' }
                     - { property: 'firstname', label: 'Firstname' }
                     - { property: 'lastname', label: 'Lastname' }
-                    - { property: 'pseudo', label: 'image' }
+                    - { property: 'username', label: 'image' }
                     - { property: 'role', label: 'Access' }
                     - { property: 'email', label: 'Email address' }
                     - { property: 'birthdate', label: 'Birthdate' }
                     - { property: 'address', label: 'Adress' }
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
-                    - { property: 'photo', type: 'image' }
-#            form:
-#                fields:
-#                    - { type: 'group', css_class: 'col-sm-4' }
-#                    - { property: 'name', label: 'Name', css_class: 'large', help: 'Name of the category' }
-#                    - { property: 'description', label: 'Description', css_class: 'large', help: 'Name of the category' }
-#                    - { property: 'photo', label: 'Photo', css_class: 'large', help: 'Name of the category' }
+                    - { property: 'photo', type: 'image', base_path: %path.user_img%}
+                    - { property: 'comments'}
+            form:
+                fields:
+                    - { property: 'gender', label: 'Gender' }
+                    - { property: 'firstname', label: 'Firstname' }
+                    - { property: 'lastname', label: 'Lastname' }
+                    - { property: 'username', label: 'pseudo' }
+                    - { property: 'role', label: 'Access' }
+                    - { property: 'email', label: 'Email address' }
+                    - { property: 'birthdate', label: 'Birthdate' }
+                    - { property: 'address', label: 'Adress' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'imageFile', type: 'vich_image' }
+                   
 
                     # if you want to add products when creating categories, add the 'by_reference' option
-#            edit:
-#                title: '%%entity_label%%_edit'
-#            new:
-#                title: 'New %%entity_label%%'
+            edit:
+                title: '%%entity_label%% edit'
+            new:
+                title: 'New %%entity_label%%'
             

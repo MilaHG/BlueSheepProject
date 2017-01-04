@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use AppBundle\Repository\PartnerRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Partner
  *
  * @ORM\Table(name="partner")
- * @ORM\Entity(repositoryClass="PartnerRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PartnerRepository")
  * @UniqueEntity(fields="email", message="This email already exists")
  * @UniqueEntity(fields="pseudo", message="This username is not available")
  * @UniqueEntity(fields="commercialRegistry", message="This commercial registry is already used")
@@ -179,7 +178,6 @@ class Partner {
 	 */
 	private $plainPassword; //password en clair, pas encore encrypté
 
-	
 	/**
 	 *
 	 * @var ArrayCollection
@@ -187,15 +185,15 @@ class Partner {
 	 */
 	private $activities;
 
-	
 	function __construct() {
 		$this->activities = new ArrayCollection();
+		$this->registerDate=new DateTime();
 	}
-	
+
 	function __toString() {
 		return $this->getCompany() . ' (toString Method)';
 	}
-	
+
 	/**
 	 * 
 	 * @return int
@@ -429,15 +427,47 @@ class Partner {
 		$this->plainPassword = $plainPassword;
 		return $this;
 	}
-	
+
 	/**
 	 * 
 	 * @param ArrayCollection $activities
 	 * @return $this
 	 */
-	public function setActivities(ArrayCollection $activities){
-		$this->articles= $activities;
+	public function setActivities(ArrayCollection $activities) {
+		$this->articles = $activities;
 		return $this;
+	}
+
+	/**
+	 * 
+	 * @return ArrayCollection
+	 */
+	public function getActivities() {
+		return $this->activities;
+	}
+
+	/**
+	 * Add a activity in the category.
+	 *
+	 * @param Activity $activity
+	 */
+	public function addActivity($activity) {
+		if ($this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->add($activity);
+		$activity->addActivity($this);
+	}
+
+	/**
+	 * @param Activity $activity
+	 */
+	public function removeActivity($activity) {
+		if (!$this->activities->contains($activity)) {
+			return;
+		}
+		$this->activities->removeElement($activity);
+		$activity->removeActivity($this);
 	}
 
 }

@@ -4,13 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Activity;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Photo
  *
  * @ORM\Table(name="photo")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PhotoRepository")
+ * @Vich\Uploadable
  */
 class Photo {
 
@@ -27,9 +29,15 @@ class Photo {
 	 *
 	 * @var string 
 	 * @ORM\Column(name="name", type="string")
-	 * @Assert\NotBlank()
 	 */
 	private $name;
+	
+	/**
+	 * @Vich\UploadableField(mapping="activity_images", fileNameProperty="name")
+	 * @var File
+	 * @Assert\NotBlank()
+	 */
+	private $imageFile;
 	
 	/**
 	 *
@@ -82,5 +90,22 @@ class Photo {
 	public function setActivity(Activity $activity) {
 		$this->activity = $activity;
 		return $this;
+	}
+	
+	/**
+	 * 
+	 * @param \AppBundle\Entity\File $image
+	 */
+	public function setImageFile(File $image = null) {
+		$this->imageFile = $image;
+
+	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public function getImageFile() {
+		return $this->imageFile;
 	}
 }

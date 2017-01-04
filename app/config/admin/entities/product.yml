@@ -2,9 +2,9 @@ easy_admin:
     entities:
         Product:
             class: AppBundle\Entity\Product
-            label: 'Product'
+            label: 'Products'
             list:
-                title: 'Product %%entity_label%%'
+                title: '%%entity_label%%'
                 actions:
                     - { name: 'show', label: '', icon: 'search' }
                     - { name: 'edit', label: '', icon: 'edit' }
@@ -21,4 +21,10 @@ easy_admin:
                     - { property: 'activity', label: 'Activity' }
                     - { property: 'date', label: 'Activity date' }
                     - { property: 'price', label: 'Price' }
+                    - { property: 'stock', label: 'Stock' }
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'date', label: 'Activity date' }
+                    - { property: 'price', type: 'money', type_options: { currency: 'EUR' }, label: 'Price' }
                     - { property: 'stock', label: 'Stock' }

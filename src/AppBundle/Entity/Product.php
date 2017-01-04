@@ -67,9 +67,17 @@ class Product {
 	 * @ORM\OneToMany(targetEntity="ProductAttribute", mappedBy="product")
 	 */
 	private $productAttributes;
+	
+	
+	/**
+	 *
+	 * @var ArrayCollection
+	 * @ORM\OneToMany(targetEntity="DetailReservation", mappedBy="product")
+	 */
+	private $detailsReservations;
 
 	public function __toString() {
-		return $this->getActivity()->getTitle() . ' - '. $this->date . ' (toString Method)';
+		return $this->getActivity()->getTitle() . ' - ' . $this->getDate()->format('d/m/Y H:i:s') . ' (toString Method)';
 	}
 	
 	/**
@@ -163,6 +171,24 @@ class Product {
 
 	/**
 	 * 
+	 * @return ArrayCollection
+	 */
+	public function getDetailsReservations() {
+		return $this->detailsReservations;
+	}
+
+	/**
+	 * 
+	 * @param ArrayCollection $detailsReservations
+	 * @return $this
+	 */
+	public function setDetailsReservations(ArrayCollection $detailsReservations) {
+		$this->detailsReservations = $detailsReservations;
+		return $this;
+	}
+	
+	/**
+	 * 
 	 * @param ArrayCollection $productAttributes
 	 * @return $this
 	 */
@@ -173,5 +199,7 @@ class Product {
 
 	function __construct() {
 		$this->productAttributes = new ArrayCollection();
+		$this->detailsReservations = new ArrayCollection();
+		$this->date= new DateTime;
 	}
 }

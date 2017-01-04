@@ -4,8 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\User;
-use AppBundle\Entity\Activity;
 use DateTime;
 /**
  * Comment
@@ -64,7 +62,15 @@ class Comment {
 	 */
 	private $activity;
 	
-	
+	public function __construct() {
+		$this->date = new \DateTime();
+	}
+
+	public function __toString() {
+		return $this->getComment()."(".$this->getNote()."/5)";
+	}
+
+
 	/**
 	 * Get id
 	 *

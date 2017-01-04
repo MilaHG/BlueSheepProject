@@ -3,16 +3,20 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(fields="email", message="Un utilisateur existe déja avec cet email")
+ * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(fields="username", message="This pseuso is not available")
+ * @Vich\Uploadable
  */
 class User {
 
@@ -28,13 +32,45 @@ class User {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="gender", type="string", length=10)
-	 * @Assert\Choice(
-	 *       choices = {"M", "Mme"}, 
-	 *       message = "Chosse a valid gender M or Mme"
+	 * @ORM\Column(name="gender", type="string", length=3)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *          max=3, 
+	 *          maxMessage = "Your gnder cannot be longer than {{ limit }} characters."
 	 * )
 	 */
 	private $gender;
+
+	/**
+	 * Role : ROLE_PARTNER only =>nullable for ROLE_USER
+	 * 
+	 * @var string
+	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
+	 * @Assert\Regex(
+	 *     pattern="/^[0-9]$/",
+	 *     match=true,
+	 *     message="Your commercial registry must contain numbers only"
+	 * )
+	 * @Assert\Length(
+	 *      min = 9,
+	 *      max = 9,
+	 *      exactMessage = "This value should have exactly {{ limit }} characters."
+	 * )
+	 */
+	private $commercialRegistry;
+
+	/**
+	 * Role : ROLE_PARTNER only =>nullable for ROLE_USER
+	 * @var string
+	 * @ORM\Column (type="string", name="company", length=100)
+	 * @Assert\Length(
+	 *      min = 3,
+	 *      max = 100,
+	 *      minMessage = "Your company name must be at least {{ limit }} characters long",
+	 *      maxMessage = "Your company name cannot be longer than {{ limit }} characters"
+	 * )
+	 */
+	private $company;
 
 	/**
 	 * @var string
@@ -64,23 +100,23 @@ class User {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="pseudo", type="string", length=45)
+	 * @ORM\Column(name="username", type="string", length=45)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *          max=45, 
-	 *          maxMessage ="Your pseudo cannot be longer than {{ limit }} characters."
+	 *          maxMessage ="Your username cannot be longer than {{ limit }} characters."
 	 * )
 	 */
-	private $pseudo;
+	private $username;
 
 	/**
+	 *  Asserts paramter to add for the prod version :      checkMX = true
 	 * @var string
 	 *
 	 * @ORM\Column(name="email", type="string", length=100, unique=true)
 	 * @Assert\NotBlank()
 	 * @Assert\Email(
 	 *        message ="The email '{{ value }}' is not a valid email.",
-	 *        checkMX = true
 	 * )
 	 */
 	private $email;
@@ -119,11 +155,21 @@ class User {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="zip", type="string", length=10)
+	 * @ORM\Column(name="zip", type="string", length=5)
 	 * @Assert\NotBlank()
-	 * @Assert\Length(min=4, max=10)
+	 * @Assert\Length(min=5, max=5)
 	 */
 	private $zip;
+
+	/**
+	 *
+	 * @var string
+	 * 
+	 * @ORM\Column(name="city", type="string", length=100)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(min=3, max=100)
+	 */
+	private $city;
 
 	/**
 	 * @var string
@@ -147,6 +193,13 @@ class User {
 	private $photo;
 
 	/**
+	 * @Vich\UploadableField(mapping="user_images", fileNameProperty="photo")
+	 * @var File
+	 */
+	private $imageFile;
+
+	/**
+	 * Role : ROLE_USER only
 	 * One User have Many Reservations
 	 * 
 	 * @var Reservation
@@ -157,6 +210,7 @@ class User {
 	private $reservations;
 
 	/**
+	 * Role : ROLE_USER only
 	 * User can have many hobbies
 	 * @var Hobby
 	 * 
@@ -166,18 +220,44 @@ class User {
 	private $hobbies;
 
 	/**
+	 * Role : ROLE_PARTNER only
+	 * A partner can publish several activities
+	 * 
+	 * @var ArrayCollection
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 */
+	private $activities;
+
+	/**
+	 * Role : ROLE_USER only
+	 * @var ArrayCollection
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */
 	private $comments;
+
+	/**
+	 * Many Users have Many bookmarks.
+	 * 
+	 * @var ArrayCollection
+	 * 
+	 * @ORM\ManyToMany(targetEntity="Activity")
+	 * @ORM\JoinTable(name="bookmark",
+	 *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")}
+	 *      )
+	 */
+	private $bookmarks;
 
 	public function __construct() {
 		$this->reservations = new ArrayCollection();
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();
+		$this->bookmarks = new ArrayCollection();
+		$this->registerDate = new DateTime();
 	}
 
 	public function __toString() {
-		return $this->getPseudo() . ' (toString Method)';
+		return $this->getUsername() . ' (toString Method)';
 	}
 
 	/**
@@ -256,25 +336,25 @@ class User {
 	}
 
 	/**
-	 * Set pseudo
+	 * Set username
 	 *
-	 * @param string $pseudo
+	 * @param string $username
 	 *
 	 * @return User
 	 */
-	public function setPseudo($pseudo) {
-		$this->pseudo = $pseudo;
+	public function setUsername($username) {
+		$this->username = $username;
 
 		return $this;
 	}
 
 	/**
-	 * Get pseudo
+	 * Get username
 	 *
 	 * @return string
 	 */
-	public function getPseudo() {
-		return $this->pseudo;
+	public function getUsername() {
+		return $this->username;
 	}
 
 	/**
@@ -507,4 +587,113 @@ class User {
 		return $this;
 	}
 
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getCity() {
+		return $this->city;
+	}
+
+	/**
+	 * 
+	 * @param type $city
+	 * @return $this
+	 */
+	public function setCity($city) {
+		$this->city = $city;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getBookmarks() {
+		return $this->bookmarks;
+	}
+
+	/**
+	 * 
+	 * @param ArrayCollection $bookmarks
+	 * @return $this
+	 */
+	public function setBookmarks(ArrayCollection $bookmarks) {
+		$this->bookmarks = $bookmarks;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getCommercialRegistry() {
+		return $this->commercialRegistry;
+	}
+
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getCompany() {
+		return $this->company;
+	}
+
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getActivities() {
+		return $this->activities;
+	}
+
+	/**
+	 * 
+	 * @param type $commercialRegistry
+	 * @return $this
+	 */
+	public function setCommercialRegistry($commercialRegistry) {
+		$this->commercialRegistry = $commercialRegistry;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @param type $company
+	 * @return $this
+	 */
+	public function setCompany($company) {
+		$this->company = $company;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @param ArrayCollection $activities
+	 * @return $this
+	 */
+	public function setActivities(ArrayCollection $activities) {
+		$this->activities = $activities;
+		return $this;
+	}
+
+	/**
+	 * 
+	 * @param File $image
+	 */
+	public function setImageFile(File $image = null) {
+		$this->imageFile = $image;
+
+		// VERY IMPORTANT:
+		// It is required that at least one field changes if you are using Doctrine,
+		// otherwise the event listeners won't be called and the file is lost
+	}
+
+	/**
+	 * 
+	 * @return 
+	 */
+	public function getImageFile() {
+		return $this->imageFile;
+	}
 }
