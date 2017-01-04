@@ -119,7 +119,7 @@ class Activity {
 	/**
 	 * @var \DateTime
 	 *
-	 * @ORM\Column(name="recordingDate", type="date")
+	 * @ORM\Column(name="recording_date", type="date")
 	 */
 	private $recordingDate;
 
@@ -138,7 +138,7 @@ class Activity {
 	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
-	private $partner;
+	private $user;
 
 	/**
 	 *

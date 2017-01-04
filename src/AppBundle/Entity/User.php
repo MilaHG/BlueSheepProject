@@ -1,4 +1,9 @@
 <?php
+/**
+ * @todo 
+ * - delete attribut pseudo ? already have usename in fos user model 
+ * - delete email and password in this class 
+ */
 
 namespace AppBundle\Entity;
 
@@ -6,28 +11,32 @@ use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\HttpFoundation\File\File;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(fields="email", message="Un utilisateur existe déja avec cet email")
- * @Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity(fields="username", message="This pseuso is not available")
- * @Vich\Uploadable
  */
-class User {
+class User extends BaseUser 
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
 
-	/**
-	 * @var int
-	 *
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gender", type="string", length=10)
+     *
+     */
+    private $gender;
 
 	/**
 	 * @var string
@@ -41,61 +50,90 @@ class User {
 	 */
 	private $gender;
 
-	/**
-	 * Role : ROLE_PARTNER only =>nullable for ROLE_USER
-	 * 
-	 * @var string
-	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
-	 * @Assert\Regex(
-	 *     pattern="/^[0-9]$/",
-	 *     match=true,
-	 *     message="Your commercial registry must contain numbers only"
-	 * )
-	 * @Assert\Length(
-	 *      min = 9,
-	 *      max = 9,
-	 *      exactMessage = "This value should have exactly {{ limit }} characters."
-	 * )
-	 */
-	private $commercialRegistry;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lastname", type="string", length=45)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *         max=45, 
+     *         maxMessage = "Your lastname cannot be longer than {{ limit }} characters."
+     * )
+     */
+    private $lastname;
+   
 
-	/**
-	 * Role : ROLE_PARTNER only =>nullable for ROLE_USER
-	 * @var string
-	 * @ORM\Column (type="string", name="company", length=100)
-	 * @Assert\Length(
-	 *      min = 3,
-	 *      max = 100,
-	 *      minMessage = "Your company name must be at least {{ limit }} characters long",
-	 *      maxMessage = "Your company name cannot be longer than {{ limit }} characters"
-	 * )
-	 */
-	private $company;
+    /**
+     *
+     * @var string
+     * @ORM\Column (type="string", name="company", length=100)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 100,
+     *      minMessage = "Your company name must be at least {{ limit }} characters long",
+     *      maxMessage = "Your company name cannot be longer than {{ limit }} characters"
+     * )
+     */
+    private $company;
+    
+    /**
+     *
+     * @var string
+     * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^[0-9]$/",
+     *     match=true,
+     *     message="Your commercial registry must contain numbers only"
+     * )
+     * @Assert\Length(
+     *      min = 9,
+     *      max = 9,
+     *      exactMessage = "This value should have exactly {{ limit }} characters."
+     * )
+     */
+    private $commercialRegistry;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="firstname", type="string", length=45)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(
-	 *          max=45, 
-	 *          maxMessage = "Your firstname cannot be longer than {{ limit }} characters."
-	 * )
-	 * 
-	 */
-	private $firstname;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="lastname", type="string", length=45)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(
-	 *         max=45, 
-	 *         maxMessage = "Your lastname cannot be longer than {{ limit }} characters."
-	 * )
-	 */
-	private $lastname;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="pseudo", type="string", length=45, nullable=true)
+     * 
+     * @Assert\Length(
+     *          max=45, 
+     *          maxMessage ="Your pseudo cannot be longer than {{ limit }} characters."
+     * )
+     */
+    private $pseudo;
+
+    
+# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
+#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
+#field. So you simply need to remove the $username and $email fields from your class.
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=100, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *        message ="The email '{{ value }}' is not a valid email.",
+     *        checkMX = true
+     * )
+     */
+    # protected $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *          min=6,
+     *          minMessage = "Password may have less {{ limit }} characters.")
+     */
+    # protected $password;
 
 	/**
 	 * @var string
@@ -121,16 +159,21 @@ class User {
 	 */
 	private $email;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="password", type="string", length=255)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(
-	 *          min=6,
-	 *          minMessage = "Password may have less {{ limit }} characters.")
-	 */
-	private $password;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zip", type="string", length=10)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4, max=10)
+     * 
+     */
+    private $zip;
+    
+    /**
+     * @ORM\Column(name="city", type="string", nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $city;
 
 	/**
 	 * @var DateTime
@@ -140,36 +183,67 @@ class User {
 	 */
 	private $birthdate;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="address", type="string", length=250)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(
-	 *          min= 10,
-	 *          max= 250
-	 * )
-	 */
-	private $address;
+    /**
+     * @var DateTime
+     *
+     * @ORM\Column(name="register_date", type="date")
+     */
+    private $registerDate;
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="zip", type="string", length=5)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(min=5, max=5)
-	 */
-	private $zip;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=255, nullable=true)
+     */
+    private $photo;
 
-	/**
-	 *
-	 * @var string
-	 * 
-	 * @ORM\Column(name="city", type="string", length=100)
-	 * @Assert\NotBlank()
-	 * @Assert\Length(min=3, max=100)
-	 */
-	private $city;
+    
+    /**
+     * One User have Many Reservations
+     * 
+     * @var Reservation
+     *
+     * @ORM\OneToMany(targetEntity="Reservation", mappedBy="user")
+     * 
+     */
+    private $reservations;
+    
+    /**
+     * User can have many hobbies
+     * @var Hobby
+     * 
+     * @ORM\OneToMany(targetEntity="Hobby", mappedBy="user")
+     * 
+     */
+    private $hobbies;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+     */
+    private $comments;
+    
+    
+    /**
+     *
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
+     */
+    private $activities;
+    
+    
+    
+    
+    
+    
+    public function __construct() {
+        # For FOSUserBundle 
+        parent::__construct();
+        
+        $this->reservations = new ArrayCollection();
+        $this->hobbies = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->registerDate = new DateTime();
+    }
 
 	/**
 	 * @var string
@@ -480,220 +554,69 @@ class User {
 		return $this;
 	}
 
-	/**
-	 * Get role
-	 *
-	 * @return string
-	 */
-	public function getRole() {
-		return $this->role;
-	}
+    
+    /**
+     * 
+     * @param ArrayCollection
+     * @return \AppBundle\Entity\User
+     */
+    public function setComments(ArrayCollection $comments) {
+        $this->comments = $comments;
+        return $this;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getCity() {
+        return $this->city;
+    }
 
-	/**
-	 * Set registerDate
-	 *
-	 * @param DateTime $registerDate
-	 *
-	 * @return User
-	 */
-	public function setRegisterDate($registerDate) {
-		$this->registerDate = $registerDate;
+    
+    /**
+     * 
+     * @param type $city
+     * 
+     */
+    public function setCity($city) {
+        $this->city = $city;
+        return $this;
+    }
+    
+    
+    public function getCompany() {
+        return $this->company;
+    }
 
-		return $this;
-	}
+    public function getCommercialRegistry() {
+        return $this->commercialRegistry;
+    }
 
-	/**
-	 * Get registerDate
-	 *
-	 * @return DateTime
-	 */
-	public function getRegisterDate() {
-		return $this->registerDate;
-	}
+    public function getActivities() {
+        return $this->activities;
+    }
 
-	/**
-	 * Set photo
-	 *
-	 * @param string $photo
-	 *
-	 * @return User
-	 */
-	public function setPhoto($photo) {
-		$this->photo = $photo;
+    public function setCompany($company) {
+        $this->company = $company;
+        return $this;
+    }
 
-		return $this;
-	}
+    public function setCommercialRegistry($commercialRegistry) {
+        $this->commercialRegistry = $commercialRegistry;
+        return $this;
+    }
 
-	/**
-	 * Get photo
-	 *
-	 * @return string
-	 */
-	public function getPhoto() {
-		return $this->photo;
-	}
+    public function setActivities(ArrayCollection $activities) {
+        $this->activities = $activities;
+        return $this;
+    }
 
-	/**
-	 * 
-	 * @return ArrayCollection
-	 */
-	public function getReservations() {
-		return $this->reservations;
-	}
 
-	/**
-	 * 
-	 * @return ArrayCollection
-	 */
-	public function getHobbies() {
-		return $this->hobbies;
-	}
 
-	/**
-	 * 
-	 * @return ArrayCollection
-	 */
-	public function getComments() {
-		return $this->comments;
-	}
 
-	/**
-	 * 
-	 * @param \AppBundle\Entity\Reservation $reservations
-	 * @return \AppBundle\Entity\User
-	 */
-	public function setReservations(Reservation $reservations) {
-		$this->reservations = $reservations;
-		return $this;
-	}
 
-	/**
-	 * 
-	 * @param \AppBundle\Entity\Hobby $hobbies
-	 * @return \AppBundle\Entity\User
-	 */
-	public function setHobbies(Hobby $hobbies) {
-		$this->hobbies = $hobbies;
-		return $this;
-	}
 
-	/**
-	 * 
-	 * @param ArrayCollection
-	 * @return \AppBundle\Entity\User
-	 */
-	public function setComments(ArrayCollection $comments) {
-		$this->comments = $comments;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @return type
-	 */
-	public function getCity() {
-		return $this->city;
-	}
-
-	/**
-	 * 
-	 * @param type $city
-	 * @return $this
-	 */
-	public function setCity($city) {
-		$this->city = $city;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @return type
-	 */
-	public function getBookmarks() {
-		return $this->bookmarks;
-	}
-
-	/**
-	 * 
-	 * @param ArrayCollection $bookmarks
-	 * @return $this
-	 */
-	public function setBookmarks(ArrayCollection $bookmarks) {
-		$this->bookmarks = $bookmarks;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @return type
-	 */
-	public function getCommercialRegistry() {
-		return $this->commercialRegistry;
-	}
-
-	/**
-	 * 
-	 * @return type
-	 */
-	public function getCompany() {
-		return $this->company;
-	}
-
-	/**
-	 * 
-	 * @return type
-	 */
-	public function getActivities() {
-		return $this->activities;
-	}
-
-	/**
-	 * 
-	 * @param type $commercialRegistry
-	 * @return $this
-	 */
-	public function setCommercialRegistry($commercialRegistry) {
-		$this->commercialRegistry = $commercialRegistry;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @param type $company
-	 * @return $this
-	 */
-	public function setCompany($company) {
-		$this->company = $company;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @param ArrayCollection $activities
-	 * @return $this
-	 */
-	public function setActivities(ArrayCollection $activities) {
-		$this->activities = $activities;
-		return $this;
-	}
-
-	/**
-	 * 
-	 * @param File $image
-	 */
-	public function setImageFile(File $image = null) {
-		$this->imageFile = $image;
-
-		// VERY IMPORTANT:
-		// It is required that at least one field changes if you are using Doctrine,
-		// otherwise the event listeners won't be called and the file is lost
-	}
-
-	/**
-	 * 
-	 * @return 
-	 */
-	public function getImageFile() {
-		return $this->imageFile;
-	}
+    
+    
 }
