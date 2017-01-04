@@ -36,6 +36,10 @@ easy_admin:
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'recordingDate', label: 'Recording Date' }
+                    - { property: 'photos', type: 'images' }
+                    - { property: 'comments' }
+                    - 'comments'
+                    
             form:
                 fields:
                     - { property: 'title', label: 'Title' }

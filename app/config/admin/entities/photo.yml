@@ -12,10 +12,15 @@ easy_admin:
                 fields:
                     - 'id'
                     - { property: 'activity', label: 'Activity' }
-                    - { property: 'name', label: 'Path and name file' }
+                    - { property: 'name', type: 'image', base_path: %path.activity_img%}
             show:
                 fields:
                     - 'id'
                     - { property: 'activity', label: 'Activity' }
-                    - { property: 'name', label: 'Path and name file' }
+                    - { property: 'name', label: 'Photo', type: 'image', css_class: 'large', base_path: %path.activity_img%}
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'imageFile', type: 'vich_image' }
+                    
          

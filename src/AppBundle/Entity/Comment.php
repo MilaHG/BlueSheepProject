@@ -66,7 +66,11 @@ class Comment {
 		$this->date = new \DateTime();
 	}
 
-	
+	public function __toString() {
+		return $this->getComment()."(".$this->getNote()."/5)";
+	}
+
+
 	/**
 	 * Get id
 	 *

@@ -7,18 +7,25 @@ easy_admin:
                 title: 'Comment %%entity_label%%'
                 actions:
                     - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
                     - { name: 'delete', label: '', icon: 'trash' }
                 fields:
                     - 'id'
-                    - { property: 'note', label: 'Rating' }
                     - { property: 'user', label: 'User name' }
                     - { property: 'activity', label: 'Activity' }
+                    - { property: 'note', label: 'Rating' }
                     - { property: 'date', label: 'Comment date' }
             show:
                 fields:
                     - 'id'
-                    - { property: 'comment', label: 'Comment' }
-                    - { property: 'user', label: 'User name' }
                     - { property: 'activity', label: 'Activity' }
+                    - { property: 'comment', label: 'Comment' }
                     - { property: 'note', label: 'Rating' }
+                    - { property: 'user', label: 'User name' }
                     - { property: 'date', label: 'Comment date' }
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'comment', label: 'Comment' }
+                    - { property: 'note', label: 'Rating' }
+                    - { property: 'user', label: 'User name' }

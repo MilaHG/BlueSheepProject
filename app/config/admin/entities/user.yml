@@ -1,6 +1,3 @@
-## YAML Template.
-# This file sets the configuration of the 'Category' entity.
-
 easy_admin:
     entities:
         User:
@@ -17,7 +14,7 @@ easy_admin:
                     - { property: 'gender', label: 'Gender' }
                     - { property: 'firstname', label: 'Firstname' }
                     - { property: 'lastname', label: 'Lastname' }
-                    - { property: 'pseudo', label: 'image' }
+                    - { property: 'username', label: 'image' }
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'role', label: 'Access' }
@@ -28,7 +25,7 @@ easy_admin:
                     - { property: 'gender', label: 'Gender' }
                     - { property: 'firstname', label: 'Firstname' }
                     - { property: 'lastname', label: 'Lastname' }
-                    - { property: 'pseudo', label: 'image' }
+                    - { property: 'username', label: 'image' }
                     - { property: 'role', label: 'Access' }
                     - { property: 'email', label: 'Email address' }
                     - { property: 'birthdate', label: 'Birthdate' }
@@ -36,12 +33,13 @@ easy_admin:
                     - { property: 'zip', label: 'Zip code' }
                     - { property: 'city', label: 'City' }
                     - { property: 'photo', type: 'image', base_path: %path.user_img%}
+                    - { property: 'comments'}
             form:
                 fields:
                     - { property: 'gender', label: 'Gender' }
                     - { property: 'firstname', label: 'Firstname' }
                     - { property: 'lastname', label: 'Lastname' }
-                    - { property: 'pseudo', label: 'pseudo' }
+                    - { property: 'username', label: 'pseudo' }
                     - { property: 'role', label: 'Access' }
                     - { property: 'email', label: 'Email address' }
                     - { property: 'birthdate', label: 'Birthdate' }

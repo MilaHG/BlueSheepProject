@@ -134,7 +134,7 @@ class Activity {
 	/**
 	 * @var Partner
 	 *
-	 * @ORM\ManyToOne(targetEntity="Partner", inversedBy="activities")
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
 	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
@@ -160,8 +160,7 @@ class Activity {
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="activity")
 	 */
 	private $comments;
-
-	
+			
 	function __construct() {
 		$this->products = new ArrayCollection();
 		$this->photos = new ArrayCollection();
