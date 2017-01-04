@@ -51,6 +51,30 @@ class User extends BaseUser {
 	/**
 	 * @var string
 	 *
+	 * @ORM\Column(name="firstname", type="string", length=45)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *         max=45, 
+	 *         maxMessage = "Your firstname cannot be longer than {{ limit }} characters."
+	 * )
+	 */
+	private $firstname;
+	
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="address", type="string", length=100)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *         max=45, 
+	 *         maxMessage = "Your firstname cannot be longer than {{ limit }} characters."
+	 * )
+	 */
+	private $address;
+	
+	/**
+	 * @var string
+	 *
 	 * @ORM\Column(name="lastname", type="string", length=45)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
@@ -660,4 +684,22 @@ class User extends BaseUser {
 		$this->bookmarks = $bookmarks;
 		return $this;
 	}
+	
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getRole() {
+		return $this->role;
+	}
+
+	/**
+	 * 
+	 * @return type
+	 */
+	public function getComments() {
+		return $this->comments;
+	}
+
+	
 }
