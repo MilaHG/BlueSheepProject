@@ -119,7 +119,7 @@ class Activity {
 	/**
 	 * @var \Date
 	 *
-	 * @ORM\Column(name="recordingDate", type="date")
+	 * @ORM\Column(name="recording_date", type="date")
 	 */
 	private $recordingDate;
 
@@ -134,11 +134,11 @@ class Activity {
 	/**
 	 * @var Partner
 	 *
-	 * @ORM\ManyToOne(targetEntity="Partner", inversedBy="activities")
-	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
-	private $partner;
+	private $user;
 
 	/**
 	 *

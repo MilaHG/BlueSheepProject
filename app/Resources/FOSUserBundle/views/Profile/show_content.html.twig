@@ -1,0 +1,21 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends "layout.html.twig"  %}
+
+{% block content %}
+    {% block page_title %} <h1>Profil </h1> {% endblock %}
+    
+<div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+    <p> {{ user.gender }}</p>
+    <p> {{ user.firstname }}</p>
+    <p> {{ user.lastname }}</p>
+    <p> {{ user.birthdate|date('Y-m-d') }}</p>
+    <p> {{ user.registerDate|date('Y-m-d') }}</p>
+   
+    <p> {{ user.address }}</p>
+    <p> {{ user.zip }}</p>
+</div>
+    
+{% endblock %}
+
