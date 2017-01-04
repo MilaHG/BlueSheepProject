@@ -166,7 +166,7 @@ class Partner {
 	/**
 	 *
 	 * @var DateTime
-	 * @ORM\Column (name="register_date", type="datetime")
+	 * //ORM\Column (name="register_date", type="datetime")
 	 */
 	private $registerDate;
 
@@ -181,7 +181,7 @@ class Partner {
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 * //ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
 	 */
 	private $activities;
 

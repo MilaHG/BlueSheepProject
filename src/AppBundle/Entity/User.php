@@ -116,11 +116,12 @@ class User extends BaseUser {
 	 */
 	private $commercialRegistry;
 
-/*
-# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
-#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
-#field. So you simply need to remove the $username and $email fields from your class.
- */
+	/*
+	# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
+	#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
+	#field. So you simply need to remove the $username and $email fields from your class.
+	 */
+	
 	/**
 	 * @var string
 	 *
@@ -265,6 +266,7 @@ class User extends BaseUser {
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();
 		$this->registerDate = new DateTime();
+		$this->activities = new ArrayCollection();
 		$this->bookmarks = new ArrayCollection();
 	}
 

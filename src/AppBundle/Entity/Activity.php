@@ -138,7 +138,7 @@ class Activity {
 	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
-	private $user;
+	private $partner;
 
 	/**
 	 *

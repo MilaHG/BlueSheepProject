@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}My activities{% endblock %}
+
+{% block body %}
+<h1>List of my activities</h1>
+
+{% for activity in  activities %}
+	<div class="well">
+		<h2>{{ activity.title }}</h2>
+		<p>category : {{ category.name }}</p>
+		Could be practiced in :
+		{% if activity.participant_solo %}
+			<p>Solo</p>
+		{% endif %}
+		
+		{% if activity.participant_duo %}
+			<p>Duo</p>
+		{% endif %}
+		
+		{% if activity.participant_family %}
+			<p>Family</p>
+		{% endif %}
+		
+		{% if activity.participant_friend %}
+			<p>Friend</p>
+		{% endif %}
+		
+		<h3>Description</h3>
+		<p>{{ activity.description }}</p>
+		
+		<h3>Company and Address</h3>
+		<p>{{ activity.address }}
+		{{ activity.zip }}
+		{{ activity.city }}</p>
+		
+		<a href="{{ path('app_partner_activity_view', {"id":activity.id}) }}" class="btn btn-primary">
+			Voir la fiche : <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+		</a>
+		
+		
+		
+		
+	</div>
+{% endfor %}
+{% endblock %}
