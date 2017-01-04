@@ -1,0 +1,20 @@
+easy_admin:
+    entities:
+        Reservation:
+            class: AppBundle\Entity\Reservation
+            label: 'Reservations'
+            list:
+                title: 'Reservation %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'date', label: 'Reservation date' }
+                    - { property: 'user', label: 'User name' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'date', label: 'Reservation date' }
+                    - { property: 'user', label: 'User name' }

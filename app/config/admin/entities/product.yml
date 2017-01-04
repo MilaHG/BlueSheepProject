@@ -1,0 +1,30 @@
+easy_admin:
+    entities:
+        Product:
+            class: AppBundle\Entity\Product
+            label: 'Products'
+            list:
+                title: '%%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'date', label: 'Activity date' }
+                    - { property: 'price', label: 'Price' }
+                    - { property: 'stock', label: 'Stock' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'date', label: 'Activity date' }
+                    - { property: 'price', label: 'Price' }
+                    - { property: 'stock', label: 'Stock' }
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'date', label: 'Activity date' }
+                    - { property: 'price', type: 'money', type_options: { currency: 'EUR' }, label: 'Price' }
+                    - { property: 'stock', label: 'Stock' }

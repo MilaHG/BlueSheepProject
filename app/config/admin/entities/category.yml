@@ -1,0 +1,39 @@
+easy_admin:
+    entities:
+        Category:
+            class: AppBundle\Entity\Category
+            label: 'Categories'
+            list:
+                title: '%%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'photo', type: 'image', base_path: %path.category_img%}
+            show:
+                fields:
+                    #- 'id'
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'description', label: 'Description' }
+                    - { property: 'photo', type: 'image', base_path: %path.category_img%}
+            form:
+                fields:
+                    - { property: 'name', label: 'Name' }
+                    - { property: 'description', label: 'Description', css_class: 'large', help: 'Name of the category' }
+                    - { property: 'imageFile', type: 'vich_image' }
+                    
+                    
+#                    - { type: 'group', css_class: 'col-sm-4' }
+#                    - { property: 'name', label: 'Name', css_class: 'large', help: 'Name of the category' }
+#                    - { property: 'description', label: 'Description', css_class: 'large', help: 'Name of the category' }
+#                    - { property: 'photo', label: 'Photo', css_class: 'large', help: 'Name of the category' }
+#
+#                    # if you want to add products when creating categories, add the 'by_reference' option
+#            edit:
+#                title: '%%entity_label%%_edit'
+#            new:
+#                title: 'New %%entity_label%%'

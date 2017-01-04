@@ -1,0 +1,31 @@
+easy_admin:
+    entities:
+        Comment:
+            class: AppBundle\Entity\Comment
+            label: 'Comments'
+            list:
+                title: 'Comment %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'note', label: 'Rating' }
+                    - { property: 'date', label: 'Comment date' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'comment', label: 'Comment' }
+                    - { property: 'note', label: 'Rating' }
+                    - { property: 'user', label: 'User name' }
+                    - { property: 'date', label: 'Comment date' }
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'comment', label: 'Comment' }
+                    - { property: 'note', label: 'Rating' }
+                    - { property: 'user', label: 'User name' }

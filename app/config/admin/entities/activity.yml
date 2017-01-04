@@ -1,0 +1,55 @@
+## YAML Template.
+# This file sets the configuration of the 'Category' entity.
+
+easy_admin:
+    entities:
+        Activity:
+            class: AppBundle\Entity\Activity
+            label: 'Activities'
+            list:
+                title: 'Activity %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'title', label: 'Title' }
+                    - { property: 'address', label: 'Address' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'partner',  label: 'Partner' }
+                    - { property: 'recordingDate', label: 'Date' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'title', label: 'Title' }
+                    - { property: 'description', label: 'Desciption' }
+                    - { property: 'partner', label: 'Partner' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'participantSolo', label: 'Solo' }
+                    - { property: 'participantDuo', label: 'Duo' }
+                    - { property: 'participantFamily', label: 'Family' }
+                    - { property: 'participantFriend', label: 'Friend' }
+                    - { property: 'address', label: 'Address' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'recordingDate', label: 'Recording Date' }
+                    - { property: 'photos', type: 'images' }
+                    - { property: 'comments' }
+                    - 'comments'
+                    
+            form:
+                fields:
+                    - { property: 'title', label: 'Title' }
+                    - { property: 'description', label: 'Desciption' }
+                    - { property: 'partner', label: 'Partner' }
+                    - { property: 'category', label: 'Category' }
+                    - { property: 'participantSolo', label: 'Solo' }
+                    - { property: 'participantDuo', label: 'Duo' }
+                    - { property: 'participantFamily', label: 'Family' }
+                    - { property: 'participantFriend', label: 'Friend' }
+                    - { property: 'address', label: 'Address' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }

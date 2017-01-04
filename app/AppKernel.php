@@ -17,6 +17,10 @@ class AppKernel extends Kernel {
 		  new AppBundle\AppBundle(),
 		  //ajouté par Florent pour le bundle EasyAdmin
 		  new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
+                  // Add FOSUserBundle   
+                  new FOS\UserBundle\FOSUserBundle(),  
+		  //ajouté par Florent pour le bundle VichUploader (gestion image)
+		  new Vich\UploaderBundle\VichUploaderBundle(),
 		];
 
 		if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

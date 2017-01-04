@@ -3,7 +3,6 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Repository\ReservationRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Reservation
  *
  * @ORM\Table(name="reservation")
- * @ORM\Entity(repositoryClass="ReservationRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ReservationRepository")
  */
 class Reservation {
 
@@ -52,6 +51,11 @@ class Reservation {
 
 	public function __construct() {
 		$this->detailsReservations = new ArrayCollection();
+		$this->date=new DateTime();
+	}
+	
+	public function __toString() {
+		return $this->getId(). ' - ' . $this->getUser()->getPseudo(). ' (toString Method)';
 	}
 
 	/**

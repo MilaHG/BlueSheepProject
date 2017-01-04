@@ -2,15 +2,21 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    # Bundle Easy admin, added by Florent
+    - { resource: admin/ } # Bundle Easy admin, added by Florent
+    
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
+    path.category_img: /img/cat
+    path.user_img: /img/user
+    path.activity_img: /img/activity
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -38,6 +44,7 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form_themes: ['bootstrap_3_layout.html.twig']
 
 # Doctrine Configuration
 doctrine:
@@ -68,10 +75,32 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+# Bundle Vic Uploacer, added by Florent
+vich_uploader:
+    db_driver: orm
+    mappings:
+        cat_images:
+            uri_prefix: /img/cat
+            namer: vich_uploader.namer_origname
+            upload_destination: %kernel.root_dir%/../web/img/cat
+        user_images:
+            uri_prefix: %path.user_img%
+            namer: vich_uploader.namer_origname
+            upload_destination: %kernel.root_dir%/../web/img/user
+        activity_images:
+            uri_prefix: %path.activity_img%
+            namer: vich_uploader.namer_origname
+            upload_destination: %kernel.root_dir%/../web/img/activity
 
-# Bundle Easy admin, ajouté par Florent
-easy_admin:
-    entities:
-        - AppBundle\Entity\Product
-        - AppBundle\Entity\Category
-        - AppBundle\Entity\Partner
+# FOSUserBundle
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+
+    registration:
+        form:
+            type: AppBundle\Form\RegistrationType
+            # if you are using Symfony < 2.8 you should use the type name instead
+            # type: app_user_registration
