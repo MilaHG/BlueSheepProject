@@ -4,12 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "hash": "4c4b2bc059292d32b9908df04b6cc242",
-    "content-hash": "becb4c985ec4d564d5290abb0aee7bc3",
-=======
-    "content-hash": "b772d0fc018513adacff41c2cef15032",
->>>>>>> 444f2d59b9b9c0bb77fc319d397cbcb7eb6364d0
+    "hash": "95ed6880628dff9dfd82ec89e5c6efad",
+    "content-hash": "fc076d8296066b5ea924482b3d6bcca4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1087,7 +1083,7 @@
                 "xml",
                 "yaml"
             ],
-            "time": "2016-12-05T10:18:33+00:00"
+            "time": "2016-12-05 10:18:33"
         },
         {
             "name": "monolog/monolog",
@@ -1228,7 +1224,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2015-08-09T04:28:19+00:00"
+            "time": "2015-08-09 04:28:19"
         },
         {
             "name": "pagerfanta/pagerfanta",
@@ -2364,14 +2360,11 @@
             "keywords": [
                 "templating"
             ],
-<<<<<<< HEAD
             "time": "2016-12-23 11:06:22"
-=======
-            "time": "2016-12-23T11:06:22+00:00"
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "dev-master",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
@@ -2451,7 +2444,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2016-12-28T10:59:05+00:00"
+            "time": "2016-12-28 10:59:05"
         },
         {
             "name": "zendframework/zend-code",
@@ -2503,7 +2496,7 @@
                 "code",
                 "zf2"
             ],
-            "time": "2016-04-20T17:26:42+00:00"
+            "time": "2016-04-20 17:26:42"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -2557,8 +2550,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2016-02-18T20:53:00+00:00"
->>>>>>> 444f2d59b9b9c0bb77fc319d397cbcb7eb6364d0
+            "time": "2016-02-18 20:53:00"
         }
     ],
     "packages-dev": [
@@ -2676,11 +2668,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-<<<<<<< HEAD
         "friendsofsymfony/user-bundle": 20
-=======
-        "vich/uploader-bundle": 20
->>>>>>> 444f2d59b9b9c0bb77fc319d397cbcb7eb6364d0
     },
     "prefer-stable": false,
     "prefer-lowest": false,
