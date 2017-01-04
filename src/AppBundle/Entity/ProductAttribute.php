@@ -4,7 +4,6 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Entity\Product;
 
 /**
  * ProductAttribute
@@ -135,6 +134,10 @@ class ProductAttribute {
 	public function setExtraFee($extraFee) {
 		$this->extraFee = $extraFee;
 		return $this;
+	}
+	
+	public function __toString() {
+		return $this->getName(). ' : ' . $this->getValue(). ' (extrafee : '.$this->getExtraFee().')';
 	}
 	
 }

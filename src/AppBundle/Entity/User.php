@@ -8,7 +8,6 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Repository\UserRepository;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,18 +38,17 @@ class User extends BaseUser
      */
     private $gender;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="firstname", type="string", length=45)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *          max=45, 
-     *          maxMessage = "Your firstname cannot be longer than {{ limit }} characters."
-     * )
-     * 
-     */
-    private $firstname;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="gender", type="string", length=3)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *          max=3, 
+	 *          maxMessage = "Your gnder cannot be longer than {{ limit }} characters."
+	 * )
+	 */
+	private $gender;
 
     /**
      * @var string
@@ -137,25 +135,29 @@ class User extends BaseUser
      */
     # protected $password;
 
-    /**
-     * @var DateTime
-     *
-     * @ORM\Column(name="birthdate", type="date")
-     * @Assert\DateTime()
-     */
-    private $birthdate;
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="username", type="string", length=45)
+	 * @Assert\NotBlank()
+	 * @Assert\Length(
+	 *          max=45, 
+	 *          maxMessage ="Your username cannot be longer than {{ limit }} characters."
+	 * )
+	 */
+	private $username;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="address", type="string", length=250)
-     * @Assert\NotBlank()
-     * @Assert\Length(
-     *          min= 10,
-     *          max= 250
-     * )
-     */
-    private $address;
+	/**
+	 *  Asserts paramter to add for the prod version :      checkMX = true
+	 * @var string
+	 *
+	 * @ORM\Column(name="email", type="string", length=100, unique=true)
+	 * @Assert\NotBlank()
+	 * @Assert\Email(
+	 *        message ="The email '{{ value }}' is not a valid email.",
+	 * )
+	 */
+	private $email;
 
     /**
      * @var string
@@ -173,12 +175,13 @@ class User extends BaseUser
      */
     private $city;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=10)
-     */
-    private $role = "ROLE_USER";
+	/**
+	 * @var DateTime
+	 *
+	 * @ORM\Column(name="birthdate", type="date")
+	 * @Assert\DateTime()
+	 */
+	private $birthdate;
 
     /**
      * @var DateTime
@@ -242,352 +245,314 @@ class User extends BaseUser
         $this->registerDate = new DateTime();
     }
 
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="role", type="string", length=10)
+	 */
+	private $role = "ROLE_USER";
 
-    /**
-     * Set gender
-     *
-     * @param string $gender
-     *
-     * @return User
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
+	/**
+	 * @var DateTime
+	 *
+	 * @ORM\Column(name="register_date", type="datetime")
+	 */
+	private $registerDate;
 
-        return $this;
-    }
+	/**
+	 * @var string
+	 *
+	 * @ORM\Column(name="photo", type="string", length=255)
+	 */
+	private $photo;
 
-    /**
-     * Get gender
-     *
-     * @return string
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
+	/**
+	 * @Vich\UploadableField(mapping="user_images", fileNameProperty="photo")
+	 * @var File
+	 */
+	private $imageFile;
 
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     *
-     * @return User
-     */
-    public function setFirstname($firstname)
-    {
-        $this->firstname = $firstname;
+	/**
+	 * Role : ROLE_USER only
+	 * One User have Many Reservations
+	 * 
+	 * @var Reservation
+	 *
+	 * @ORM\OneToMany(targetEntity="Reservation", mappedBy="user")
+	 * 
+	 */
+	private $reservations;
 
-        return $this;
-    }
+	/**
+	 * Role : ROLE_USER only
+	 * User can have many hobbies
+	 * @var Hobby
+	 * 
+	 * @ORM\OneToMany(targetEntity="Hobby", mappedBy="user")
+	 * 
+	 */
+	private $hobbies;
 
-    /**
-     * Get firstname
-     *
-     * @return string
-     */
-    public function getFirstname()
-    {
-        return $this->firstname;
-    }
+	/**
+	 * Role : ROLE_PARTNER only
+	 * A partner can publish several activities
+	 * 
+	 * @var ArrayCollection
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 */
+	private $activities;
 
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     *
-     * @return User
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
+	/**
+	 * Role : ROLE_USER only
+	 * @var ArrayCollection
+	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
+	 */
+	private $comments;
 
-        return $this;
-    }
+	/**
+	 * Many Users have Many bookmarks.
+	 * 
+	 * @var ArrayCollection
+	 * 
+	 * @ORM\ManyToMany(targetEntity="Activity")
+	 * @ORM\JoinTable(name="bookmark",
+	 *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="activity_id", referencedColumnName="id")}
+	 *      )
+	 */
+	private $bookmarks;
 
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
+	public function __construct() {
+		$this->reservations = new ArrayCollection();
+		$this->hobbies = new ArrayCollection();
+		$this->comments = new ArrayCollection();
+		$this->bookmarks = new ArrayCollection();
+		$this->registerDate = new DateTime();
+	}
 
-    /**
-     * Set pseudo
-     *
-     * @param string $pseudo
-     *
-     * @return User
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
+	public function __toString() {
+		return $this->getUsername() . ' (toString Method)';
+	}
 
-        return $this;
-    }
+	/**
+	 * Get id
+	 *
+	 * @return int
+	 */
+	public function getId() {
+		return $this->id;
+	}
 
-    /**
-     * Get pseudo
-     *
-     * @return string
-     */
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
+	/**
+	 * Set gender
+	 *
+	 * @param string $gender
+	 *
+	 * @return User
+	 */
+	public function setGender($gender) {
+		$this->gender = $gender;
 
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get gender
+	 *
+	 * @return string
+	 */
+	public function getGender() {
+		return $this->gender;
+	}
 
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
+	/**
+	 * Set firstname
+	 *
+	 * @param string $firstname
+	 *
+	 * @return User
+	 */
+	public function setFirstname($firstname) {
+		$this->firstname = $firstname;
 
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get firstname
+	 *
+	 * @return string
+	 */
+	public function getFirstname() {
+		return $this->firstname;
+	}
 
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
+	/**
+	 * Set lastname
+	 *
+	 * @param string $lastname
+	 *
+	 * @return User
+	 */
+	public function setLastname($lastname) {
+		$this->lastname = $lastname;
 
-    /**
-     * Set birthdate
-     *
-     * @param DateTime $birthdate
-     *
-     * @return User
-     */
-    public function setBirthdate($birthdate)
-    {
-        $this->birthdate = $birthdate;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get lastname
+	 *
+	 * @return string
+	 */
+	public function getLastname() {
+		return $this->lastname;
+	}
 
-    /**
-     * Get birthdate
-     *
-     * @return DateTime
-     */
-    public function getBirthdate()
-    {
-        return $this->birthdate;
-    }
+	/**
+	 * Set username
+	 *
+	 * @param string $username
+	 *
+	 * @return User
+	 */
+	public function setUsername($username) {
+		$this->username = $username;
 
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return User
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get username
+	 *
+	 * @return string
+	 */
+	public function getUsername() {
+		return $this->username;
+	}
 
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
-    }
+	/**
+	 * Set email
+	 *
+	 * @param string $email
+	 *
+	 * @return User
+	 */
+	public function setEmail($email) {
+		$this->email = $email;
 
-    /**
-     * Set zip
-     *
-     * @param string $zip
-     *
-     * @return User
-     */
-    public function setZip($zip)
-    {
-        $this->zip = $zip;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get email
+	 *
+	 * @return string
+	 */
+	public function getEmail() {
+		return $this->email;
+	}
 
-    /**
-     * Get zip
-     *
-     * @return string
-     */
-    public function getZip()
-    {
-        return $this->zip;
-    }
+	/**
+	 * Set password
+	 *
+	 * @param string $password
+	 *
+	 * @return User
+	 */
+	public function setPassword($password) {
+		$this->password = $password;
 
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get password
+	 *
+	 * @return string
+	 */
+	public function getPassword() {
+		return $this->password;
+	}
 
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
+	/**
+	 * Set birthdate
+	 *
+	 * @param DateTime $birthdate
+	 *
+	 * @return User
+	 */
+	public function setBirthdate($birthdate) {
+		$this->birthdate = $birthdate;
 
-    /**
-     * Set registerDate
-     *
-     * @param DateTime $registerDate
-     *
-     * @return User
-     */
-    public function setRegisterDate($registerDate)
-    {
-        $this->registerDate = $registerDate;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get birthdate
+	 *
+	 * @return DateTime
+	 */
+	public function getBirthdate() {
+		return $this->birthdate;
+	}
 
-    /**
-     * Get registerDate
-     *
-     * @return DateTime
-     */
-    public function getRegisterDate()
-    {
-        return $this->registerDate;
-    }
+	/**
+	 * Set address
+	 *
+	 * @param string $address
+	 *
+	 * @return User
+	 */
+	public function setAddress($address) {
+		$this->address = $address;
 
-    /**
-     * Set photo
-     *
-     * @param string $photo
-     *
-     * @return User
-     */
-    public function setPhoto($photo)
-    {
-        $this->photo = $photo;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Get address
+	 *
+	 * @return string
+	 */
+	public function getAddress() {
+		return $this->address;
+	}
 
-    /**
-     * Get photo
-     *
-     * @return string
-     */
-    public function getPhoto()
-    {
-        return $this->photo;
-    }
-    
-    
-    /**
-     * 
-     * @return ArrayCollection
-     */
-    public function getReservations() {
-        return $this->reservations;
-    }
+	/**
+	 * Set zip
+	 *
+	 * @param string $zip
+	 *
+	 * @return User
+	 */
+	public function setZip($zip) {
+		$this->zip = $zip;
 
-    
-    /**
-     * 
-     * @return ArrayCollection
-     */
-    public function getHobbies() {
-        return $this->hobbies;
-    }
+		return $this;
+	}
 
-    
-    /**
-     * 
-     * @return ArrayCollection
-     */
-    public function getComments() {
-        return $this->comments;
-    }
+	/**
+	 * Get zip
+	 *
+	 * @return string
+	 */
+	public function getZip() {
+		return $this->zip;
+	}
 
-    
-    /**
-     * 
-     * @param \AppBundle\Entity\Reservation $reservations
-     * @return \AppBundle\Entity\User
-     */
-    public function setReservations(Reservation $reservations) {
-        $this->reservations = $reservations;
-        return $this;
-    }
+	/**
+	 * Set role
+	 *
+	 * @param string $role
+	 *
+	 * @return User
+	 */
+	public function setRole($role) {
+		$this->role = $role;
 
-    
-    /**
-     * 
-     * @param \AppBundle\Entity\Hobby $hobbies
-     * @return \AppBundle\Entity\User
-     */
-    public function setHobbies(Hobby $hobbies) {
-        $this->hobbies = $hobbies;
-        return $this;
-    }
+		return $this;
+	}
 
     
     /**
@@ -655,4 +620,3 @@ class User extends BaseUser
     
     
 }
-

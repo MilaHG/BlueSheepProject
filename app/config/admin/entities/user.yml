@@ -1,0 +1,57 @@
+easy_admin:
+    entities:
+        User:
+            class: AppBundle\Entity\User
+            label: 'User'
+            list:
+                title: 'User %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'gender', label: 'Gender' }
+                    - { property: 'firstname', label: 'Firstname' }
+                    - { property: 'lastname', label: 'Lastname' }
+                    - { property: 'username', label: 'image' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'role', label: 'Access' }
+                    - { property: 'photo', type: 'image', base_path: %path.user_img%}
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'gender', label: 'Gender' }
+                    - { property: 'firstname', label: 'Firstname' }
+                    - { property: 'lastname', label: 'Lastname' }
+                    - { property: 'username', label: 'image' }
+                    - { property: 'role', label: 'Access' }
+                    - { property: 'email', label: 'Email address' }
+                    - { property: 'birthdate', label: 'Birthdate' }
+                    - { property: 'address', label: 'Adress' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'photo', type: 'image', base_path: %path.user_img%}
+                    - { property: 'comments'}
+            form:
+                fields:
+                    - { property: 'gender', label: 'Gender' }
+                    - { property: 'firstname', label: 'Firstname' }
+                    - { property: 'lastname', label: 'Lastname' }
+                    - { property: 'username', label: 'pseudo' }
+                    - { property: 'role', label: 'Access' }
+                    - { property: 'email', label: 'Email address' }
+                    - { property: 'birthdate', label: 'Birthdate' }
+                    - { property: 'address', label: 'Adress' }
+                    - { property: 'zip', label: 'Zip code' }
+                    - { property: 'city', label: 'City' }
+                    - { property: 'imageFile', type: 'vich_image' }
+                   
+
+                    # if you want to add products when creating categories, add the 'by_reference' option
+            edit:
+                title: '%%entity_label%% edit'
+            new:
+                title: 'New %%entity_label%%'
+            

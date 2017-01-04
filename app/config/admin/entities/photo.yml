@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        Photo:
+            class: AppBundle\Entity\Photo
+            label: 'Photo'
+            list:
+                title: 'Photo %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'name', type: 'image', base_path: %path.activity_img%}
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'name', label: 'Photo', type: 'image', css_class: 'large', base_path: %path.activity_img%}
+            form:
+                fields:
+                    - { property: 'activity', label: 'Activity' }
+                    - { property: 'imageFile', type: 'vich_image' }
+                    
+         

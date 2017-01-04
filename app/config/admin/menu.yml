@@ -1,0 +1,42 @@
+# This file sets the configuration of the main menu. If your backend is simple,
+# you probably can leave the 'menu' option empty and rely on the default menu
+# created by EasyAdmin.
+#
+# NOTE: this demo application splits the backend configuration into several
+# small files for educational purposes. In your application you can put the
+# entire backend configuration in just one file.
+#
+# The configuration options are explained in detail in the bundle documentation,
+# which is published at https://github.com/javiereguiluz/EasyAdminBundle
+
+
+easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+    design:
+        menu:
+            - label: 'Activities and Product menu'
+              icon: 'futbol-o'
+              children:
+                  - { entity: 'Activity', icon: 'bicycle', label: 'Activity' }
+                  - { entity: 'Product', icon: 'gift', label: 'Product' }
+                  - { entity: 'ProductAttribute', icon: 'flag', label: 'Product Attributes' }
+                  - { entity: 'Category', icon: 'tags', label: 'Category' }
+                  - { entity: 'Photo', icon: 'photo', label: 'Photos of Activities' }
+            - label: 'User and reservation menu'
+              icon: 'shopping-basket'
+              children:
+                  - { entity: 'User', icon: 'group', label: 'User' }
+                  - { entity: 'Hobby', icon: 'cubes', label: 'Users favorite categories' }
+                  - { entity: 'Reservation', icon: 'credit-card', label: 'Reservation' }
+                  - { entity: 'DetailReservation', icon: 'eur', label: 'Reservation details' }
+                  - { entity: 'Comment', icon: 'comment-o', label: 'Comments' }
+            - label: 'Partners'
+              icon: 'address-card'
+              children:
+                  - { entity: 'Partner', icon: 'address-card', label: 'Partner' }
+                 
+
+

@@ -1,0 +1,24 @@
+easy_admin:
+    entities:
+        ProductAttribute:
+            class: AppBundle\Entity\ProductAttribute
+            label: 'Product Attributes'
+            list:
+                title: 'Partner %%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Attribute Name' }
+                    - { property: 'value', label: 'Attribute Value' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'extraFee', label: 'Extra fee' }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Attribute Name' }
+                    - { property: 'value', label: 'Attribute Value' }
+                    - { property: 'product', label: 'Product' }
+                    - { property: 'extraFee', label: 'Extra fee' }
