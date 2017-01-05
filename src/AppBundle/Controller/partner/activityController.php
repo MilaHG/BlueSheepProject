@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Activity;
+use AppBundle\Form\ActivityType;
 
 
 /**
@@ -15,7 +16,7 @@ use AppBundle\Entity\Activity;
  * 
  * @Route("/activity")
  */
-class activityController extends Controller {
+class ActivityController extends Controller {
 
 	/**
 	 * @Route("/list")
@@ -29,7 +30,7 @@ class activityController extends Controller {
 		$activities=$em->getRepository('AppBundle:Activity')->findAllByPartner($user);
 			
 		//return all the data of the activities and the category related
-		return $this->render('Partner/activity/list.html.twig', array(
+		return $this->render('Partner/Activity/list.html.twig', array(
 			'activities'=>$activities,
 		));
 	}
@@ -53,7 +54,7 @@ class activityController extends Controller {
 //		$nbTotalProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id);
 //		$nbCurrentProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id,TRUE);
 		
-		return $this->render('Partner\activity\view.html.twig', 
+		return $this->render('Partner\Activity\view.html.twig', 
 			[
 			  'activity'			=>$activity,
 			  'photos'			=>$photos,
@@ -66,6 +67,7 @@ class activityController extends Controller {
 	
 	/**
 	 * @Route("/edit/{id}", defaults={"id":null})
+	 * @param $id
 	 * @param Request $request
 	 */
 	public function editAction(Request $request, $id) {
@@ -86,7 +88,6 @@ class activityController extends Controller {
 			}
 		}
 		
-		$activity = new Activity;
 		$form= $this->createForm(ActivityType::class, $activity);
 		
 		$form->handleRequest($request);
@@ -107,7 +108,7 @@ class activityController extends Controller {
 				$this->addFlash('success','Your activity has been registred');
 				
 			//**********************vérifier cette route de redirection ci dessous vers edition de produit
-				return $this->redirectToRoute();
+				return $this->redirectToRoute('app_partner_activity_list');
 			}
 			else{
 				$this->addFlash('error','Error : Your activity couldn\'t be registred');
@@ -115,7 +116,7 @@ class activityController extends Controller {
 		}
 		
 		return $this->render(
-			'Partner/activity/edit.html.twig',
+			'Partner/Activity/edit.html.twig',
 			[
 			  'form'	=> $form->createView(),
 			  'activity'	=>$activity,
@@ -125,9 +126,10 @@ class activityController extends Controller {
 	}
 
 	/**
-	 * @Route("delete/{id}")
+	 * @Route("/delete/{id}")
+	 * @param $id
 	 */
-	public function deleteAction() {
+	public function deleteAction($id) {
 		
 		$em = $this->getDoctrine()->getManager();
 		

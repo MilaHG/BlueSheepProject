@@ -21,28 +21,32 @@ class ActivityType extends AbstractType {
 				'participantSolo',
 				CheckboxType::class,
 				[
-				  'label'=>'Solo'
+				  'label'=>'Solo',
+				   'required'=>false,
 				]
 			)
 			->add(
 				'participantDuo',
 				CheckboxType::class,
 				[
-				  'label'=>'Duo'
+				  'label'=>'Duo',
+				   'required'=>false,
 				]
 			)
 			->add(
 				'participantFamily',
 				CheckboxType::class,
 				[
-				  'label'=>'Family'
+				  'label'=>'Family',
+				   'required'=>false,
 				]
 			)
 			->add(
 				'participantFriend',
 				CheckboxType::class,
 				[
-				  'label'=>'Friend'
+				  'label'=>'Friend',
+				   'required'=>false,
 				]
 			)
 			->add(

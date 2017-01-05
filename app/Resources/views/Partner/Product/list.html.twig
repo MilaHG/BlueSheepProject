@@ -1,0 +1,57 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}My products{% endblock %}
+
+{% block content %}
+	<div class="container">
+
+	{% for label, flashes in app.session.flashbag.all %}
+		{% for flash in  flashes %}
+			{% if label == 'error' %} {% set label = 'danger' %} {% endif %}
+			<div class="alert alert-{{ label }}">
+				{{ flash }}
+			</div>
+		{% endfor %}
+	{% endfor %}
+	
+	<h1>Products of the activity "{{ activity.title }}"</h1>
+	
+	<div class="well">
+		filtre par date : 
+	</div>
+	
+	{% for product in products %}
+	{{ dump(product) }}
+		<div class="well">
+			<span class="glyphicon glyphicon-calendar"> Date :{{ product.date|date("d/m/Y") }}</span>
+			<span class="glyphicon glyphicon-eur col-md-offset-1"> Price : {{ product.price }}</span>
+			<span class="glyphicon glyphicon-scale col-md-offset-1"> Stock : {{ product.stock }}</span>
+			<span class=" glyphicon glyphicon-shopping-cart col-md-offset-1"> Boooked : {{ product.detailsReservations|length }}</span>
+			<hr>
+			<p>Extras :</p>
+			<ul>
+				{% for prodAttribute in product.productAttributes %}
+				<li>{{ prodAttribute.name }} : {{ prodAttribute.value }}, extra fee : {{ prodAttribute.extrafee ?: 0  }}€ 
+					<a href="{{ path('app_partner_product_deleteAttribut', {"id":prodAttribute.id}) }}">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</a>
+				</li>
+				{% endfor %}
+			</ul>
+			
+			<hr>
+			<a href="" class="btn btn-primary">
+				See reservations details : <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</a>
+
+			<a href="{{ path('app_partner_product_edit', {"id":product.id}) }}" class="btn btn-info">
+				Edit this product : <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+			</a>
+
+			<a href="{{ path('app_partner_product_delete', {"id":product.id}) }}" class="btn btn-danger">
+				Delete this product : <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+			</a>
+					
+		</div>
+	{% endfor %}
+{% endblock %}

@@ -430,7 +430,7 @@ class Activity {
 	 *
 	 * @return Activity
 	 */
-	public function setPartner(Partner $partner) {
+	public function setPartner(User $partner) {
 		$this->partner = $partner;
 
 		return $this;
