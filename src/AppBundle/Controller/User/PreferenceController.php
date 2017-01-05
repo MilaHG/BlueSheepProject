@@ -12,24 +12,21 @@ class PreferenceController extends Controller
 {
     /**
      * 
-     * @param Request $request
-     * @param int $id
-     * @Route("preference/list/{id})
+     * @Route("preference/list")
      */
-    public function listAction(Request $request, $id)
+    public function listAction()
     {
-        //relation DB
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->find('AppBundle:User', $id);
-        
-        if (is_null($user)) { //page 404 if user
+        $user = $this->getUser()->getId();
+//relation DB
+
+        if (is_null($user)) { //page 404 if user not in DB
             throw $this->createNotFoundException();
         }
         
         //access to the Preference Class repository (i.e. Hobby) and display them in the view
         $repository = $em->getRepository('AppBundle:Hobby');
         //request to DB => "SELECT * FROM..."
-        $preferences = $repository->findHobbiesByUser();
+        $preferences = $repository->findHobbiesByUser($user);
         
         return $this->render(
             'AppBundle:User\Preference:list.html.twig', 
@@ -40,7 +37,7 @@ class PreferenceController extends Controller
     }
 
     /**
-     * @Route("preference/edit/{id}", defaults={"id":null})
+     * @Route("preference/edit")
      */
     public function editAction(Request $request, $id)
     {
@@ -91,7 +88,7 @@ class PreferenceController extends Controller
     }
 
     /**
-     * @Route("preference/delete/{$id}")
+     * @Route("preference/delete")
      */
     public function deleteAction($id)
     {

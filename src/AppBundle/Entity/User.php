@@ -207,14 +207,16 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $hobbies;
+        
 	/**
 	 * Role : ROLE_PARTNER only
-	 * A partner can publish several activities
+	 * A role_partner can publish several activities
 	 * 
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
 	 */
 	private $activities;
+        
 	/**
 	 * Role : ROLE_USER only
 	 * @var ArrayCollection
