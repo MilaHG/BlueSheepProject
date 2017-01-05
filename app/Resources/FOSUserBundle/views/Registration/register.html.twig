@@ -1,9 +1,7 @@
-{% extends "@FOSUser/layout.html.twig" %}
-
-
-{% block content %}
-{% include 'nav.html.twig'  %}
+{% extends "layout.html.twig" %}
+{% block content  %}
 {% block fos_user_content %}
-{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
 {% endblock fos_user_content %}
 {% endblock %}
+ 
