@@ -11,20 +11,32 @@ use Symfony\Component\HttpFoundation\Request;
 class PreferenceController extends Controller
 {
     /**
-     * @Route("preference/list/{id}, requirements={"id":"\d+"})
+     * 
+     * @param Request $request
+     * @param int $id
+     * @Route("preference/list/{id})
      */
-    public function listAction($id)
+    public function listAction(Request $request, $id)
     {
         //relation DB
         $em = $this->getDoctrine()->getManager();
-        //access to the Preference Class repository (i.e. Hobby)
+        $user = $em->find('AppBundle:User', $id);
+        
+        if (is_null($user)) { //page 404 if user
+            throw $this->createNotFoundException();
+        }
+        
+        //access to the Preference Class repository (i.e. Hobby) and display them in the view
         $repository = $em->getRepository('AppBundle:Hobby');
         //request to DB => "SELECT * FROM..."
-        $preferences = $repository->findAll();
+        $preferences = $repository->findHobbiesByUser();
         
-        return $this->render('AppBundle:User\Preference:list.html.twig', array(
+        return $this->render(
+            'AppBundle:User\Preference:list.html.twig', 
+            [
             'preferences'   => $preferences,
-        ));
+            ]
+        );
     }
 
     /**
@@ -38,10 +50,10 @@ class PreferenceController extends Controller
         {
             $new = true;
             $preference = new Hobby();
-            $preference->setCategory($this->getUser());//adding a category for the connected user
+            $preference->setHobby($this->getUser());//adding a category for the connected user
         } else { // edit preference
             $new = false;
-            $preference = $em->find('AppBundle:Preference', $id);
+            $preference = $em->find('AppBundle:Hobby', $id);
             
             if (is_null($preference)) { // if the requested id has no correspondance in DB : redirection on preferences' list
                 return $this->redirectToRoute('app_user_preference_list');
