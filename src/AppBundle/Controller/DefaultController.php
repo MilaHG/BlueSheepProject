@@ -19,4 +19,15 @@ class DefaultController extends Controller
             'page_title' => 'Home page'
         ));
     }
+    
+    
+    /**
+     * @Route("/Useraccount")
+     */
+    
+    public function userAccountAction() {
+        
+        return $this->render('AppBundle:User:index.html.twig');
+        
+    }
 }

@@ -17,19 +17,25 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div class="container">
-        {% block content %}
+        <nav>
             {% include 'nav.html.twig'  %}
-            
-            {% block page_title %} {% endblock %}
-            {% block fos_user_content %}{% endblock %}
-            
-        {% endblock %}
+        </nav>
+        <div class="container-fluid fos">
+            <div class="row">
+                <div class="col-md-6 col-lg-offset-3">
+                    <div class="fos_user_cnx" style="margin-top: 90px">
+                    {% block content %}
+                        {% block page_title %} {% endblock %}
+                        {% block fos_user_content %}{% endblock %}
+                    {% endblock %}  
+                    </div>
+                </div>
+            </div>
         </div>
         {% block javascripts %}
             <!-- Latest compiled and minified JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         {% endblock %}
+       
     </body>
 </html>
-

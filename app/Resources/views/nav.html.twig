@@ -17,6 +17,7 @@
                     <div id="navbar" class="navbar-collapse collapse">
                       <ul class="nav navbar-nav">
                           <li {% if app.request.get('_route') == 'homepage'  %} class="active" {% endif  %}><a href="{{ path('homepage') }}">Home</a></li>
+                          <li {% if app.request.get('_route') == 'app_product_category'  %} class="active" {% endif  %}><a href="{{ path('app_product_category') }}">Categories</a></li>
 
                           <li {% if app.request.get('_route') == 'fos_user_security_login' %} class="active" {% endif %} ><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
                           <li {% if app.request.get('_route') == 'fos_user_registration_register' %} class="active" {% endif %} ><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>

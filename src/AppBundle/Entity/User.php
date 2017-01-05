@@ -37,11 +37,10 @@ class User extends BaseUser {
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *          max=3, 
-	 *          maxMessage = "Your gnder cannot be longer than {{ limit }} characters."
+	 *          maxMessage = "Your gender cannot be longer than {{ limit }} characters."
 	 * )
 	 */
 	private $gender;
-        
 	/**
 	 * @var string
 	 *
@@ -80,8 +79,8 @@ class User extends BaseUser {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", name="company", length=100)
-	 * @Assert\NotBlank()
+	 * @ORM\Column (type="string", name="company", length=100, nullable=true)
+	 * 
 	 * @Assert\Length(
 	 *      min = 3,
 	 *      max = 100,
@@ -93,8 +92,8 @@ class User extends BaseUser {
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
-	 * @Assert\NotBlank()
+	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true, nullable=true)
+	 * 
 	 * @Assert\Regex(
 	 *     pattern="/^[0-9]$/",
 	 *     match=true,
@@ -617,6 +616,7 @@ class User extends BaseUser {
 	public function getRole() {
 		return $this->role;
 	}
+
 	/**
 	 * 
 	 * @return type
@@ -624,5 +624,6 @@ class User extends BaseUser {
 	public function getComments() {
 		return $this->comments;
 	}
+
 	
 }
