@@ -4,9 +4,17 @@ namespace AppBundle\Controller\Partner;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Activity;
 
+
+/**
+ * ActivityController
+ * 
+ * @Route("/activity")
+ */
 class activityController extends Controller {
 
 	/**
@@ -15,73 +23,125 @@ class activityController extends Controller {
 	public function listAction() {
 		
 		//get the id of the current user
-		$user = $this->container->get('security.context')->getToken()->getUser();
+		$user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
 		
 		$em = $this->getDoctrine()->getManager();
 		$activities=$em->getRepository('AppBundle:Activity')->findAllByPartner($user);
 			
 		//return all the data of the activities and the category related
-		return $this->render('AppBundle:partner\activity:list.html.twig', array(
+		return $this->render('Partner/activity/list.html.twig', array(
 			'activities'=>$activities,
 		));
 	}
 
 	/**
 	 * 
-	 * @param Request $request
 	 * @param $id
-	 * @Route("/activity/{id}")
+	 * @Route("/view/{id}")
 	 */
-	public function viewAction( $id) {
-		$em->getDoctrine()->getManager();
+	public function viewAction($id) {
+		
+		$em= $this->getDoctrine()->getManager();
 		$activity = $em->find('AppBundle:Activity', $id);
 		
-		if (is_null($article)){
+		if (is_null($id)){
 			throw $this->createNotFoundException();
 		}
 		
 		$photos = $em->getRepository('AppBundle:Photo')->findByActivity($id);
 		$comments = $em->getRepository('AppBundle:Comment')->findByActivity($id);
-		$nbTotalProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id);
-		$nbCurrentProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id,TRUE);
+//		$nbTotalProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id);
+//		$nbCurrentProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id,TRUE);
 		
-		return $this->render('AppBundle:partner\activity:view.html.twig', 
+		return $this->render('Partner\activity\view.html.twig', 
 			[
 			  'activity'			=>$activity,
 			  'photos'			=>$photos,
 			  'comments'		=>$comments,
-			  'nbTotalProduct'		=>$nbTotalProduct,
-			  'nbCurrentProduct'	=>$nbCurrentProduct,
+//			  'nbTotalProduct'		=>$nbTotalProduct,
+//			  'nbCurrentProduct'	=>$nbCurrentProduct,
 			]
 		);
 	}
 	
 	/**
-	 * @Route("/new")
+	 * @Route("/edit/{id}", defaults={"id":null})
+	 * @param Request $request
 	 */
-	public function newAction() {
-		return $this->render('AppBundle:partner\activity:new.html.twig', array(
+	public function editAction(Request $request, $id) {
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		if (is_null($id)){
+			$new=true;
+			$activity=new Activity();
+			$activity->setPartner($this->getUser());
+		}
+		else{
+			$new=false;
+			$activity=$em->find('AppBundle:Activity',$id);
 			
-		));
+			if(is_null($activity)){
+				return $this->redirectToRoute('app_partner_activity_list');
+			}
+		}
+		
+		$activity = new Activity;
+		$form= $this->createForm(ActivityType::class, $activity);
+		
+		$form->handleRequest($request);
+		
+		if($form->isSubmitted()){
+			if($form->isValid()){
+				
+				$em->persist($activity);
+				$em->flush();
+				
+				if($new){
+					$message="Article enregistré";
+				}
+				else{
+					$message="Modification réussie";
+				}
+				
+				$this->addFlash('success','Your activity has been registred');
+				
+			//**********************vérifier cette route de redirection ci dessous vers edition de produit
+				return $this->redirectToRoute();
+			}
+			else{
+				$this->addFlash('error','Error : Your activity couldn\'t be registred');
+			}
+		}
+		
+		return $this->render(
+			'Partner/activity/edit.html.twig',
+			[
+			  'form'	=> $form->createView(),
+			  'activity'	=>$activity,
+			  'new'=>$new,
+			]
+		);
 	}
 
 	/**
-	 * @Route("/delete")
+	 * @Route("delete/{id}")
 	 */
 	public function deleteAction() {
-		return $this->render('AppBundle:partner\activity:delete.html.twig', array(
-				// ...
-		));
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$activity=$em->find('AppBundle:Activity', $id);
+		if (is_null($activity)){
+			$this->addFlash('error', 'This activity doesn\'t exist');
+			return $this->redirectToRoute('app_partner_activity_list');
+		}
+		
+		$em->remove($activity);
+		$em->flush();
+		
+		$this->addFlash('success', 'Your activity was successfully deleted');
+		return $this->redirectToRoute('app_partner_activity_list');
 	}
 	
-	
-	/**
-	 * @Route("/delete")
-	 */
-	public function delelteAction() {
-		return $this->render('AppBundle:partner\activity:delete.html.twig', array(
-				// ...
-		));
-	}
-
 }

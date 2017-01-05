@@ -1,0 +1,21 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ new ? 'Add activity' : 'Edit activity' }}
+{% endblock %}
+
+{% block content %}
+<h1>{{ new ? 'Add activity' : 'Edit activity' }}</h1>
+	{{ form_start(form) }}
+	{{ form_row(form.title) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.category) }}
+	{{ form_row(form.address) }}
+	{{ form_row(form.zip) }}
+	{{ form_row(form.city) }}
+	<div class ="form-btn-group pull-right">
+		<button type="submit" class="btn btn-primary">Enregistrer</button>
+	</div>
+	<div class="clearfix"></div>
+	{{ form_end(form) }}
+{% endblock %}
