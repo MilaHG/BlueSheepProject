@@ -14,8 +14,15 @@ class ProductController extends Controller
     {
         
         $em = $this->getDoctrine()->getManager();
-        
+         
+        $activities = $em->getRepository('AppBundle:Activity')
+                ->findBy(array(
+                    'category' => $id
+                ));
+
         return $this->render('AppBundle:Product:list.html.twig', array(
+            
+            'activities' => $activities,
             // ...
         ));
     }
@@ -36,11 +43,23 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("product")
+     * @Route("product/{id}")
      */
-    public function detailAction()
+    public function detailAction($id)
     {
+        
+        $em = $this->getDoctrine()->getManager();
+        $activity = $em->find('AppBundle:Activity', $id);
+        
+        $activities = $em->getRepository('AppBundle:Activity')
+                ->findBy(array(
+                    'category' => $activity->getCategory()
+                ));
+        
         return $this->render('AppBundle:Product:detail.html.twig', array(
+            
+            'activity' => $activity,
+            'activities' => $activities
             // ...
         ));
     }
