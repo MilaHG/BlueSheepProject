@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of the FOSUserBundle package.
  *
@@ -8,28 +7,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
 namespace AppBundle\Form;
-
 use FOS\UserBundle\Util\LegacyFormHelper;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
 class RegistrationType extends AbstractType
 {
-
-
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-
         // Or for Symfony < 2.8
         // return 'fos_user_registration';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -45,6 +37,16 @@ class RegistrationType extends AbstractType
                             'Madame' => 'MME'
                         ),
                         'label' => 'Civilite'
+                        ))  
+            ->add('role', 
+                    ChoiceType::class,
+                    array(
+                        'choices' => array(
+                          
+                            'Partenaire' => 'ROLE_PARTNER',
+                            'Client' => 'ROLE_USER'
+                        ),
+                        'label' => 'Vous êtes ?'
                         ))  
                 
             ->add('firstname',
@@ -79,7 +81,8 @@ class RegistrationType extends AbstractType
             ->add('city',
             TextType::class,
                     array(
-                        'label' => 'Ville'
+                        'label' => 'Ville',
+                        'required' => FALSE
                     )) 
                 
             ->add('photo',
@@ -89,12 +92,9 @@ class RegistrationType extends AbstractType
                         'required' => FALSE
                     ))    
                 
-
         ;
     }
-
  
-
     // BC for SF < 3.0
     /**
      * {@inheritdoc}
@@ -103,7 +103,6 @@ class RegistrationType extends AbstractType
     {
         return $this->getBlockPrefix();
     }
-
     /**
      * {@inheritdoc}
      */

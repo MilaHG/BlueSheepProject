@@ -1,13 +1,10 @@
 <?php
-
 /**
  * @todo 
  * - delete attribut pseudo ? already have usename in fos user model 
  * - delete email and password in this class 
  */
-
 namespace AppBundle\Entity;
-
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
-
 /**
  * User
  *
@@ -26,7 +22,6 @@ use Symfony\Component\HttpFoundation\File\File;
  * @Vich\Uploadable
  */
 class User extends BaseUser {
-
 	/**
 	 * @var int
 	 *
@@ -35,7 +30,6 @@ class User extends BaseUser {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-
 	/**
 	 * @var string
 	 *
@@ -43,11 +37,10 @@ class User extends BaseUser {
 	 * @Assert\NotBlank()
 	 * @Assert\Length(
 	 *          max=3, 
-	 *          maxMessage = "Your gnder cannot be longer than {{ limit }} characters."
+	 *          maxMessage = "Your gender cannot be longer than {{ limit }} characters."
 	 * )
 	 */
 	private $gender;
-
 	/**
 	 * @var string
 	 *
@@ -83,12 +76,11 @@ class User extends BaseUser {
 	 * )
 	 */
 	private $lastname;
-
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (type="string", name="company", length=100)
-	 * @Assert\NotBlank()
+	 * @ORM\Column (type="string", name="company", length=100, nullable=true)
+	 * 
 	 * @Assert\Length(
 	 *      min = 3,
 	 *      max = 100,
@@ -97,12 +89,11 @@ class User extends BaseUser {
 	 * )
 	 */
 	private $company;
-
 	/**
 	 *
 	 * @var string
-	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true)
-	 * @Assert\NotBlank()
+	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true, nullable=true)
+	 * 
 	 * @Assert\Regex(
 	 *     pattern="/^[0-9]$/",
 	 *     match=true,
@@ -115,7 +106,6 @@ class User extends BaseUser {
 	 * )
 	 */
 	private $commercialRegistry;
-
 /*
 # Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
 #FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
@@ -132,7 +122,6 @@ class User extends BaseUser {
 	 * )
 	 */
 	# protected $email;
-
 	/**
 	 * @var string
 	 *
@@ -143,7 +132,6 @@ class User extends BaseUser {
 	 *          minMessage = "Password may have less {{ limit }} characters.")
 	 */
 	# protected $password;
-
 	/**
 	 * @var string
 	 *
@@ -155,7 +143,6 @@ class User extends BaseUser {
 	 * )
 	 */
 	# private $username;
-
 	/**
 	 * @var string
 	 *
@@ -165,13 +152,11 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $zip;
-
 	/**
 	 * @ORM\Column(name="city", type="string", nullable=true)
 	 * @Assert\NotBlank()
 	 */
 	private $city;
-
 	/**
 	 * @var DateTime
 	 *
@@ -179,34 +164,29 @@ class User extends BaseUser {
 	 * @Assert\DateTime()
 	 */
 	private $birthdate;
-
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="role", type="string", length=10)
 	 */
 	private $role = "ROLE_USER";
-
 	/**
 	 * @var DateTime
 	 *
 	 * @ORM\Column(name="register_date", type="datetime")
 	 */
 	private $registerDate;
-
 	/**
 	 * @var string
 	 *
 	 * @ORM\Column(name="photo", type="string", length=255)
 	 */
 	private $photo;
-
 	/**
 	 * @Vich\UploadableField(mapping="user_images", fileNameProperty="photo")
 	 * @var File
 	 */
 	private $imageFile;
-
 	/**
 	 * Role : ROLE_USER only
 	 * One User have Many Reservations
@@ -217,7 +197,6 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $reservations;
-
 	/**
 	 * Role : ROLE_USER only
 	 * User can have many hobbies
@@ -227,7 +206,6 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $hobbies;
-
 	/**
 	 * Role : ROLE_PARTNER only
 	 * A partner can publish several activities
@@ -236,14 +214,12 @@ class User extends BaseUser {
 	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
 	 */
 	private $activities;
-
 	/**
 	 * Role : ROLE_USER only
 	 * @var ArrayCollection
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */
 	private $comments;
-
 	/**
 	 * Many Users have Many bookmarks.
 	 * 
@@ -256,22 +232,18 @@ class User extends BaseUser {
 	 *      )
 	 */
 	private $bookmarks;
-
 	public function __construct() {
 		# For FOSUserBundle 
 		parent::__construct();
-
 		$this->reservations = new ArrayCollection();
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();
 		$this->registerDate = new DateTime();
 		$this->bookmarks = new ArrayCollection();
 	}
-
 	public function __toString() {
 		return $this->getUsername() . ' (toString Method)';
 	}
-
 	/**
 	 * Get id
 	 *
@@ -280,7 +252,6 @@ class User extends BaseUser {
 	public function getId() {
 		return $this->id;
 	}
-
 	/**
 	 * Set gender
 	 *
@@ -290,10 +261,8 @@ class User extends BaseUser {
 	 */
 	public function setGender($gender) {
 		$this->gender = $gender;
-
 		return $this;
 	}
-
 	/**
 	 * Get gender
 	 *
@@ -302,7 +271,6 @@ class User extends BaseUser {
 	public function getGender() {
 		return $this->gender;
 	}
-
 	/**
 	 * Set firstname
 	 *
@@ -312,10 +280,8 @@ class User extends BaseUser {
 	 */
 	public function setFirstname($firstname) {
 		$this->firstname = $firstname;
-
 		return $this;
 	}
-
 	/**
 	 * Get firstname
 	 *
@@ -324,7 +290,6 @@ class User extends BaseUser {
 	public function getFirstname() {
 		return $this->firstname;
 	}
-
 	/**
 	 * Set lastname
 	 *
@@ -334,10 +299,8 @@ class User extends BaseUser {
 	 */
 	public function setLastname($lastname) {
 		$this->lastname = $lastname;
-
 		return $this;
 	}
-
 	/**
 	 * Get lastname
 	 *
@@ -346,7 +309,6 @@ class User extends BaseUser {
 	public function getLastname() {
 		return $this->lastname;
 	}
-
 	/**
 	 * Set username
 	 *
@@ -356,10 +318,8 @@ class User extends BaseUser {
 	 */
 	public function setUsername($username) {
 		$this->username = $username;
-
 		return $this;
 	}
-
 	/**
 	 * Get username
 	 *
@@ -368,7 +328,6 @@ class User extends BaseUser {
 	public function getUsername() {
 		return $this->username;
 	}
-
 	/**
 	 * Set email
 	 *
@@ -378,10 +337,8 @@ class User extends BaseUser {
 	 */
 	public function setEmail($email) {
 		$this->email = $email;
-
 		return $this;
 	}
-
 	/**
 	 * Get email
 	 *
@@ -390,7 +347,6 @@ class User extends BaseUser {
 	public function getEmail() {
 		return $this->email;
 	}
-
 	/**
 	 * Set password
 	 *
@@ -400,10 +356,8 @@ class User extends BaseUser {
 	 */
 	public function setPassword($password) {
 		$this->password = $password;
-
 		return $this;
 	}
-
 	/**
 	 * Get password
 	 *
@@ -412,7 +366,6 @@ class User extends BaseUser {
 	public function getPassword() {
 		return $this->password;
 	}
-
 	/**
 	 * Set birthdate
 	 *
@@ -422,10 +375,8 @@ class User extends BaseUser {
 	 */
 	public function setBirthdate($birthdate) {
 		$this->birthdate = $birthdate;
-
 		return $this;
 	}
-
 	/**
 	 * Get birthdate
 	 *
@@ -434,7 +385,6 @@ class User extends BaseUser {
 	public function getBirthdate() {
 		return $this->birthdate;
 	}
-
 	/**
 	 * Set address
 	 *
@@ -444,10 +394,8 @@ class User extends BaseUser {
 	 */
 	public function setAddress($address) {
 		$this->address = $address;
-
 		return $this;
 	}
-
 	/**
 	 * Get address
 	 *
@@ -456,7 +404,6 @@ class User extends BaseUser {
 	public function getAddress() {
 		return $this->address;
 	}
-
 	/**
 	 * Set zip
 	 *
@@ -466,10 +413,8 @@ class User extends BaseUser {
 	 */
 	public function setZip($zip) {
 		$this->zip = $zip;
-
 		return $this;
 	}
-
 	/**
 	 * Get zip
 	 *
@@ -478,7 +423,6 @@ class User extends BaseUser {
 	public function getZip() {
 		return $this->zip;
 	}
-
 	/**
 	 * Set role
 	 *
@@ -488,10 +432,8 @@ class User extends BaseUser {
 	 */
 	public function setRole($role) {
 		$this->role = $role;
-
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param ArrayCollection
@@ -501,7 +443,6 @@ class User extends BaseUser {
 		$this->comments = $comments;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @return string
@@ -509,7 +450,6 @@ class User extends BaseUser {
 	public function getCity() {
 		return $this->city;
 	}
-
 	/**
 	 * 
 	 * @param type $city
@@ -519,7 +459,6 @@ class User extends BaseUser {
 		$this->city = $city;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -527,7 +466,6 @@ class User extends BaseUser {
 	public function getCompany() {
 		return $this->company;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -535,7 +473,6 @@ class User extends BaseUser {
 	public function getCommercialRegistry() {
 		return $this->commercialRegistry;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -543,7 +480,6 @@ class User extends BaseUser {
 	public function getActivities() {
 		return $this->activities;
 	}
-
 	/**
 	 * 
 	 * @param type $company
@@ -553,7 +489,6 @@ class User extends BaseUser {
 		$this->company = $company;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param type $commercialRegistry
@@ -563,7 +498,6 @@ class User extends BaseUser {
 		$this->commercialRegistry = $commercialRegistry;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param ArrayCollection $activities
@@ -581,7 +515,6 @@ class User extends BaseUser {
 	public function getRegisterDate() {
 		return $this->registerDate;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -589,7 +522,6 @@ class User extends BaseUser {
 	public function getPhoto() {
 		return $this->photo;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -597,7 +529,6 @@ class User extends BaseUser {
 	public function getImageFile() {
 		return $this->imageFile;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -605,7 +536,6 @@ class User extends BaseUser {
 	public function getReservations() {
 		return $this->reservations;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -613,7 +543,6 @@ class User extends BaseUser {
 	public function getHobbies() {
 		return $this->hobbies;
 	}
-
 	/**
 	 * 
 	 * @return type
@@ -621,7 +550,6 @@ class User extends BaseUser {
 	public function getBookmarks() {
 		return $this->bookmarks;
 	}
-
 	/**
 	 * 
 	 * @param DateTime $registerDate
@@ -631,7 +559,6 @@ class User extends BaseUser {
 		$this->registerDate = $registerDate;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param type $photo
@@ -641,7 +568,6 @@ class User extends BaseUser {
 		$this->photo = $photo;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param File $imageFile
@@ -649,12 +575,10 @@ class User extends BaseUser {
 	 */
 	public function setImageFile(File $image = null) {
 		$this->imageFile = $image;
-
 		// VERY IMPORTANT:
 		// It is required that at least one field changes if you are using Doctrine,
 		// otherwise the event listeners won't be called and the file is lost
 	}
-
 	/**
 	 * 
 	 * @param \AppBundle\Entity\Reservation $reservations
@@ -664,7 +588,6 @@ class User extends BaseUser {
 		$this->reservations = $reservations;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param \AppBundle\Entity\Hobby $hobbies
@@ -674,7 +597,6 @@ class User extends BaseUser {
 		$this->hobbies = $hobbies;
 		return $this;
 	}
-
 	/**
 	 * 
 	 * @param ArrayCollection $bookmarks
