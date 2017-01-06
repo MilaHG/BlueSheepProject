@@ -43,18 +43,25 @@ class PreferenceController extends Controller
         );
     }
     
-       /**
+     /**
      * @Route("preference/add/{id}", defaults={"id": null})
      */
     public function addAction(Request $request, $id)
     {
+        //getting user's ID
+        $user = $this->getUser()->getId();
+        
         $em = $this->getDoctrine()->getManager();
         
-        if (is_null($id)) //create preference
+        $repository = $em->getRepository('AppBundle:Hobby');
+        //request to DB => "SELECT * FROM..."
+        $preferences = $repository->findByUser($user);
+        
+        if (is_null($id)) //create preference based on non previously selected category
         {
             $new = true;
             $preference = new Hobby();
-            $preference->setHobby($this->getUser());//adding a category for the connected user
+            $preference->setUser($this->getUser());//adding a category for the connected user
         }
     
         $form = $this->createForm(HobbyType::class, $preference);
@@ -79,6 +86,7 @@ class PreferenceController extends Controller
             (
                 'new'   =>  $new,
                 'form'  =>  $form->createView(),
+                'preferences'   => $preferences,
         ));
     }
 

@@ -21,16 +21,12 @@ class Hobby {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	private $id;
-        
-        public function getNotes() {
-            return array(1, 2, 3, 4, 5);
-        }
 
 	/**
 	 * @var int
 	 *
 	 * @ORM\Column(name="note", type="integer")
-	 * @Assert\Choice(callback = "getNotes")
+	 *
 	 */
 	private $note;
 
