@@ -4,9 +4,12 @@ namespace AppBundle\Controller\User;
 
 use AppBundle\Entity\Hobby;
 use AppBundle\Form\HobbyType;
+use PDOException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
 
 class PreferenceController extends Controller
 {
@@ -44,32 +47,42 @@ class PreferenceController extends Controller
     }
     
      /**
-     * @Route("preference/add/{id}", defaults={"id": null})
+     * @param Request $request
+     * @Route("preference/add")
      */
-    public function addAction(Request $request, $id)
+    public function addAction(Request $request)
     {
         //getting user's ID
         $user = $this->getUser()->getId();
         
         $em = $this->getDoctrine()->getManager();
         
-        $repository = $em->getRepository('AppBundle:Hobby');
-        //request to DB => "SELECT * FROM..."
-        $preferences = $repository->findByUser($user);
-        
-        if (is_null($id)) //create preference based on non previously selected category
-        {
-            $new = true;
-            $preference = new Hobby();
-            $preference->setUser($this->getUser());//adding a category for the connected user
+        if (is_null($user)) { //page 404 if user not in DB
+            throw $this->createNotFoundException();
         }
-    
+
+        $preference = new Hobby();
+
         $form = $this->createForm(HobbyType::class, $preference);
         $form->handleRequest($request);
         
         // if the form has been submitted
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
+                $preference
+                    ->setUser($this->getUser())
+                ;
+                
+                try {
+                    $em->persist($preference);
+                    $em->flush();
+                } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $exc) {
+//                    die ('Oops !'. $exc->getMessage());
+                    $this->addFlash('error', 'You already chose this category.');
+                
+                return $this->redirectToRoute('app_user_preference_list');
+                }
+
                 $em->persist($preference);
                 $em->flush();
                 
@@ -80,13 +93,13 @@ class PreferenceController extends Controller
                 $this->addFlash('error', 'The submitted data is not valid.');
             }
         }
+//        $response = new Response();
+//        return $response('test');
 
         return $this->render(
-            'AppBundle:User\Preference:edit.html.twig', array
+            'AppBundle:User\Preference:add.html.twig', array
             (
-                'new'   =>  $new,
-                'form'  =>  $form->createView(),
-                'preferences'   => $preferences,
+                
         ));
     }
 
@@ -128,6 +141,10 @@ class PreferenceController extends Controller
     }
 
 //        $em = $this->getDoctrine()->getManager();
+    
+//         $repository = $em->getRepository('AppBundle:Hobby');
+        //request to DB => "SELECT * FROM..."
+//        $preferences = $repository->findByUser($user);
         
 //        if (is_null($id)) //create preference
 //        {
