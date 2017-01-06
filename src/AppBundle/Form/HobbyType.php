@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,14 +17,29 @@ class HobbyType extends AbstractType
     {
         $builder
             ->add(
-                'note'
+                'note',
+                EntityType::class,
+                    [
+                        'label' => 'Note',
+                        'class' => 'AppBundle:Hobby',
+                        'choice_label'  => 'note',
+                        'placeholder'   => '1 to 5'
+                    ]
             )
+//            ->add(
+//                'user'
+//            )
             ->add(
-                'user'
+                'category',
+                EntityType::class,
+                    [
+                        'label' => 'Category',
+                        'class' => 'AppBundle:Category',
+                        'choice_label'  => 'name',
+                        'placeholder'   => 'Select a category'
+                    ]
             )
-            ->add(
-                'category'
-            )        ;
+        ;
     }
     
     /**

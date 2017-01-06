@@ -18,10 +18,41 @@
     
     {#{{ dump(preferences) }}#}
     
-    <div class="well well-sm">
-        <p><a href="{{ path('app_user_preference_add') }}">Add a hobby</a></p>
-    </div>
+    {#<div class="well well-sm">
+        {{ form_start(form, {'attr': {'class': 'form-inline'}}) }}
+        <strong><span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Add"></span> Add a hobby <span class="glyphicon glyphicon-star" aria-hidden="true" title="Add"></span></strong>
+        {{ form_row(form.category) }}
+        {{ form_row(form.note) }}
+        <span class="form-btn-group">
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-star" aria-hidden="true" title="Add"> Add new</span>
+        </button>
+        <a href="{{ path('app_user_preference_add') }}" class="btn btn-info">
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Cancel </span>
+        </a>
+        </span>
+        {{ form_end(form) }}
+    </div>#}
     
+        {# TEST #}
+    <div class="row">
+        <div class="col-sm-3 well well-lg">
+        {{ form_start(form) }}
+        <h3>Add a hobby</h3>
+        {{ form_row(form.category) }}
+        {{ form_row(form.note) }}
+        <span class="form-btn-group">
+            <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-star" aria-hidden="true" title="Add">  Add </span>
+        </button>
+        <a href="{{ path('app_user_preference_add') }}" class="btn btn-info">
+            <span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Cancel </span>
+        </a>
+        </span>
+        {{ form_end(form) }}
+        </div>
+    </div>
+        {# END TEST #}
+
+    {% if preferences %}
     <div class="row">
     {% for preference in preferences %}
         <div class="col-sm-4">
@@ -34,10 +65,10 @@
                     <p>{{ preference.note }}</p>
                     <p>
                         <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"></span>
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Edit </span>
                         </a>
                         <a href='{{ path('app_user_preference_delete', {"id":preference.id}) }}' class='btn btn-danger'>
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"></span>
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Delete </span>
                         </a>
                         <a></a>
                     </p>
@@ -46,5 +77,6 @@
         </div>
     {% endfor %}
     </div>
+    {% endif %}
 
 {% endblock %}

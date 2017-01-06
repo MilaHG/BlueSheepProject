@@ -14,7 +14,7 @@ class PreferenceController extends Controller
      * 
      * @Route("preference/list")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         //getting user's ID
         $user = $this->getUser()->getId();
@@ -31,16 +31,20 @@ class PreferenceController extends Controller
         //request to DB => "SELECT * FROM..."
         $preferences = $repository->findByUser($user);
         
+        $form = $this->createForm(HobbyType::class);
+        $form->handleRequest($request);
+        
         return $this->render(
             'AppBundle:User\Preference:list.html.twig', 
             [
                 'preferences'   => $preferences,
+                'form'  =>  $form->createView(),
             ]
         );
     }
     
        /**
-     * @Route("preference/add")
+     * @Route("preference/add/{id}", defaults={"id": null})
      */
     public function addAction(Request $request, $id)
     {
@@ -51,13 +55,6 @@ class PreferenceController extends Controller
             $new = true;
             $preference = new Hobby();
             $preference->setHobby($this->getUser());//adding a category for the connected user
-        } else { // edit preference
-            $new = false;
-            $preference = $em->find('AppBundle:Hobby', $id);
-            
-            if (is_null($preference)) { // if the requested id has no correspondance in DB : redirection on preferences' list
-                return $this->redirectToRoute('app_user_preference_list');
-            }
         }
     
         $form = $this->createForm(HobbyType::class, $preference);
@@ -69,12 +66,7 @@ class PreferenceController extends Controller
                 $em->persist($preference);
                 $em->flush();
                 
-                $msg = ($new)
-                    ? "Your hobby has been added to your profile."
-                    : "Changes made to your hobby have been saved."
-                ;
-                
-                $this->addFlash('success', $msg);
+                $this->addFlash('success', 'Your hobby has been added to your profile.');
                 
                 return $this->redirectToRoute('app_user_preference_list');
             } else {
