@@ -13,7 +13,16 @@ class HobbyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('note')->add('user')->add('category')        ;
+        $builder
+            ->add(
+                'note'
+            )
+            ->add(
+                'user'
+            )
+            ->add(
+                'category'
+            )        ;
     }
     
     /**

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Category;
 use AppBundle\Entity\Hobby;
 
 /**
@@ -15,7 +15,7 @@ use AppBundle\Entity\Hobby;
 class UserRepository extends EntityRepository
 {
     //listing current User's hobbies
-    public function findHobbiesByUser(User $user) {
+    public function findByUser(User $user) {
         $qb = $this->createQueryBuilder('h');
         
         $qb
