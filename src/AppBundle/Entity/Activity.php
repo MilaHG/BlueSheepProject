@@ -27,28 +27,28 @@ class Activity {
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_solo", type="boolean")
+	 * @ORM\Column(name="participant_solo", type="boolean", nullable=true)
 	 */
 	private $participantSolo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_duo", type="boolean")
+	 * @ORM\Column(name="participant_duo", type="boolean", nullable=true)
 	 */
 	private $participantDuo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_family", type="boolean")
+	 * @ORM\Column(name="participant_family", type="boolean", nullable=true)
 	 */
 	private $participantFamily;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_friend", type="boolean")
+	 * @ORM\Column(name="participant_friend", type="boolean", nullable=true)
 	 */
 	private $participantFriend;
 

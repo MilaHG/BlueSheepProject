@@ -32,15 +32,32 @@
                 </ul>
                 <h3> Disponibilité  </h3>
                 {%  for product in activity.products  %}
-                <ul>
-                    <li>
-                        <span>{{ product.price }} €</span> -  
-                        <span>{{ product.stock }}</span> -  
-                        <span> {{ product.date|date('Y-m-d') }}</span>  
-                        <span class="btn btn-success"> Reserver </span>  
-                    </li>
-                   
-                </ul>
+                <table class="table">
+                    <tr>
+                        <th>Prix </th>
+                        <th>Stock</th>
+                        <th>Date</th>
+                        <th>Qté</th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ product.stock }}</td>
+                        <td>{{ product.date|date('Y-m-d') }}</td>
+                    <form action="{{ path('app_cart_add') }}" method="post"> 
+                        <td>
+                            <input type="hidden" name="id_product" value="{{ product.id }}"/>
+                            <input type="hidden" name="id_activity" value="{{ activity.id }}"/>
+                            <input type="hidden" name="activity_title" value="{{ activity.title }}"/>
+                            <input type="hidden" name="activity_description" value="{{ activity.description }}"/>
+                            <input type="hidden" name="product_price" value="{{ product.price }}"/>
+                            <input type="Number" name="qty" min="1"  value="1" size="5" class="form-control" />
+                        </td>
+                        <td><input type="submit" value="Reserver" class="btn btn-success"></td>
+                     </form>
+                    </tr>
+ 
+                </table>        
                 {% endfor %}
             </div>
 

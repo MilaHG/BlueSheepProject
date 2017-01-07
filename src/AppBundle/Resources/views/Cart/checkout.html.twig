@@ -1,0 +1,125 @@
+{% extends "::product.html.twig" %}
+
+{% block title %}Chekout{% endblock %}
+
+{% block content %}
+<h3>Recapitulatif de commande : </h3>
+
+{{ dump(app.user) }}
+{{ dump(cart) }}
+{% set total = 0 %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Price</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center"></th>
+                         
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart  %}
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="{{ path('app_product_detail', {"id": item.id_product}) }}">{{ item.activity_title }}</a></h4>
+                                <h5 class="media-heading"> {{ item.activity_description }} </h5>
+                                 
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                            {{ item.qty }}
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_price }}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_price * item.qty }}</strong></td>
+                        
+                        {% set total = total + (item.product_price * item.qty) %}
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h5>Total HT</h5></td>
+                        <td class="text-right"><h5><strong>{{ total }} € </strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h5>TVA (20%)</h5></td>
+                        <td class="text-right"><h5><strong>{{  total * 0.2 }} €</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h4>Total TTC</h4></td>
+                        <td class="text-right"><h4><strong>{{ total + (total * 0.2) }} €</strong></h4></td>
+                    </tr>
+                                
+                <tfoot>
+
+                    <tr>
+                        <td></td>
+                        <td colspan="" class="hidden-xs"> </td>
+                        <td class="hidden-xs text-center"><strong></strong></td>
+                        <td><a href="{{ path('app_cart_booking') }}" class="btn btn-success btn-block">Valider mes reservations <i class="fa fa-angle-right"></i></a></td>
+                    </tr>
+                </tfoot>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+                    
+<h3> Informations de facturation </h3>
+<hr/>
+<div class="container">
+    <div class="">
+        <table class="table">
+            <tbody>
+            <tr>
+                <td class="text-right">Nom :</td>
+                <td>{{ app.user.firstname }}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Prenom :</td>
+                <td>{{ app.user.lastname }}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Email :</td>
+                <td>{{ app.user.email }}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Adresse :</td>
+                <td>{{ app.user.address }}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Code postal :</td>
+                <td>{{ app.user.zip }}</td>
+            </tr>
+            <tr>
+                <td class="text-right">Ville :</td>
+                <td>{{ app.user.city }}</td>
+            </tr>
+            <tr>
+                 
+                <td colspan="2" class="text-center"><a href="{{ path('fos_user_profile_edit') }}"><button class="btn btn-warning" >Modifier</button></a></td>
+            </tr>
+            </tbody>
+        </table>
+    
+    </div>
+</div>
+ 
+{% endblock %}

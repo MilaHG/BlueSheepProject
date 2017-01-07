@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ProductController extends Controller
 {
     /**
-     * @Route("products/{id}")
+     * @Route("activities/{id}")
      */
     public function listAction($id)
     {
@@ -43,7 +43,7 @@ class ProductController extends Controller
     }
 
     /**
-     * @Route("product/{id}")
+     * @Route("product_detail/{id}")
      */
     public function detailAction($id)
     {
