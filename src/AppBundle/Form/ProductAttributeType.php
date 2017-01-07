@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductAttributeType extends AbstractType {
 
@@ -39,6 +40,15 @@ class ProductAttributeType extends AbstractType {
 				  'required'	=>false,
 				]
 			)
+//			->add(
+//				'product',
+//				EntityType::class,
+//				[
+//				  'class'=>'AppBundle:Product',
+//				  'display'=>false,
+//				  //'choice_label'=>'name', //champ de l'entité qui s'affiche dans les options
+//				]
+//			)
 		;
 	}
 

@@ -21,6 +21,7 @@
 		Tri
 	</div>
 	
+	{{ dump(request) }}
 	<a href="{{ path('app_partner_product_edit', { "id_a" : activity.id} ) }}" class="btn btn-success col-lg-offset-10">
 		New Product <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
 	</a>
@@ -32,7 +33,7 @@
 			<span class="glyphicon glyphicon-scale col-md-offset-1"> Stock : {{ product.stock }}</span>
 			<span class=" glyphicon glyphicon-shopping-cart col-md-offset-1"> Boooked : {{ product.detailsReservations|length }}</span>
 			<hr>
-			{{ dump(product.id) }}
+			{{ dump(product) }}
 			<p>Extras :</p>
 			<ul>
 				{% for prodAttribute in product.productAttributes %}

@@ -9,7 +9,7 @@ class ActivityRepository extends EntityRepository{
 	//return a list of objects with the category information related 
 	public function findAllByPartner($id){
 		
-		$qb = $this->createQueryBuilder('d');
+		$qb = $this->createQueryBuilder('a');
 		$qb
 			->where('IDENTITY(a.partner) = ' . $id)
 	//		->leftJoin('a.category', 'cat')

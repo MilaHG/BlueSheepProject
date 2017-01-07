@@ -37,23 +37,37 @@ class ProductController extends Controller{
 		
 		//************vérifier que l'activité existe et que le bon partenaire regarde son activité
 		
+		$dump_request=0;
 		foreach ($products as $product){
+			
+			//initiating this virtual property wich include the attributes extra fees
+			$product->setTotalPrice();
+			
 			$attribut=new ProductAttribute;
 			$attribut->setProduct($product);
 			$form_att_u = $this->createForm(ProductAttributeType::class, $attribut);
 			$formsViews[$product->getId()]=$form_att_u->createView();	
 				
 			$form_att_u->handleRequest($request);
-
+			
+			$productSelected=$form_att_u->getViewData()->getProduct();
+			
+			$dump_request=$form_att_u;
+			$attribut->setProduct($productSelected);
 			if($form_att_u->isSubmitted()){
 				if($form_att_u->isValid()){
 
-					//$attribut->setProduct($product);
+					//On récupère la donnée du produit qu'on a fixé sur le formulaire ci dessus avec la méthode setProduct
+					
+					
+					$attribut->setProduct($productSelected);
+//					$dump_request=$productSelected;
 					$em->persist($attribut);
 					$em->flush();
 
 					$this->addFlash('success', 'Attribute added');
 					return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $product->getId())) );
+					//break;
 				}
 				else{
 					$this->addFlash('error', 'The attribute couldn\'t be registered');
@@ -67,6 +81,7 @@ class ProductController extends Controller{
 			'products'	=>$products,
 			'activity'	=>$activity,
 			'forms'	=>$formsViews,
+			'request'	=>$dump_request,
 		));
 	}
 
