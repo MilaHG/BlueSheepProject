@@ -4,12 +4,16 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Hobby
  *
  * @ORM\Table(name="hobby")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\HobbyRepository")
+ * @UniqueEntity(
+ *      fields={"user", "category"}
+ * )
  */
 class Hobby {
 
@@ -43,7 +47,7 @@ class Hobby {
 	 * @var Category
 	 * 
 	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="hobbies")
-	 * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
+	 * @ORM\JoinColumn(name="id_category", referencedColumnName="id", unique=true)
 	 * 
 	 */
 	private $category;
