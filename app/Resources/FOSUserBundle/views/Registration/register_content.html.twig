@@ -3,62 +3,72 @@
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
 
    <div class="form-group">
-    <label for="exampleInputEmail1">Vous êtes ? : </label>
+    <label for="type">Vous êtes ? : </label>
     {{ form_widget(form.role) }}
   </div>
 
   <div class="form-group">
-    <label for="exampleInputEmail1">Civilité : </label>
+    <label for="gender">Civilité : </label>
     {{ form_widget(form.gender) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Email : </label>
+    <label for="email">Email : </label>
     {{ form_widget(form.email) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Nom de connexion : </label>
+    <label for="username">Nom de connexion : </label>
     {{ form_widget(form.username) }}
   </div>
  
   <div class="form-group">
-    <label for="exampleInputEmail1"></label>
+    <label for="password"></label>
    {{ form_widget(form.plainPassword) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Nom : </label>
+    <label for="firstname">Nom : </label>
    {{ form_widget(form.firstname) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Prenom : </label>
+    <label for="lastname">Prenom : </label>
    {{ form_widget(form.lastname) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Date de naissance : </label>
+    <label for="birthdate">Date de naissance : </label>
     {{ form_widget(form.birthdate) }}
+  </div>
+
+  <div class="form-group">
+    <label for="company">Société : </label>
+    {{ form_widget(form.company) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Adresse : </label>
+    <label for="commercialRegistry">Siret : </label>
+    {{ form_widget(form.commercialRegistry) }}
+  </div>
+  
+  <div class="form-group">
+    <label for="address">Adresse : </label>
     {{ form_widget(form.address) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Ville : </label>
+    <label for="city">Ville : </label>
     {{ form_widget(form.city) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1">Code postal : </label>
+    <label for="zip">Code postal : </label>
     {{ form_widget(form.zip) }}
   </div>
   
   <div class="form-group">
-    <label for="exampleInputEmail1"> Avatar : </label>
+    <label for="avatar"> Avatar : </label>
     {{ form_widget(form.photo) }}
   </div>
  

@@ -6,6 +6,7 @@
 <h1>Votre panier</h1>
 
 {% set total = 0 %}
+{% set extraFee = 0 %}
 
 
 
@@ -32,16 +33,29 @@
 					<p>
                                             {{ item.activity_description }}
                                         </p>
+                                        <hr/>
+                                        {% if item.product_option %}
+                                        {% set option = item.product_option|split('-') %}
+                                        {%  set item_product_price_extra = item.product_price + option[3] %}
+                                        
+                                        <p> Option : </p>
+                                        <p> {{ item.product_option }} </p>
+                                        {% endif %}
+                                        <p></p>
 				</div>
 			</div>
                     </td>
-                    <td data-th="Price">{{ item.product_price }}</td>
+                    <td data-th="Price">{{ item.product_option ? item_product_price_extra : item.product_price  }}</td>
                     <td data-th="Quantity">
                         <input type="number" class="form-control text-center" value="{{ item.qty }}">
                     </td>
-                    <td data-th="Subtotal" class="text-center">{{ item.product_price * item.qty }}</td>
+                    <td data-th="Subtotal" class="text-center">{{ item.product_option ? item_product_price_extra * item.qty :   item.product_price * item.qty }}</td>
                     
-                    {% set total = total + (item.product_price * item.qty) %}
+                    {% if item.product_option  %}
+                        {% set total = total + (item_product_price_extra  * item.qty) %}
+                    {% else %}
+                        {% set total = total + (item.product_price  * item.qty) %}    
+                    {% endif %}    
                     
                     <td class="actions" data-th="">
                         <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>

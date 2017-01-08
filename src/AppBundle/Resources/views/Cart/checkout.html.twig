@@ -4,9 +4,7 @@
 
 {% block content %}
 <h3>Recapitulatif de commande : </h3>
-
-{{ dump(app.user) }}
-{{ dump(cart) }}
+ 
 {% set total = 0 %}
 
 <div class="container">
@@ -32,16 +30,28 @@
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="{{ path('app_product_detail', {"id": item.id_product}) }}">{{ item.activity_title }}</a></h4>
                                 <h5 class="media-heading"> {{ item.activity_description }} </h5>
+                                <hr/>
+                                {% if item.product_option %}
+                                {% set option = item.product_option|split('-') %}
+                                {%  set item_product_price_extra = item.product_price + option[3] %}
+                                        
+                                <p> Option : </p>
+                                <p> {{ option[1] }} : {{ option[1] }} + {{ option[3] }} </p>
+                                {% endif %}
                                  
                             </div>
                         </div></td>
                         <td class="col-sm-1 col-md-1" style="text-align: center">
                             {{ item.qty }}
                         </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_price }}</strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_price * item.qty }}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_option ? item_product_price_extra : item.product_price  }}</strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>{{ item.product_option ? item_product_price_extra * item.qty :   item.product_price * item.qty }}</strong></td>
                         
-                        {% set total = total + (item.product_price * item.qty) %}
+                    {% if item.product_option  %}
+                        {% set total = total + (item_product_price_extra  * item.qty) %}
+                    {% else %}
+                        {% set total = total + (item.product_price  * item.qty) %}    
+                    {% endif %} 
                     </tr>
                     {% endfor %}
                     <tr>

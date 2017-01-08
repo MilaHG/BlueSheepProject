@@ -3,6 +3,7 @@
 {% block title %}AppBundle:Product:detail{% endblock %}
 
 {% block content %}
+    {{ dump(activity) }}
 <!-- Portfolio Item Heading -->
         <div class="row">
             <div class="col-lg-12">
@@ -30,16 +31,40 @@
                     <li> {{ activity.city }}</li>
                    
                 </ul>
-                <h3> Disponibilité  </h3>
-                {%  for product in activity.products  %}
+                <h3></h3>    
+                
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+            <!-- Tab -->
+            <div id="exTab3" class="">	
+                <ul  class="nav nav-pills">
+                    <li class="active">
+                        <a  href="#1b" data-toggle="tab"> Disponibilité  </a>
+                    </li>
+                    <li>
+                        <a href="#2b" data-toggle="tab">Avis et notes</a>
+                    </li>
+ 
+		</ul>
+
+		<div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1b">
                 <table class="table">
                     <tr>
                         <th>Prix </th>
                         <th>Stock</th>
                         <th>Date</th>
                         <th>Qté</th>
+                        <th>Options</th>
                         <th></th>
-                    </tr>
+                    </tr>   
+                {%  for product in activity.products  %}    
+                    {%  for option in product.productAttributes  %}
+
                     <tr>
                         <td>{{ product.price }} €</td>
                         <td>{{ product.stock }}</td>
@@ -53,16 +78,70 @@
                             <input type="hidden" name="product_price" value="{{ product.price }}"/>
                             <input type="Number" name="qty" min="1"  value="1" size="5" class="form-control" />
                         </td>
+                        <td>
+                            <select name="product_option" class="form-control">
+                                <option value=""></option>
+                                <option value="{{ option.id }} - {{ option.name }} - {{ option.value }} - {{ option.extraFee }} € ">{{ option.name }} - {{ option.value }} - + {{ option.extraFee }} € </option>
+                            </select>
+                        </td>
                         <td><input type="submit" value="Reserver" class="btn btn-success"></td>
                      </form>
                     </tr>
- 
-                </table>        
+    
+                    {% endfor %}
                 {% endfor %}
-            </div>
+                </table>  
+                    </div>
+                    
+                    <div class="tab-pane" id="2b">
+                    <!-- avis recents  -->
+                            <div class="col-sm-8">
+                                <div class="panel panel-white post panel-shadow">
+                                    {% for comment in activity.comments %}
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <a href="#"><b>{{  comment.user  }}</b></a>
+                                                a ecrit.
+                                            </div>
+                                                <h6 class="text-muted time">{{ comment.date|date('d-m-Y') }}</h6>
+                                        </div>
+                                    </div> 
+                                    <div class="post-description"> 
+                                        <p>{{ comment.comment }}</p>
+                                        <p>Note : 
+                                        {% for i in 1..comment.note %}
+                                          <i class="fa fa-star" aria-hidden="true" style="color: #ffcc00"></i>
+                                        {% endfor %}
+                                        </p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                    <!-- Fin avis recents  -->
+                    <div class="col-sm-8">
+                        {% if app.user %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        {% else %}
+                            <p>Veuillez vous connecter pour poster un commentaire ! </p>
+                        {% endif %}
+                    </div>    
+                    </div>
+                </div>
+                
+                
+        <!-- End Tab  -->
+                
+                  
 
+            </div>
         </div>
-        <!-- /.row -->
+        </div>
 
         <!-- Related Projects Row -->
         <div class="row">

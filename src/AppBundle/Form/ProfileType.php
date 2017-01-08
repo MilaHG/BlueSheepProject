@@ -72,9 +72,26 @@ class ProfileType extends AbstractType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
-            ->add('email', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+            ->add('username', 
+                    null, 
+                    array(
+                        'label' => 'form.username', 
+                        'translation_domain' => 'FOSUserBundle',
+                        'required' => FALSE ))
+            ->add('email', 
+                    LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\EmailType'), 
+                    array(
+                        'label' => 'form.email', 
+                        'translation_domain' => 'FOSUserBundle',
+                        'required' => FALSE ))
             
+            ->add('current_password', LegacyFormHelper::getType('Symfony\Component\Form\Extension\Core\Type\PasswordType'), array(
+            'label' => 'Mot de passe actuelle',
+            'translation_domain' => 'FOSUserBundle',
+            'required' => FALSE    
+ 
+            
+        ))
                 
             ->add('gender', 
                     \Symfony\Component\Form\Extension\Core\Type\TextType::class,
@@ -117,7 +134,22 @@ class ProfileType extends AbstractType
             ->add('photo',
             \Symfony\Component\Form\Extension\Core\Type\FileType::class,
                     array(
-                        'label' => 'photo'
+                        'label' => 'photo',
+                        'required' => FALSE
+                    ))
+                
+            ->add('company',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+                    array(
+                        'label' => 'Société',
+                        'required' => FALSE
+                    ))
+                
+            ->add('commercialRegistry',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+                    array(
+                        'label' => 'Siret',
+                        'required' => FALSE
                     ))
                 
         

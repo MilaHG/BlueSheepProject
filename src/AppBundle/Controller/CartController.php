@@ -39,6 +39,7 @@ class CartController extends Controller
             $activity_title = $request->get('activity_title');
             $activity_description = $request->get('activity_description');
             $product_price = $request->get('product_price');
+            $product_option = $request->get('product_option');
  
                     
          $session = $request->getSession();
@@ -64,6 +65,7 @@ class CartController extends Controller
             'activity_title'        => $activity_title,
             'activity_description'  => $activity_description,
             'product_price'         => $product_price,
+            'product_option'         => $product_option
                 
             ];
  
@@ -80,6 +82,7 @@ class CartController extends Controller
             'activity_title'        => $activity_title,
             'activity_description'  => $activity_description,
             'product_price'         => $product_price,
+            'product_option'         => $product_option
                 
             ));
               $set = $session->set('set','cart non defini, je cree');
@@ -109,13 +112,13 @@ class CartController extends Controller
 
         
         
-
-        return $this->render('AppBundle:Cart:add.html.twig', array(
-            
-            'cart' => $cart,
-            'set' => $set
-            // ...
-        ));
+//
+//        return $this->render('AppBundle:Cart:add.html.twig', array(
+//            
+//            'cart' => $cart,
+//            'set' => $set
+//            // ...
+//        ));
     }
 
     /**
@@ -191,11 +194,20 @@ class CartController extends Controller
             $em = $this->getDoctrine()->getManager();
             $id_product = $item['id_product'];
             $quantity = $item['qty'];
+            
+            // Product option contain product attributes id, name, value, extrafee separate by '-'
+            
+            $product_option = $item['product_option'];
+            $product_option_array = explode('-', $product_option);
+            
+            $product_attribute = $em->find('AppBundle:ProductAttribute', $product_option_array[0]);
+            
             $product = $em->find('AppBundle:Product', $id_product);
             $booking = $em->find('AppBundle:Reservation', $booking_id);
             $bookingDetail->setProduct($product);
             $bookingDetail->setReservation($booking);
             $bookingDetail->setQuantity($quantity);
+            $bookingDetail->setProduct_attribute($product_attribute);
             $em->persist($bookingDetail);
             
             $em->flush();

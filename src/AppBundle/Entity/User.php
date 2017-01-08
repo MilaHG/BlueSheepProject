@@ -167,7 +167,7 @@ class User extends BaseUser {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="role", type="string", length=10)
+	 * @ORM\Column(name="role", type="string", length=45)
 	 */
 	private $role = "ROLE_USER";
 	/**
@@ -179,7 +179,7 @@ class User extends BaseUser {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="photo", type="string", length=255)
+	 * @ORM\Column(name="photo", type="string", length=255, nullable=true)
 	 */
 	private $photo;
 	/**
@@ -621,5 +621,7 @@ class User extends BaseUser {
 	public function getComments() {
 		return $this->comments;
 	}
+        
+        
 	
 }
