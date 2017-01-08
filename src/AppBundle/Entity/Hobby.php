@@ -5,14 +5,16 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * Hobby
  *
- * @ORM\Table(name="hobby")
+ * @ORM\Table(name="hobby", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="search_idx", columns={"id_user", "id_category"})})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\HobbyRepository")
  * @UniqueEntity(
- *      fields={"user", "category"}
+ *      fields={"user", "category"}, message="Vous avez déjà sélectionné cette catégorie."
  * )
  */
 class Hobby {
@@ -47,7 +49,7 @@ class Hobby {
 	 * @var Category
 	 * 
 	 * @ORM\ManyToOne(targetEntity="Category", inversedBy="hobbies")
-	 * @ORM\JoinColumn(name="id_category", referencedColumnName="id", unique=true)
+	 * @ORM\JoinColumn(name="id_category", referencedColumnName="id")
 	 * 
 	 */
 	private $category;
