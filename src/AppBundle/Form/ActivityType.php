@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use AppBundle\Form\PhotoType;
 
 class ActivityType extends AbstractType {
 
@@ -92,6 +94,15 @@ class ActivityType extends AbstractType {
 				TextType::class,
 				[
 				  'label'=>'City',
+				]
+			)
+			->add(
+				'photos',
+				CollectionType::class,
+				[
+					'entry_type' => PhotoType::class,
+					'allow_add' => true,
+					'allow_delete' => true
 				]
 			)
 		;

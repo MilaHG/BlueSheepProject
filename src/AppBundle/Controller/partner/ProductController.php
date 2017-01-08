@@ -19,6 +19,7 @@ use AppBundle\Form\ProductType;
 class ProductController extends Controller{
 	
 	/**
+	 * 
 	 * @param $id "id of the activity concerned" 
 	 * @Route("/list/{id}")
 	 */
@@ -37,6 +38,7 @@ class ProductController extends Controller{
 		
 		//************vérifier que l'activité existe et que le bon partenaire regarde son activité
 		
+		$formsViews=[];
 		$dump_request=0;
 		foreach ($products as $product){
 			
@@ -45,6 +47,8 @@ class ProductController extends Controller{
 			
 			$attribut=new ProductAttribute;
 			$attribut->setProduct($product);
+			
+			//create one product-attribute form for each product, all stocked in an array :
 			$form_att_u = $this->createForm(ProductAttributeType::class, $attribut);
 			$formsViews[$product->getId()]=$form_att_u->createView();	
 				
@@ -66,15 +70,20 @@ class ProductController extends Controller{
 					$em->flush();
 
 					$this->addFlash('success', 'Attribute added');
-					return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $product->getId())) );
-					//break;
+					return $this->redirect( 
+						$this->generateUrl(
+							'app_partner_product_list',
+							[
+							  'id' => $activity->getId(),
+							]
+						) 
+					);
 				}
 				else{
 					$this->addFlash('error', 'The attribute couldn\'t be registered');
 				}
 			}
 		}
-		
 		
 		//return all the data of the activities and the category related
 		return $this->render('Partner/Product/list.html.twig', array(
@@ -89,7 +98,7 @@ class ProductController extends Controller{
 	 * @param $id "id of the product concerned" 
 	 * @Route("/delete/{id}")
 	 */
-	public function deleteAction(){
+	public function deleteAction($id){
 		
 		$em = $this->getDoctrine()->getManager();
 		
@@ -99,13 +108,13 @@ class ProductController extends Controller{
 			return $this->redirectToRoute('app_partner_product_list');
 		}
 		
-		$product=$product->getActivity();
+		$activity=$product->getActivity();
 		
 		$em->remove($product);
 		$em->flush();
 		
 		$this->addFlash('success', 'Your product was successfully deleted');
-		return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $product->getId())) );
+		return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $activity->getId())) );
 	}
 
 	/**
@@ -146,7 +155,7 @@ class ProductController extends Controller{
 		
 		if($form->isSubmitted()){
 			if($form->isValid()){
-				
+				$product->setActivity($activity);
 				$em->persist($product);
 				$em->flush();
 								

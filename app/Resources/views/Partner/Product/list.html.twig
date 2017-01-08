@@ -16,12 +16,8 @@
 	
 	<h1>Products of the activity "{{ activity.title }}"</h1>
 	
-	<div class="well">
-		Filtre
-		Tri
-	</div>
-	
 	{{ dump(request) }}
+	
 	<a href="{{ path('app_partner_product_edit', { "id_a" : activity.id} ) }}" class="btn btn-success col-lg-offset-10">
 		New Product <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
 	</a>
@@ -72,5 +68,7 @@
 			</a>
 					
 		</div>
+	{% else %}
+		<p class="bg-info">No product available yet. Start it now !</p>
 	{% endfor %}
 {% endblock %}

@@ -38,14 +38,18 @@ class DetailReservationController extends Controller {
 	
 	
 	/**
-	 * 
-	 * @Route("/view/{id}")
+	 * @param $id id of the reservation Detail
+	 * @Route("/view/{id}", name="app_partner_reservations_view")
 	 */
 	public function contactAction($id){
 		$em=$this->getDoctrine()->getManager();
 		$d_reservation = $em->find('AppBundle:DetailReservation',$id);
-		$reservation = $em->getRepository('AppBundle:Reservation')->findReservation($d_reservation);
-		//$reservation = $d_reservation->getReservation();
+		
+		if (is_null($d_reservation)){
+			throw $this->createNotFoundException();
+		}
+		//$reservation = $em->getRepository('AppBundle:DetailReservation')->findByReservationDetails($d_reservation);
+		$reservation = $d_reservation->getReservation();
 //		$user=$reservation->getUser();
 		
 		

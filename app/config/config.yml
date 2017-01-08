@@ -10,9 +10,9 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    path.category_img: /img/cat
-    path.user_img: /img/user
-    path.activity_img: /img/activity
+    path.category_img: %kernel.root_dir%/../web/img/cat
+    path.user_img: %kernel.root_dir%/../web/img/user
+    path.activity_img: %kernel.root_dir%/../web/img/activity
 
 framework:
     #esi:             ~
@@ -44,7 +44,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    form_themes: ['bootstrap_3_layout.html.twig']
+    form_themes: 
+        - 'bootstrap_3_layout.html.twig'
+        - 'VichUploaderBundle:Form:fields.html.twig'
 
 # Doctrine Configuration
 doctrine:
@@ -81,7 +83,7 @@ vich_uploader:
     db_driver: orm
     mappings:
         cat_images:
-            uri_prefix: /img/cat
+            uri_prefix: %path.category_img%
             namer: vich_uploader.namer_origname
             upload_destination: %kernel.root_dir%/../web/img/cat
         user_images:

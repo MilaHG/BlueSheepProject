@@ -218,6 +218,7 @@ class User extends BaseUser {
 	private $activities;
 	/**
 	 * Role : ROLE_USER only
+	 * 
 	 * @var ArrayCollection
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */

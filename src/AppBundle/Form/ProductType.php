@@ -37,7 +37,7 @@ class ProductType extends AbstractType {
 				  'label'=>'Date',
 				]
 			)
-			->add(
+			/*->add(
 				'activity',
 				EntityType::class,
 				[
@@ -45,7 +45,7 @@ class ProductType extends AbstractType {
 				  'class'=>'AppBundle:Activity', //nom de l'entité
 				  'choice_label'=>'title', //champ de l'entité qui s'affiche dans les options
 				]
-			)
+			)*/
 		;
 	}
 

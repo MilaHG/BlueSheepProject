@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Activity;
 use AppBundle\Form\ActivityType;
+use AppBundle\Entity\Comment;
 
 
 /**
@@ -51,14 +52,16 @@ class ActivityController extends Controller {
 		
 		$photos = $em->getRepository('AppBundle:Photo')->findByActivity($id);
 		$comments = $em->getRepository('AppBundle:Comment')->findByActivity($id);
+
 //		$nbTotalProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id);
 //		$nbCurrentProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id,TRUE);
-		
+		$averageNote=$activity->getAverageNote();
 		return $this->render('Partner\Activity\view.html.twig', 
 			[
 			  'activity'			=>$activity,
 			  'photos'			=>$photos,
 			  'comments'		=>$comments,
+			  'average_note'		=>$averageNote,
 //			  'nbTotalProduct'		=>$nbTotalProduct,
 //			  'nbCurrentProduct'	=>$nbCurrentProduct,
 			]
@@ -91,21 +94,28 @@ class ActivityController extends Controller {
 		$form= $this->createForm(ActivityType::class, $activity);
 		
 		$form->handleRequest($request);
-		
+
 		if($form->isSubmitted()){
+			
 			if($form->isValid()){
 				
+				foreach ($activity->getPhotos() as $photo) {
+					//if (!is_null($photo->getName())){
+						$photo->setActivity($activity);
+					//}
+				}
+
 				$em->persist($activity);
 				$em->flush();
 				
 				if($new){
-					$message="Article enregistré";
+					$message="Activity saved";
 				}
 				else{
-					$message="Modification réussie";
+					$message="Activity's modifications saved";
 				}
 				
-				$this->addFlash('success','Your activity has been registred');
+				$this->addFlash('success',$message);
 				
 			//**********************vérifier cette route de redirection ci dessous vers edition de produit
 				return $this->redirectToRoute('app_partner_activity_list');
@@ -120,7 +130,7 @@ class ActivityController extends Controller {
 			[
 			  'form'	=> $form->createView(),
 			  'activity'	=>$activity,
-			  'new'=>$new,
+			  'new'	=>$new,
 			]
 		);
 	}
@@ -138,7 +148,12 @@ class ActivityController extends Controller {
 			$this->addFlash('error', 'This activity doesn\'t exist');
 			return $this->redirectToRoute('app_partner_activity_list');
 		}
-		
+		$photos=$activity->getPhotos();
+		if(!is_null($photos)){
+			foreach ($photos as $photo) {
+				$em->remove($photo);
+			}
+		}
 		$em->remove($activity);
 		$em->flush();
 		

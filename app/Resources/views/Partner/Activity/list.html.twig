@@ -51,7 +51,7 @@
 			{{ activity.city }}<br>
 			<span class="glyphicon glyphicon-envelope"></span> {{ activity.partner.email }}</p>
 
-			<a href="" class="btn btn-primary">
+			<a href="{{ path('app_partner_activity_view', {"id":activity.id}) }}" class="btn btn-primary">
 				See details <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 			</a>
 			

@@ -150,7 +150,7 @@ class Activity {
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity")
+	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity", cascade={"persist"})
 	 */
 	private $photos;
 
@@ -500,5 +500,17 @@ class Activity {
 		return $this;
 	}
 
-
+	public function getAverageNote() {
+		$averageNote=0;
+		$c=0;
+		foreach ($this->getComments() as $comment) {
+			$averageNote+=$comment->getNote();
+			$c++;
+		}
+		if ($c==0){
+			return false;
+		}
+		$averageNote/=count($this->getComments());
+		return $averageNote;
+	}
 }
