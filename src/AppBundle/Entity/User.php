@@ -614,6 +614,7 @@ class User extends BaseUser {
 	public function getRole() {
 		return $this->role;
 	}
+
 	/**
 	 * 
 	 * @return type
