@@ -1,0 +1,67 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Blue Sheep{% endblock %}
+
+{% block content %}
+
+{% block page_title %} <h1>Hobbies</h1>  {% endblock %}
+
+{# bloc displaying messages flash with bootstrap style #}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %} {#on re-boucle pour chacun des messages à l'intérieur des types de messages#}
+            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}
+            <div class='alert alert-{{ label }}'>
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
+    {#{{ dump(preferences) }}#}
+    
+    <div class="row">
+        <div class="col-sm-3 well well-lg">
+        {{ form_start(form, {'action': path('app_user_preference_add'), 'method': 'POST'}) }}
+        <h3>Ajouter un hobby</h3>
+        {{ form_row(form.category) }}
+        {{ form_row(form.note) }}
+        <span class="form-btn-group">
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-star" aria-hidden="true" title="Add">  Ajouter </span>
+            </button>
+            <button class="btn btn-info">
+                <input type="reset" value="reset" hidden="true" /><span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Annuler </span>
+            </button>    
+        
+        </span>
+        {{ form_end(form) }}
+        </div>
+    </div>
+
+    {% if preferences %}
+        <div class="col-sm-9"></div>
+        <div class="row">
+        {% for preference in preferences %}
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ preference.category.name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ preference.category.photo }}</p>
+                        <p>{{ preference.note }}</p>
+                        <p>
+                            <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Modifier </span>
+                            </a>
+                            <a href='{{ path('app_user_preference_delete', {"id":preference.id}) }}' class='btn btn-danger'>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Supprimer </span>
+                            </a>
+                            <a></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

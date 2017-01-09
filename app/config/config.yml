@@ -3,7 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     # Bundle Easy admin, added by Florent
-    - { resource: admin/ } # Bundle Easy admin, added by Florent
+    - { resource: admin/ }
     
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -97,7 +97,8 @@ vich_uploader:
 
 # FOSUserBundle
 fos_user:
-    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    db_driver: orm 
+    #other valid values are 'mongodb' and 'couchdb'
     firewall_name: main
     user_class: AppBundle\Entity\User
 

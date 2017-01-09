@@ -132,10 +132,10 @@ class Activity {
 	private $category;
 
 	/**
-	 * @var Partner
+	 * @var User
 	 *
 	 * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
-	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
 	private $partner;
@@ -424,9 +424,9 @@ class Activity {
 	}
 
 	/**
-	 * Set partner
+	 * Set user
 	 *
-	 * @param integer $partner
+	 * @param integer $user
 	 *
 	 * @return Activity
 	 */
@@ -437,12 +437,12 @@ class Activity {
 	}
 
 	/**
-	 * Get partner
+	 * Get user
 	 *
 	 * @return int
 	 */
-	public function getPartner() {
-		return $this->partner;
+	public function getUser() {
+		return $this->user;
 	}
 
 	/**
