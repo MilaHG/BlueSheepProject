@@ -24,6 +24,14 @@
             <div class="row">
                 <div class="col-md-6 col-lg-offset-3">
                     <div class="fos_user_cnx" style="margin-top: 90px">
+			{% for label, flashes in app.session.flashbag.all %}
+				{% for flash in  flashes %}
+					{% if label == 'error' %} {% set label = 'danger' %} {% endif %}
+						<div class="alert alert-{{ label }}">
+							{{ flash }}
+						</div>
+				{% endfor %}
+			{% endfor %}			
                     {% block content %}
                         {% block page_title %} {% endblock %}
                         {% block fos_user_content %}{% endblock %}

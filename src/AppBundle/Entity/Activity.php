@@ -27,28 +27,28 @@ class Activity {
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_solo", type="boolean")
+	 * @ORM\Column(name="participant_solo", type="boolean", nullable=true)
 	 */
 	private $participantSolo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_duo", type="boolean")
+	 * @ORM\Column(name="participant_duo", type="boolean", nullable=true)
 	 */
 	private $participantDuo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_family", type="boolean")
+	 * @ORM\Column(name="participant_family", type="boolean", nullable=true)
 	 */
 	private $participantFamily;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_friend", type="boolean")
+	 * @ORM\Column(name="participant_friend", type="boolean", nullable=true)
 	 */
 	private $participantFriend;
 
@@ -138,7 +138,7 @@ class Activity {
 	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
-	private $user;
+	private $partner;
 
 	/**
 	 *
@@ -150,7 +150,7 @@ class Activity {
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity")
+	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity", cascade={"persist"})
 	 */
 	private $photos;
 
@@ -430,7 +430,7 @@ class Activity {
 	 *
 	 * @return Activity
 	 */
-	public function setPartner(Partner $partner) {
+	public function setPartner(User $partner) {
 		$this->partner = $partner;
 
 		return $this;
@@ -500,5 +500,17 @@ class Activity {
 		return $this;
 	}
 
-
+	public function getAverageNote() {
+		$averageNote=0;
+		$c=0;
+		foreach ($this->getComments() as $comment) {
+			$averageNote+=$comment->getNote();
+			$c++;
+		}
+		if ($c==0){
+			return false;
+		}
+		$averageNote/=count($this->getComments());
+		return $averageNote;
+	}
 }

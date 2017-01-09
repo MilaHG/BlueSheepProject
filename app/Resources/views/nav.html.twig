@@ -21,10 +21,12 @@
 
                           <li {% if app.request.get('_route') == 'fos_user_security_login' %} class="active" {% endif %} ><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
                           <li {% if app.request.get('_route') == 'fos_user_registration_register' %} class="active" {% endif %} ><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+                          <li {% if app.request.get('_route') == 'app_cart_cart' %} class="active" {% endif %} ><a href="{{ path('app_cart_cart') }}">Panier</a>
+                          </li>
                                               
                     <!-- if user is connected, show profile link  -->
                     {% if is_granted('ROLE_USER') %} 
-                        <li {% if app.request.get('_route') == 'fos_user_profile_show' %} class="active" {% endif %}><a href="{{ path('fos_user_profile_show') }}"> Profil </a>
+                        <li {% if app.request.get('_route') == 'app_default_useraccount' %} class="active" {% endif %}><a href="{{ path('app_default_useraccount') }}"> Mon espace </a>
                         </li>
                         <li><a href="{{ path('fos_user_security_logout') }}"> Déconnexion </a></li>
                     {% endif %}

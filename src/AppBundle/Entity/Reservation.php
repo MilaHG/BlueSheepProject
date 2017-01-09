@@ -35,7 +35,7 @@ class Reservation {
 	/**
 	 * Many reservation belong One one 
 	 * 
-	 * @ORM\ManyToOne(targetEntity="User", inversedBy="reservations")
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="reservations", cascade={"persist"})
 	 * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
 	 */
 	private $user;
@@ -55,7 +55,7 @@ class Reservation {
 	}
 	
 	public function __toString() {
-		return $this->getId(). ' - ' . $this->getUser()->getPseudo(). ' (toString Method)';
+		return $this->getId(). ' - ' . $this->getUser()->getUsername();
 	}
 
 	/**

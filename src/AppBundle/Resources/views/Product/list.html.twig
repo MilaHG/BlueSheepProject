@@ -1,7 +1,51 @@
-{% extends "::base.html.twig" %}
+{% extends "::product.html.twig" %}
 
 {% block title %}AppBundle:Product:list{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Product:list page</h1>
+{% block content %}
+<h1>Liste des activites</h1>
+ <div class="container">
+    <div class="well well-sm">
+        <strong>Display</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+{% for activity in activities  %}
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        {{ activity.title }}
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        {{ activity.description }}
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       {{ activity.address }}
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        {{ activity.zip }}
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        {{ activity.city }}
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="{{ path('app_product_detail', {"id": activity.id })  }}">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+{% endfor %}
+</div>
+</div>
 {% endblock %}

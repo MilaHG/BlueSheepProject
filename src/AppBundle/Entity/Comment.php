@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
+use AppBundle\Entity\User;
 /**
  * Comment
  *
@@ -156,7 +157,7 @@ class Comment {
 	 * @return $this
 	 */
 	public function setUser(User $user) {
-		$this->id_user = $user;
+		$this->user = $user;
 		return $this;
 	}
 
@@ -166,7 +167,7 @@ class Comment {
 	 * @return $this
 	 */
 	public function setActivity(Activity $activity) {
-		$this->id_activity = $activity;
+		$this->activity = $activity;
 		return $this;
 	}
 

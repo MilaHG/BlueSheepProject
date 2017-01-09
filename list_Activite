@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>AppBundle:Product:list</title>
+                    <!-- Latest compiled and minified CSS -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+            <!-- Optional theme -->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+            
+            <!-- Custom css : caroussel  -->
+            <link rel="stylesheet" href="/css/carousel.css"/>
+            <link rel="stylesheet" href="/css/style.css"/>
+                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    </head>
+    <body>
+        <nav>
+                        
+            <div class="navbar-wrapper">
+              <div class="container">
+
+                <nav class="navbar navbar-inverse navbar-static-top">
+                  <div class="container">
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                        <a class="navbar-brand" href="/"> Bleu Sheep  </a>
+                    </div>
+                    <div id="navbar" class="navbar-collapse collapse">
+                      <ul class="nav navbar-nav">
+                          <li ><a href="/">Home</a></li>
+                          <li ><a href="/category">Categories</a></li>
+
+                          <li  ><a href="/login">Connexion</a></li>
+                          <li  ><a href="/register/">Inscription</a></li>
+                          <li  ><a href="/cart">Panier</a>
+                          </li>
+                                              
+                    <!-- if user is connected, show profile link  -->
+                                              
+                      </ul>
+                      
+
+                      
+                    </div>
+                  </div>
+                </nav>
+
+              </div>
+            </div>
+             
+        </nav>
+        <div class="container">
+             
+                    <div class="product" style="margin-top: 90px">
+                    <h1>Liste des activites</h1>
+ <div class="container">
+    <div class="well well-sm">
+        <strong>Display</strong>
+        <div class="btn-group">
+            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                class="glyphicon glyphicon-th"></span>Grid</a>
+        </div>
+    </div>
+    <div id="products" class="row list-group">
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        nulla. Cras eu
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum dolor sit amet, consectetuer
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       Ap #146-5162 A Road
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        28957
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Levallois-Perret
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/6">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        luctus aliquet odio.
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum dolor
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       5049 Malesuada St.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        PH00 
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Zedelgem
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/11">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        enim, sit amet
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum dolor
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       196-8163 Purus, Rd.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        4880
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Kaneohe
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/21">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        orci quis lectus.
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       911-8869 Phasellus Rd.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        16181
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Villers-la-Bonne-Eau
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/23">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        non magna. Nam
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       129-270 Nulla St.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        99541
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Francavilla Fontana
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/28">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        Fusce mollis. Duis
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       3140 Pellentesque. Ave
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        38-94
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Kisi
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/32">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        nonummy ipsum non
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       P.O. Box 496, 3754 Odio Rd.
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        46375
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Villarrica
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/54">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+    
+        <div class="item  col-xs-4 col-lg-4">
+            <div class="thumbnail">
+                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                <div class="caption">
+                    <h4 class="group inner list-group-item-heading">
+                        sollicitudin orci sem
+                    </h4>
+                    <p class="group inner list-group-item-text">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur
+                    </p>
+                    <p class="group inner list-group-item-text">
+                       8717 Mauris, Avenue
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        99338
+                    </p>
+                    <p class="group inner list-group-item-text">
+                        Montague
+                    </p>
+                    <div class="row">
+
+                        <div class="col-xs-12 col-md-6">
+                            <a class="btn btn-success" href="/product_detail/73">Voire les options</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         
+</div>
+</div>
+  
+ 
+            </div>
+        </div>
+                    <!-- Latest compiled and minified JavaScript -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+                
+            </script>
+            <script src="/js/script.js"></script>
+</body>
+</html>
