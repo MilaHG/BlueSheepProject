@@ -14,8 +14,8 @@ body {
 }
 
 .nav-bar-brand {
-    max-width: 25%;
-    max-height: 25%;
+    max-width: 35%;
+    max-height: 35%;
 }
 
 .form-control {
@@ -26,6 +26,9 @@ body {
     background-color: #D3225B;
 }
 
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a {
+    background-color: #D3225B;
+}
 /* 
     Created on : 5 janv. 2017, 17:21:02
     Author     : abdouldiarra
