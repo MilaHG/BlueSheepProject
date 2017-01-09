@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/AppBundle/Controller/Partner/ProductController.php</url>
+            <bookmark id="2">
+                <name/>
+                <line>124</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/ProductController.php</file>
@@ -20,7 +29,12 @@
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Product.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/User/index.html.twig</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/Product/detail.html.twig</file>
+<<<<<<< HEAD
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/FOSUserBundle/views/Profile/show_content.html.twig</file>
+=======
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/Partner/DetailReservation/list.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
+>>>>>>> cba2cefb53812806a0c7f1a9f8bdc64b09fc391f
         </group>
     </open-files>
 </project-private>

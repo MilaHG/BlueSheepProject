@@ -11,3 +11,8 @@ easy_admin_bundle:
 # FOSUserBundle 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    
+partner:
+    resource: "@AppBundle/Controller/Partner"
+    type:     annotation
+    prefix: /partner

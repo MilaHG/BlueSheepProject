@@ -106,11 +106,13 @@ class User extends BaseUser {
 	 * )
 	 */
 	private $commercialRegistry;
-/*
-# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
-#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
-#field. So you simply need to remove the $username and $email fields from your class.
- */
+
+	/*
+	# Your My\MyBundle\Entity\User extends FOS\UserBundle\Entity\User, which in turn extends 
+	#FOS\UserBundle\Model\User, which already has a $username field. It also has an $email 
+	#field. So you simply need to remove the $username and $email fields from your class.
+	 */
+	
 	/**
 	 * @var string
 	 *
@@ -206,16 +208,19 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $hobbies;
+        
 	/**
 	 * Role : ROLE_PARTNER only
-	 * A partner can publish several activities
+	 * A role_partner can publish several activities
 	 * 
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
 	 */
 	private $activities;
+        
 	/**
 	 * Role : ROLE_USER only
+	 * 
 	 * @var ArrayCollection
 	 * @ORM\OneToMany(targetEntity="Comment", mappedBy="user")
 	 */
@@ -239,6 +244,7 @@ class User extends BaseUser {
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();
 		$this->registerDate = new DateTime();
+		$this->activities = new ArrayCollection();
 		$this->bookmarks = new ArrayCollection();
 	}
 	public function __toString() {

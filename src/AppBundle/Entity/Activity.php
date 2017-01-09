@@ -132,13 +132,13 @@ class Activity {
 	private $category;
 
 	/**
-	 * @var Partner
+	 * @var User
 	 *
 	 * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
-	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
-	private $user;
+	private $partner;
 
 	/**
 	 *
@@ -150,7 +150,7 @@ class Activity {
 	/**
 	 *
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity")
+	 * @ORM\OneToMany(targetEntity="Photo", mappedBy="activity", cascade={"persist"})
 	 */
 	private $photos;
 
@@ -424,25 +424,25 @@ class Activity {
 	}
 
 	/**
-	 * Set partner
+	 * Set user
 	 *
-	 * @param integer $partner
+	 * @param integer $user
 	 *
 	 * @return Activity
 	 */
-	public function setPartner(Partner $partner) {
+	public function setPartner(User $partner) {
 		$this->partner = $partner;
 
 		return $this;
 	}
 
 	/**
-	 * Get partner
+	 * Get user
 	 *
 	 * @return int
 	 */
-	public function getPartner() {
-		return $this->partner;
+	public function getUser() {
+		return $this->user;
 	}
 
 	/**
@@ -500,5 +500,17 @@ class Activity {
 		return $this;
 	}
 
-
+	public function getAverageNote() {
+		$averageNote=0;
+		$c=0;
+		foreach ($this->getComments() as $comment) {
+			$averageNote+=$comment->getNote();
+			$c++;
+		}
+		if ($c==0){
+			return false;
+		}
+		$averageNote/=count($this->getComments());
+		return $averageNote;
+	}
 }

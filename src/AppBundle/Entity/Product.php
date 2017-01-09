@@ -75,9 +75,21 @@ class Product {
 	 * @ORM\OneToMany(targetEntity="DetailReservation", mappedBy="product")
 	 */
 	private $detailsReservations;
+	
+	/**
+	 *
+	 * @var float
+	 */
+	private $totalPrice;
 
 	public function __toString() {
 		return $this->getActivity()->getTitle() . ' - ' . $this->getDate()->format('d/m/Y H:i:s') . ' (toString Method)';
+	}
+	
+	public function __construct() {
+		$this->productAttributes = new ArrayCollection();
+		$this->detailsReservations = new ArrayCollection();
+		$this->date= new DateTime;
 	}
 	
 	/**
@@ -197,9 +209,24 @@ class Product {
 		return $this;
 	}
 
-	function __construct() {
-		$this->productAttributes = new ArrayCollection();
-		$this->detailsReservations = new ArrayCollection();
-		$this->date= new DateTime;
+	
+	/**
+	 * 
+	 * @return float $price
+	 */
+	public function getTotalPrice() {
+		return $this->totalPrice;
+	}
+	
+	/**
+	 * 
+	 * @return $this
+	 */
+	public function setTotalPrice() {
+		$this->totalPrice = $this->getPrice();
+		foreach ($this->getProductAttributes() as $attribute) {
+			$this->totalPrice+=$attribute->getExtraFee();
+		}
+		return $this;
 	}
 }

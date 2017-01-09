@@ -42,7 +42,7 @@ class Photo {
 	/**
 	 *
 	 * @var Activity
-	 * @ORM\ManyToOne(targetEntity="Activity", inversedBy="photos")
+	 * @ORM\ManyToOne(targetEntity="Activity", inversedBy="photos", cascade={"persist"})
 	 * @ORM\JoinColumn (name="activity_id", referencedColumnName="id", nullable=false)
 	 */
 	private $activity;
@@ -98,7 +98,6 @@ class Photo {
 	 */
 	public function setImageFile(File $image = null) {
 		$this->imageFile = $image;
-
 	}
 
 	/**

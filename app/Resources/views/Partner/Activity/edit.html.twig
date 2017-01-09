@@ -1,0 +1,95 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ new ? 'Add activity' : 'Edit activity' }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ new ? 'Add activity' : 'Edit activity' }}</h1>
+	{{ form_start(form) }}
+	{{ form_row(form.title) }}
+	{{ form_row(form.description) }}
+	{{ form_row(form.category) }}
+	{{ form_row(form.address) }}
+	{{ form_row(form.zip) }}
+	{{ form_row(form.city) }}
+	{{ form_rest(form) }}
+	<a href="#" id="add_photo" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></a>
+	<div class ="form-btn-group pull-right">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+	<div class="clearfix"></div>
+	{{ form_end(form) }}
+	
+{% endblock %}
+		
+		
+{% block javascripts %}
+	
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	{{ parent() }}
+	<script type="text/javascript">
+	
+		$(document).ready(function() {
+			var $container = $('div#appbundle_activity_photos');
+			var index = $container.find(':input').length;
+			
+			$('#add_photo').on('click', function(e) {
+				addPhoto($container);
+				e.preventDefault();
+				return false;
+			});
+
+			// On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+			if (index == 0) {
+				addPhoto($container);
+			} 
+			else {
+			  // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+				$container.children('div').each(function() {
+					addDeleteLink($(this));
+				});
+			}
+
+			// La fonction qui ajoute un formulaire CategoryType
+			function addPhoto($container) {
+			  // Dans le contenu de l'attribut « data-prototype », on remplace :
+			  // - le texte "__name__label__" qu'il contient par le label du champ
+			  // - le texte "__name__" qu'il contient par le numéro du champ
+				var template = $container.attr('data-prototype')
+					.replace(/__name__label__/g, '')
+					.replace(/__name__/g, index)
+				;
+
+			  // On crée un objet jquery qui contient ce template
+				var $prototype = $(template);
+
+			  // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+				addDeleteLink($prototype);
+
+			  // On ajoute le prototype modifié à la fin de la balise <div>
+				$container.append($prototype);
+
+			  // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+				index++;
+			}
+
+			// La fonction qui ajoute un lien de suppression d'une catégorie
+			function addDeleteLink($prototype) {
+			  // Création du lien
+				var $deleteLink = $('<a href="#" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></a>');
+
+			  // Ajout du lien
+				$prototype.append($deleteLink);
+
+			  // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+				$deleteLink.on('click', function(e) {
+					$prototype.remove();
+					e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+					return false;
+				});
+			}
+		});
+	</script>
+{% endblock %}
