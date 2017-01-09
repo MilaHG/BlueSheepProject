@@ -78,7 +78,7 @@ class PreferenceController extends Controller
                     $em->flush();
                 } catch (\Doctrine\DBAL\Exception\UniqueConstraintViolationException $exc) {
 //                    die ('Oops !'. $exc->getMessage());
-                    $this->addFlash('error', 'You already chose this category.');
+                    $this->addFlash('error', 'Vous avez déjà choisi cette categorie.');
                 
                 return $this->redirectToRoute('app_user_preference_list');
                 }
@@ -86,11 +86,11 @@ class PreferenceController extends Controller
                 $em->persist($preference);
                 $em->flush();
                 
-                $this->addFlash('success', 'Your hobby has been added to your profile.');
+                $this->addFlash('success', 'Votre hobby a été ajouté à votre profil.');
                 
                 return $this->redirectToRoute('app_user_preference_list');
             } else {
-                $this->addFlash('error', 'The submitted data is not valid.');
+                $this->addFlash('error', 'Les données soumises ne sont pas valides.');
             }
         }
 //        $response = new Response();
@@ -119,7 +119,7 @@ class PreferenceController extends Controller
         $em->remove($preference);
         $em->flush();
         
-        $this->addFlash('success', 'The selected hobby has been successfully deleted.');
+        $this->addFlash('success', 'Votre sélection a bien été supprimée.');
         
         return $this->redirectToRoute('app_user_preference_list');
 //return $this->render('AppBundle:User\Preference:delete.html.twig', array(

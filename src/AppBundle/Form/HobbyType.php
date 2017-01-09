@@ -31,7 +31,7 @@ class HobbyType extends AbstractType
                         'label' => 'Note',
 //                        'class' => 'AppBundle:Hobby',
 //                        'choice_label'  => 'note',
-                        'placeholder'   => 'Select'
+                        'placeholder'   => 'Sélectionner'
                     ]
             )
 //            ->add(
@@ -41,10 +41,10 @@ class HobbyType extends AbstractType
                 'category',
                 EntityType::class,
                     [
-                        'label' => 'Category',
+                        'label' => 'Catégorie',
                         'class' => 'AppBundle:Category',
                         'choice_label'  => 'name',
-                        'placeholder'   => 'Select a category'
+                        'placeholder'   => 'Sélectionner'
                     ]
             )
         ;

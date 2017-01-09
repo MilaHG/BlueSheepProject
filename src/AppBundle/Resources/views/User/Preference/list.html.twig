@@ -20,15 +20,15 @@
     <div class="row">
         <div class="col-sm-3 well well-lg">
         {{ form_start(form, {'action': path('app_user_preference_add'), 'method': 'POST'}) }}
-        <h3>Add a hobby</h3>
+        <h3>Ajouter un hobby</h3>
         {{ form_row(form.category) }}
         {{ form_row(form.note) }}
         <span class="form-btn-group">
             <button type="submit" class="btn btn-primary">
-                <span class="glyphicon glyphicon-star" aria-hidden="true" title="Add">  Add </span>
+                <span class="glyphicon glyphicon-star" aria-hidden="true" title="Add">  Ajouter </span>
             </button>
             <button class="btn btn-info">
-                <input type="reset" value="reset" hidden="true" /><span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Cancel </span>
+                <input type="reset" value="reset" hidden="true" /><span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Annuler </span>
             </button>    
         
         </span>
@@ -50,10 +50,10 @@
                         <p>{{ preference.note }}</p>
                         <p>
                             <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Edit </span>
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Modifier </span>
                             </a>
                             <a href='{{ path('app_user_preference_delete', {"id":preference.id}) }}' class='btn btn-danger'>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Delete </span>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Supprimer </span>
                             </a>
                             <a></a>
                         </p>
