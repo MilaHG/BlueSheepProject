@@ -7,6 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\DetailReservation;
 use AppBundle\Entity\Reservation;
 use AppBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * DetailReservationController
@@ -17,7 +21,7 @@ class DetailReservationController extends Controller {
 
 	/**
 	 * 
-	 * @Route("/list")
+	 * @Route("/list", name="app_partner_reservations_list")
 	 */
 	public function listAction() {
 		//get the id of the current user
@@ -39,45 +43,33 @@ class DetailReservationController extends Controller {
 	
 	/**
 	 * @param $id id of the reservation Detail
+	 * @param Request $request
 	 * @Route("/view/{id}", name="app_partner_reservations_view")
 	 */
-	public function contactAction($id){
+	public function contactAction(Request $request, $id){
 		$em=$this->getDoctrine()->getManager();
 		$d_reservation = $em->find('AppBundle:DetailReservation',$id);
 		
 		if (is_null($d_reservation)){
 			throw $this->createNotFoundException();
 		}
-		//$reservation = $em->getRepository('AppBundle:DetailReservation')->findByReservationDetails($d_reservation);
-		$reservation = $d_reservation->getReservation();
-//		$user=$reservation->getUser();
 		
+//		$reservation = $em->getRepository('AppBundle:DetailReservation')->findByReservation($d_reservation);
+		$reservation = $d_reservation->getReservation();
+		$user=$reservation->getUser();
+		
+		
+		//the partner can only access his data, or he is rederected to his list
+		if ($this->getUser()!==$d_reservation->getProduct()->getActivity()->getPartner()){
+			$this->addFlash('error','Error : You don\'t have the right over this activity');
+			return $this->redirectToRoute('app_partner_reservations_list');
+		}
 		//**preparation du mail de contact :
 		
 		$formBuilder = $this->createFormBuilder();
 		//ici on ne fait pas de form type car on n'a pas de lien avec la base de données, donc pas de mapping
 		
 		$formBuilder
-			->add(
-				'name',
-				TextType::class,
-				[
-				  'label'=>'Nom',
-				  'constraints' => new NotBlank
-				]
-			)
-			->add(
-				'email',
-				EmailType::class,
-				[
-				  'label'=>'Nom',
-				  'constraints' =>
-				  [
-					new NotBlank(),
-					new Email(),
-				  ]
-				]
-			)
 			->add(
 				'subject',
 				TextType::class,
@@ -98,11 +90,10 @@ class DetailReservationController extends Controller {
 		
 		$form = $formBuilder->getForm();
 		
-		if($this->getUser()){
-			$form->get('name')->setData($this->getUser()->getFullName());
-			$form->get('email')->setData($this->getUser()->getEmail());
-		}
-		
+//		if($this->getUser()){
+//			$form->get('email')->setData($this->getUser()->getEmail());
+//		}
+				
 		$form->handleRequest($request);
 		if ($form->isSubmitted()){
 			if($form->isValid()){
@@ -116,16 +107,15 @@ class DetailReservationController extends Controller {
 				
 				$mail = $mailer->createMessage();
 				
-				$mailContent = "<h3>Blue-Sheep : message de ${data['name']} (${data['email']})" . '<p><b>' . $data['subject'] 
-					. '</b></p>' . '<p>' . nl2br($data['body']) . '</p>'
+				$mailContent = "<h3>Blue-Sheep : message of the company " .$this->getUser()->getCompany(). '</h3>' . '<p>' . nl2br($data['body']) . '</p>'
 				;
 				
 				$mail
-					->setSubject('Blue-sheep : Message from our partner about your reservation ')
+					->setSubject('Blue-sheep : New message from our partner about your reservation '. $reservation->getId())
 					->setFrom($this->getParameter('contact_email'))
-					->setTo($this->getParameter('contact_email'))
+					->setTo($user->getEmail())
 					->setBody($mailContent)
-					->setReplyTo($data['email'])
+					->setReplyTo($this->getUser()->getEmail())
 				;
 				
 				$mailer->send($mail);
@@ -142,7 +132,7 @@ class DetailReservationController extends Controller {
 			  'd_reservation'	=>$d_reservation,
 			  'reservation'	=>$reservation,
 //			  'user'		=>$user,
-//			  'form' => $form->createView(),
+			  'form' => $form->createView(),
 			]
 		);
 	}	
