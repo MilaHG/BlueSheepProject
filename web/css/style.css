@@ -9,25 +9,60 @@ and open the template in the editor.
 
 */
 
-body {
-    font-size: 20px !important;
-}
-
-.nav-bar-brand {
-    max-width: 35%;
-    max-height: 35%;
-}
-
 .form-control {
     color: black;
 }
 
-.btn-default {
-    background-color: #D3225B;
+
+.navbar-nav{
+	background-color: white;
+	border: 0px;
 }
 
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.open>a {
-    background-color: #D3225B;
+
+#blue-sheep-logo-nav{
+	height: 180px;
+	width: 180px;
+	margin-left: 600px;
+
+}
+
+.navbar-static-top{
+	background-color: white;
+}
+
+.navbar-collapse{
+	background-color: white;
+	margin-left: 40px;
+}
+
+.container{
+	background-color: white;
+	font-family: url("https://fonts.googleapis.com/css?family=PT+Sans+Caption");
+}
+
+
+
+.navbar-inverse{
+	border: 0px;
+	float: left;
+	margin-top: 120px;
+}
+
+
+
+.btn-default {
+  color: white;
+  background-color: #D3225B;
+  border-color: #ccc;
+}
+
+.btn-primary{
+	background-color: #D3225B;
+}
+
+.navbar-inverse .navbar-nav>.active>a{
+	background-color : #D3225B;
 }
 /* 
     Created on : 5 janv. 2017, 17:21:02
