@@ -27,28 +27,28 @@ class Activity {
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_solo", type="boolean")
+	 * @ORM\Column(name="participant_solo", type="boolean", nullable=true)
 	 */
 	private $participantSolo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_duo", type="boolean")
+	 * @ORM\Column(name="participant_duo", type="boolean", nullable=true)
 	 */
 	private $participantDuo;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_family", type="boolean")
+	 * @ORM\Column(name="participant_family", type="boolean", nullable=true)
 	 */
 	private $participantFamily;
 
 	/**
 	 * @var bool
 	 *
-	 * @ORM\Column(name="participant_friend", type="boolean")
+	 * @ORM\Column(name="participant_friend", type="boolean", nullable=true)
 	 */
 	private $participantFriend;
 
@@ -132,10 +132,10 @@ class Activity {
 	private $category;
 
 	/**
-	 * @var Partner
+	 * @var User
 	 *
 	 * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
-	 * @ORM\JoinColumn(name="partner_id", referencedColumnName="id", nullable=false)	
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)	
 	 * 
 	 */
 	private $partner;
@@ -424,9 +424,9 @@ class Activity {
 	}
 
 	/**
-	 * Set partner
+	 * Set user
 	 *
-	 * @param integer $partner
+	 * @param integer $user
 	 *
 	 * @return Activity
 	 */
@@ -437,12 +437,12 @@ class Activity {
 	}
 
 	/**
-	 * Get partner
+	 * Get user
 	 *
 	 * @return int
 	 */
-	public function getPartner() {
-		return $this->partner;
+	public function getUser() {
+		return $this->user;
 	}
 
 	/**

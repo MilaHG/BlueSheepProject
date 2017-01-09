@@ -1,7 +1,170 @@
-{% extends "::base.html.twig" %}
+{% extends "::product.html.twig" %}
 
 {% block title %}AppBundle:Product:detail{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Product:detail page</h1>
+{% block content %}
+    {{ dump(activity) }}
+<!-- Portfolio Item Heading -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{ activity.title }}
+                    <small>Item Subheading</small>
+                </h1>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+
+            <div class="col-md-8">
+                <img class="img-responsive" src="http://placehold.it/750x500" alt="">
+            </div>
+
+            <div class="col-md-4">
+                <h3> Description</h3>
+                <p>{{ activity.description }}</p>
+                <h3> Details activité </h3>
+                <ul>
+                    <li>{{ activity.address }}</li>
+                    <li>{{ activity.zip }}</li>
+                    <li> {{ activity.city }}</li>
+                   
+                </ul>
+                <h3></h3>    
+                
+            </div>
+
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+            <!-- Tab -->
+            <div id="exTab3" class="">	
+                <ul  class="nav nav-pills">
+                    <li class="active">
+                        <a  href="#1b" data-toggle="tab"> Disponibilité  </a>
+                    </li>
+                    <li>
+                        <a href="#2b" data-toggle="tab">Avis et notes</a>
+                    </li>
+ 
+		</ul>
+
+		<div class="tab-content clearfix">
+                    <div class="tab-pane active" id="1b">
+                <table class="table">
+                    <tr>
+                        <th>Prix </th>
+                        <th>Stock</th>
+                        <th>Date</th>
+                        <th>Qté</th>
+                        <th>Options</th>
+                        <th></th>
+                    </tr>   
+                {%  for product in activity.products  %}    
+                    {%  for option in product.productAttributes  %}
+
+                    <tr>
+                        <td>{{ product.price }} €</td>
+                        <td>{{ product.stock }}</td>
+                        <td>{{ product.date|date('Y-m-d') }}</td>
+                    <form action="{{ path('app_cart_add') }}" method="post"> 
+                        <td>
+                            <input type="hidden" name="id_product" value="{{ product.id }}"/>
+                            <input type="hidden" name="id_activity" value="{{ activity.id }}"/>
+                            <input type="hidden" name="activity_title" value="{{ activity.title }}"/>
+                            <input type="hidden" name="activity_description" value="{{ activity.description }}"/>
+                            <input type="hidden" name="product_price" value="{{ product.price }}"/>
+                            <input type="Number" name="qty" min="1"  value="1" size="5" class="form-control" />
+                        </td>
+                        <td>
+                            <select name="product_option" class="form-control">
+                                <option value=""></option>
+                                <option value="{{ option.id }} - {{ option.name }} - {{ option.value }} - {{ option.extraFee }} € ">{{ option.name }} - {{ option.value }} - + {{ option.extraFee }} € </option>
+                            </select>
+                        </td>
+                        <td><input type="submit" value="Reserver" class="btn btn-success"></td>
+                     </form>
+                    </tr>
+    
+                    {% endfor %}
+                {% endfor %}
+                </table>  
+                    </div>
+                    
+                    <div class="tab-pane" id="2b">
+                    <!-- avis recents  -->
+                            <div class="col-sm-8">
+                                <div class="panel panel-white post panel-shadow">
+                                    {% for comment in activity.comments %}
+                                    <div class="post-heading">
+                                        <div class="pull-left image">
+                                            <img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+                                        </div>
+                                        <div class="pull-left meta">
+                                            <div class="title h5">
+                                                <a href="#"><b>{{  comment.user  }}</b></a>
+                                                a ecrit.
+                                            </div>
+                                                <h6 class="text-muted time">{{ comment.date|date('d-m-Y') }}</h6>
+                                        </div>
+                                    </div> 
+                                    <div class="post-description"> 
+                                        <p>{{ comment.comment }}</p>
+                                        <p>Note : 
+                                        {% for i in 1..comment.note %}
+                                          <i class="fa fa-star" aria-hidden="true" style="color: #ffcc00"></i>
+                                        {% endfor %}
+                                        </p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                    <!-- Fin avis recents  -->
+                    <div class="col-sm-8">
+                        {% if app.user %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            {{ form_end(form) }}
+                        {% else %}
+                            <p>Veuillez vous connecter pour poster un commentaire ! </p>
+                        {% endif %}
+                    </div>    
+                    </div>
+                </div>
+                
+                
+        <!-- End Tab  -->
+                
+                  
+
+            </div>
+        </div>
+        </div>
+
+        <!-- Related Projects Row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h3 class="page-header">Activités similaire</h3>
+            </div>
+            
+            {% for activity in activities %}
+                
+            <div class="col-sm-3 col-xs-6">
+                <a href="{{ path('app_product_detail', {"id": activity.id })  }}">
+                    <h4 class="page-header">{{ activity.title }}</h4>
+                </a>
+                <a href="#">
+                    <img class="img-responsive portfolio-item" src="http://placehold.it/500x300" alt="">
+                </a>
+            </div>
+
+            {% endfor %}
+
+ 
+
+        </div>
+        <!-- /.row -->
 {% endblock %}

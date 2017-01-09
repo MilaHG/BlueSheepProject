@@ -169,7 +169,7 @@ class User extends BaseUser {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="role", type="string", length=10)
+	 * @ORM\Column(name="role", type="string", length=45)
 	 */
 	private $role = "ROLE_USER";
 	/**
@@ -181,7 +181,7 @@ class User extends BaseUser {
 	/**
 	 * @var string
 	 *
-	 * @ORM\Column(name="photo", type="string", length=255)
+	 * @ORM\Column(name="photo", type="string", length=255, nullable=true)
 	 */
 	private $photo;
 	/**
@@ -208,14 +208,16 @@ class User extends BaseUser {
 	 * 
 	 */
 	private $hobbies;
+        
 	/**
 	 * Role : ROLE_PARTNER only
-	 * A partner can publish several activities
+	 * A role_partner can publish several activities
 	 * 
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
 	 */
 	private $activities;
+        
 	/**
 	 * Role : ROLE_USER only
 	 * 
@@ -626,6 +628,7 @@ class User extends BaseUser {
 	public function getComments() {
 		return $this->comments;
 	}
-
+        
+        
 	
 }

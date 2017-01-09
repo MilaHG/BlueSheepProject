@@ -5,11 +5,16 @@
         "This file is @generated automatically"
     ],
 <<<<<<< HEAD
+    "hash": "95ed6880628dff9dfd82ec89e5c6efad",
+    "content-hash": "fc076d8296066b5ea924482b3d6bcca4",
+=======
+<<<<<<< HEAD
     "content-hash": "0ffb54a6e6f46f0940d9228bc23355e7",
 =======
     "hash": "acd3530384046fafbdeff40f1f1a718a",
     "content-hash": "fc076d8296066b5ea924482b3d6bcca4",
 >>>>>>> branch-dia42r
+>>>>>>> master
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -2366,10 +2371,14 @@
                 "templating"
             ],
 <<<<<<< HEAD
+            "time": "2016-12-23 11:06:22"
+=======
+<<<<<<< HEAD
             "time": "2016-12-23T11:06:22+00:00"
 =======
             "time": "2016-12-23 11:06:22"
 >>>>>>> branch-dia42r
+>>>>>>> master
         },
         {
             "name": "vich/uploader-bundle",
@@ -2560,10 +2569,14 @@
                 "zf2"
             ],
 <<<<<<< HEAD
+            "time": "2016-02-18 20:53:00"
+=======
+<<<<<<< HEAD
             "time": "2016-02-18T20:53:00+00:00"
 =======
             "time": "2016-02-18 20:53:00"
 >>>>>>> branch-dia42r
+>>>>>>> master
         }
     ],
     "packages-dev": [

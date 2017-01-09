@@ -1,0 +1,81 @@
+{% extends "::product.html.twig" %}
+
+{% block title %} Panier {% endblock %}
+
+{% block content %}
+<h1>Votre panier</h1>
+
+{% set total = 0 %}
+{% set extraFee = 0 %}
+
+
+
+<div class="container">
+	<table id="cart" class="table table-hover table-condensed">
+            <thead>
+		<tr>
+                    <th style="width:50%">Product</th>
+                    <th style="width:10%">Price</th>
+                    <th style="width:8%">Quantity</th>
+                    <th style="width:22%" class="text-center">Subtotal</th>
+                    <th style="width:10%"></th>
+		</tr>
+            </thead>
+            <tbody>
+            {% for item in cart %}    
+                
+		<tr>
+                    <td data-th="Product">
+			<div class="row">
+                            <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
+				<div class="col-sm-10">
+                                    <h4 class="nomargin">{{ item.activity_title }}</h4>
+					<p>
+                                            {{ item.activity_description }}
+                                        </p>
+                                        <hr/>
+                                        {% if item.product_option %}
+                                        {% set option = item.product_option|split('-') %}
+                                        {%  set item_product_price_extra = item.product_price + option[3] %}
+                                        
+                                        <p> Option : </p>
+                                        <p> {{ item.product_option }} </p>
+                                        {% endif %}
+                                        <p></p>
+				</div>
+			</div>
+                    </td>
+                    <td data-th="Price">{{ item.product_option ? item_product_price_extra : item.product_price  }}</td>
+                    <td data-th="Quantity">
+                        <input type="number" class="form-control text-center" value="{{ item.qty }}">
+                    </td>
+                    <td data-th="Subtotal" class="text-center">{{ item.product_option ? item_product_price_extra * item.qty :   item.product_price * item.qty }}</td>
+                    
+                    {% if item.product_option  %}
+                        {% set total = total + (item_product_price_extra  * item.qty) %}
+                    {% else %}
+                        {% set total = total + (item.product_price  * item.qty) %}    
+                    {% endif %}    
+                    
+                    <td class="actions" data-th="">
+                        <button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+                        <button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>								
+                    </td>
+		</tr>
+                
+            {% endfor %}    
+            </tbody>
+            <tfoot>
+		<tr class="visible-xs">
+                    <td class="text-center"><strong>{{ total }}</strong></td>
+		</tr>
+		<tr>
+                    <td><a href="{{ path('app_product_category') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continuer vos achats </a></td>
+                    <td colspan="2" class="hidden-xs">Total </td>
+                    <td class="hidden-xs text-center"><strong>{{ total }}</strong></td>
+                    <td><a href="{{ path('app_cart_checkout') }}" class="btn btn-success btn-block">Valider mon panier <i class="fa fa-angle-right"></i></a></td>
+		</tr>
+            </tfoot>
+	</table>
+</div>
+{% endblock %}

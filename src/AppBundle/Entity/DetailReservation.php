@@ -29,6 +29,15 @@ class DetailReservation {
 	 * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
 	 */
 	private $product;
+        
+        /**
+         * ManyToOne unidirectionnel with product attribute 
+         * 
+         * @ORM\ManyToOne(targetEntity="ProductAttribute")
+         * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
+         */
+        
+        private $product_attribute;
 	
 	/**
 	 * @var int
@@ -100,7 +109,7 @@ class DetailReservation {
 	
 	/**
 	 * 
-	 * @return Product
+	 * @return Entity Product
 	 */
 	public function getProduct() {
 		return $this->product;
@@ -115,6 +124,27 @@ class DetailReservation {
 		$this->product = $product;
 		return $this;
 	}
+        
+        /**
+         * 
+         * @return Entity DetailReservation
+         */
+        public function getProduct_attribute() {
+            return $this->product_attribute;
+        }
+
+        
+        /**
+         * 
+         * @param type $product_attribute
+         * @return \AppBundle\Entity\DetailReservation
+         */
+        public function setProduct_attribute($product_attribute) {
+            $this->product_attribute = $product_attribute;
+            return $this;
+        }
+
+
 
 
 

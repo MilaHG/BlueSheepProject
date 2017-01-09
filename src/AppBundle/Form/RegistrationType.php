@@ -91,6 +91,18 @@ class RegistrationType extends AbstractType
                         'label' => 'Photo',
                         'required' => FALSE
                     ))    
+            ->add('company',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+                    array(
+                        'label' => 'Société',
+                        'required' => FALSE
+                    ))    
+            ->add('commercialRegistry',
+            \Symfony\Component\Form\Extension\Core\Type\TextType::class,
+                    array(
+                        'label' => 'Siret',
+                        'required' => FALSE
+                    ))    
                 
         ;
     }

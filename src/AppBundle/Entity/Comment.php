@@ -157,7 +157,7 @@ class Comment {
 	 * @return $this
 	 */
 	public function setUser(User $user) {
-		$this->id_user = $user;
+		$this->user = $user;
 		return $this;
 	}
 
@@ -167,7 +167,7 @@ class Comment {
 	 * @return $this
 	 */
 	public function setActivity(Activity $activity) {
-		$this->id_activity = $activity;
+		$this->activity = $activity;
 		return $this;
 	}
 

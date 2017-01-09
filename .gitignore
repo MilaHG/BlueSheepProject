@@ -14,5 +14,10 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+<<<<<<< HEAD
+/nbproject/*
+/-BlueSheepProject/nbproject/private/
+=======
 /nbproject/
 /BlueSheepProject--/nbproject/private/
+>>>>>>> master
