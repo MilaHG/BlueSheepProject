@@ -46,23 +46,12 @@ class ActivityController extends Controller {
 		$em= $this->getDoctrine()->getManager();
 		$activity = $em->find('AppBundle:Activity', $id);
 		
-		if (is_null($activity)){
+		if (is_null($id)){
 			throw $this->createNotFoundException();
 		}
 		
-		//the partner can only access his data, or he is rederected to his list
-		if ($this->getUser()!==$activity->getPartner()){
-			$this->addFlash('error','Error : You don\'t have the right over this activity');
-			return $this->redirectToRoute('app_partner_activity_list');
-		}
-		
-//		$photos = $em->getRepository('AppBundle:Photo')->findByActivity($id);
-		//$comments = $em->getRepository('AppBundle:Comment')->findByActivity($id);
-		
-//		$user;
-//		foreach ($comments as $comment) {
-//			$user=$comment->getUser();
-//		}
+		$photos = $em->getRepository('AppBundle:Photo')->findByActivity($id);
+		$comments = $em->getRepository('AppBundle:Comment')->findByActivity($id);
 
 //		$nbTotalProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id);
 //		$nbCurrentProduct=$em->getRepository('AppBundle:Product')->findNbProductByActivity($id,TRUE);
@@ -70,12 +59,11 @@ class ActivityController extends Controller {
 		return $this->render('Partner\Activity\view.html.twig', 
 			[
 			  'activity'			=>$activity,
-//			  'photos'			=>$photos,
-			 // 'comments'		=>$comments,
+			  'photos'			=>$photos,
+			  'comments'		=>$comments,
 			  'average_note'		=>$averageNote,
-//			  'nbTotalProduct'	=>$nbTotalProduct,
+//			  'nbTotalProduct'		=>$nbTotalProduct,
 //			  'nbCurrentProduct'	=>$nbCurrentProduct,
-//			  'user'=>$user,
 			]
 		);
 	}
@@ -101,15 +89,7 @@ class ActivityController extends Controller {
 			if(is_null($activity)){
 				return $this->redirectToRoute('app_partner_activity_list');
 			}
-			
-			//the partner can only access his data, or he is rederected to his list
-			if ($this->getUser()!==$activity->getPartner()){
-				$this->addFlash('error','Error : You don\'t have the right over this activity');
-				return $this->redirectToRoute('app_partner_activity_list');
-			}
 		}
-		
-		
 		
 		$form= $this->createForm(ActivityType::class, $activity);
 		
@@ -168,13 +148,6 @@ class ActivityController extends Controller {
 			$this->addFlash('error', 'This activity doesn\'t exist');
 			return $this->redirectToRoute('app_partner_activity_list');
 		}
-		
-		//the partner can only access his data, or he is rederected to his list
-		if ($this->getUser()!==$activity->getPartner()){
-			$this->addFlash('error','Error : You don\'t have the right over this activity');
-			return $this->redirectToRoute('app_partner_activity_list');
-		}
-		
 		$photos=$activity->getPhotos();
 		if(!is_null($photos)){
 			foreach ($photos as $photo) {

@@ -6,14 +6,14 @@
 {% block page_title %} <h1>Hobbies</h1>  {% endblock %}
 
 {# bloc displaying messages flash with bootstrap style #}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %} {#on re-boucle pour chacun des messages à l'intérieur des types de messages#}
-            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}
-            <div class='alert alert-{{ label }}'>
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+{#    {% for label, flashes in app.session.flashbag.all %}#}
+        {#{% for flash in flashes %} {#on re-boucle pour chacun des messages à l'intérieur des types de messages#}
+{#            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}#}
+{#            <div class='alert alert-{{ label }}'>#}
+{#                {{ flash }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
     
     {#{{ dump(preferences) }}#}
     
@@ -24,10 +24,10 @@
         {{ form_row(form.category) }}
         {{ form_row(form.note) }}
         <span class="form-btn-group">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary btn-block">
                 <span class="glyphicon glyphicon-star" aria-hidden="true" title="Add">  Ajouter </span>
             </button>
-            <button class="btn btn-info">
+            <button class="btn btn-info btn-block">
                 <input type="reset" value="reset" hidden="true" /><span class="glyphicon glyphicon-star-empty" aria-hidden="true" title="Cancel"> Annuler </span>
             </button>    
         
@@ -47,7 +47,9 @@
                     </div>
                     <div class="panel-body">
                         <p>{{ preference.category.photo }}</p>
-                        <p>{{ preference.note }}</p>
+                        {% for i in 1 .. preference.note%}
+                            <h3><span class="fa fa-star" aria-hidden="true"></span></h3>
+                        {% endfor %}
                         <p>
                             <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Modifier </span>
