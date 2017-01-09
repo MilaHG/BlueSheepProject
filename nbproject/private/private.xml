@@ -11,6 +11,7 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/ProductController.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/ProductAttribute.php</file>
@@ -36,5 +37,8 @@
             <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
 >>>>>>> cba2cefb53812806a0c7f1a9f8bdc64b09fc391f
         </group>
+=======
+        <group/>
+>>>>>>> 33430193e664295d670f39c08d359a8d69e9ff24
     </open-files>
 </project-private>

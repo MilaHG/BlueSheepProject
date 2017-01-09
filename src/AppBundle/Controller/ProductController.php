@@ -25,11 +25,10 @@ class ProductController extends Controller
                 ));
         
         
-         
+
         return $this->render('AppBundle:Product:list.html.twig', array(
             
             'activities' => $activities,
-             
             // ...
         ));
     }
@@ -66,9 +65,6 @@ class ProductController extends Controller
         
     // handle user comment 
         $comment = new Comment();
-        
-    // activity note average 
-    $note = $activity->getAverageNote();  
         
         
         $form_comment = $this->createFormBuilder($comment)
@@ -122,7 +118,6 @@ class ProductController extends Controller
             
             'activity' => $activity,
             'activities' => $activities,
-            'note' => $note,
             'form' => $form_comment->createView()
             // ...
         ));

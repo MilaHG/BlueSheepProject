@@ -1,0 +1,38 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Mes reservations{% endblock %}
+
+{% block content %}
+<h1>Mes reservations</h1>
+
+{{ dump(reservations) }}
+{{ dump(user) }}
+
+<div class='well'>
+	{% if  reservations%}
+		<p>Vous avez actuellement {{ reservations|length }} reservations pour un montant total de {{ totalAmount }} €</p>
+	{% else %}
+		<p>Vous n'avez pas de reservation en cours</p>
+	{% endif %}
+</div>
+
+
+{% for reservation in  reservations %}
+	
+	<div class="well">
+		<p>reservation n°{{ reservation.id }} le {{ reservation.date|format('d/m/Y') }}</p>
+			<ul>
+		{% for detail in  reservation.reservationDetails %}
+			<li>Activité "{{ detail.product.activity.title }}" le {{ detail.product.date|format('d/m/Y') }}, {{detail.product.totalPrice }} € ( quantité : {{detail.quantity}})
+				<a href="{{ path('app_user_reservations_view', {"id" : detail.id } ) }}">
+					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+				</a>
+			</li>
+		{% else %}
+			<li>Cette reservation est vide, vos activités ont été annulées.</li>
+		{% endfor %}
+			</ul>
+	</div>
+{% endfor %}
+<a href="{{ path('homepage') }}">Retourner à la page d'accueil</a>
+{% endblock %}

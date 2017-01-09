@@ -95,7 +95,7 @@ class User extends BaseUser {
 	 * @ORM\Column (name="commercial_registry", type="string", length=9, unique=true, nullable=true)
 	 * 
 	 * @Assert\Regex(
-	 *     pattern="/^[0-9]+$/",
+	 *     pattern="/^[0-9]$/",
 	 *     match=true,
 	 *     message="Your commercial registry must contain numbers only"
 	 * )
@@ -214,7 +214,7 @@ class User extends BaseUser {
 	 * A role_partner can publish several activities
 	 * 
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
 	 */
 	private $activities;
         
