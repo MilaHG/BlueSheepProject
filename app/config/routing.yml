@@ -16,3 +16,8 @@ partner:
     resource: "@AppBundle/Controller/Partner"
     type:     annotation
     prefix: /partner
+    
+user:
+    resource: "@AppBundle/Controller/User"
+    type:     annotation
+    prefix: /user

@@ -513,4 +513,10 @@ class Activity {
 		$averageNote/=count($this->getComments());
 		return $averageNote;
 	}
+	
+	public function getPartner() {
+		return $this->partner;
+	}
+
+	
 }

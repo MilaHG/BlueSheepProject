@@ -10,9 +10,9 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: fr
-    path.category_img: %kernel.root_dir%/../web/img/cat
+    path.category_img: web/img/cat
     path.user_img: %kernel.root_dir%/../web/img/user
-    path.activity_img: %kernel.root_dir%/../web/img/activity
+    path.activity_img: web/img/activity
 
 framework:
     #esi:             ~

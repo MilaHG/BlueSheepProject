@@ -29,12 +29,19 @@ class ProductController extends Controller{
 		$em = $this->getDoctrine()->getManager();
 		
 		$activity=$em->getRepository('AppBundle:Activity')->find($id);
-		$products=$em->getRepository('AppBundle:Product')->findByActivity($activity);
 		
 		if (is_null($activity)){
 			$this->addFlash('error', 'This activity doesn\'t exist');
 			return $this->redirectToRoute('app_partner_activity_list');
 		}
+		
+		//the partner can only access his data, or he is rederected to his list
+		if ($this->getUser()!==$activity->getPartner()){
+			$this->addFlash('error','Error : You don\'t have the right over this activity');
+			return $this->redirectToRoute('app_partner_activity_list');
+		}
+		
+		$products=$em->getRepository('AppBundle:Product')->findByActivity($activity);
 		
 		//************vérifier que l'activité existe et que le bon partenaire regarde son activité
 		
@@ -110,6 +117,12 @@ class ProductController extends Controller{
 		
 		$activity=$product->getActivity();
 		
+		//the partner can only access his data, or he is rederected to his list
+		if ($this->getUser()!==$activity->getPartner()){
+			$this->addFlash('error','Error : You don\'t have the right over this activity');
+			return $this->redirectToRoute('app_partner_activity_list');
+		}
+		
 		$em->remove($product);
 		$em->flush();
 		
@@ -130,6 +143,12 @@ class ProductController extends Controller{
 			
 		if(is_null($activity)){
 			$this->addFlash('error', 'This activity doesn\'t exist');
+			return $this->redirectToRoute('app_partner_activity_list');
+		}
+		
+		//the partner can only access his data, or he is rederected to his list
+		if ($this->getUser()!==$activity->getPartner()){
+			$this->addFlash('error','Error : You don\'t have the right over this activity');
 			return $this->redirectToRoute('app_partner_activity_list');
 		}
 		
@@ -194,12 +213,18 @@ class ProductController extends Controller{
 			return $this->redirectToRoute('app_partner_product_list');
 		}
 		
-		$product=$attribut->getProduct()->getActivity();
+		$activity=$attribut->getProduct()->getActivity();
+		
+		//the partner can only access his data, or he is rederected to his list
+		if ($this->getUser()!==$activity->getPartner()){
+			$this->addFlash('error','Error : You don\'t have the right over this activity');
+			return $this->redirectToRoute('app_partner_activity_list');
+		}
 		
 		$em->remove($attribut);
 		$em->flush();
 		
 		$this->addFlash('success', 'Your attribut was successfully deleted');
-		return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $product->getId())) );
+		return $this->redirect( $this->generateUrl('app_partner_product_list', array('id' => $activity->getId())) );
 	}
 }
