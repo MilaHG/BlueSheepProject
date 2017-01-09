@@ -4,10 +4,24 @@
 
 {% block content %}
 <h1>Liste des categories </h1>
+<div class="row">
 {% for category in categories %}
+ 
+        
     
-    <a href="{{ path('app_product_list', {"id": category.id}) }}">
-        <h3>{{ category.name }}</h3>
-    </a>    
+      <div class="col-sm-6 col-md-4" >
+        <div class="thumbnail" style=" height: 550px">
+            <img src="{{ asset('/img/cat/'~category.photo)}}" alt="{{ category.name }}" style="width: 400px; height: 250px">
+          <div class="caption">
+            <a href="{{ path('app_product_list', {"id": category.id}) }}">
+              <h3>{{ category.name }}</h3>
+                </a>
+            <p>{{ category.description }}</p>
+            <p><a href="{{ path('app_product_list', {"id": category.id}) }}" class="btn btn-primary" role="button">Voire les activités </a> </p>
+          </div>
+        </div>
+      </div>
+   
 {% endfor %}
+ </div>
 {% endblock %}

@@ -435,7 +435,12 @@ class Activity {
 
 		return $this;
 	}
+        
+        public function getPartner() {
+            return $this->partner;
+        }
 
+        
 	/**
 	 * Get user
 	 *
@@ -513,4 +518,10 @@ class Activity {
 		$averageNote/=count($this->getComments());
 		return $averageNote;
 	}
+        
+        public function countPhoto() {
+            
+            return count($this->photos);
+            
+        }
 }
