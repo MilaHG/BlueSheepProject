@@ -49,7 +49,7 @@ class ProductAttribute {
 	/**
 	 *
 	 * @var float
-	 * @ORM\Column(name="extra_fee", type="float")
+	 * @ORM\Column(name="extra_fee", type="float", nullable=true)
 	 */
 	private $extraFee;
 

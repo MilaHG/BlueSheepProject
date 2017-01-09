@@ -1,0 +1,44 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	{{ 'Blue Sheep : Reservation' }}
+{% endblock %}
+
+{% block content %}
+<h1>Reservation detail</h1>
+
+{{ dump(d_reservation) }}
+{{ dump(reservation) }}
+<h2>Reservation n°{{ reservation.id }} </h2>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">Panel title</h3>
+	</div>
+	<div class="panel-body">
+		<p>Activity :</p>  
+		<p>Date : </p>  
+		<p>Unit Price : €</p>  
+		<p>Attribute : </p>
+		<p>Quantity : {{ d_reservation.quantity }} </p>
+		<p>Total Price :  €</p>  
+		
+		{# <p>User detail : {{ user.gender }} {{ user.firstname }} {{ user.lastname }}<br>
+		{{ user.address }}, {{ user.zip }} {{ user.city }}</p>#}
+		<p>Booked on the {{ reservation.date|date("d/m/Y") }}</p> 
+	</div>
+</div>
+
+
+
+<h2>Contact user about his reservation : </h2>
+	{#{ form_start(form) }}
+	{{ form_row(form.date) }}
+	{{ form_row(form.price) }}
+	{{ form_row(form.stock) }}
+	<div class ="form-btn-group pull-right">
+		<button type="submit" class="btn btn-primary">Save</button>
+	</div>
+	<div class="clearfix"></div>
+	{{ form_end(form) }#}
+{% endblock %}
