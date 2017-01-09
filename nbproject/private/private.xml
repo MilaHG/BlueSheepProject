@@ -1,48 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
-        <file>
-            <url>src/AppBundle/Controller/Partner/ProductController.php</url>
-            <bookmark id="2">
-                <name/>
-                <line>124</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-<<<<<<< HEAD
         <group>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/views/base.html.twig</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/User/PreferenceController.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/views/nav.html.twig</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Form/PhotoType.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/Partner/activityController.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/Product/category.html.twig</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/ProductController.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/ProductAttribute.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/FOSUserBundle/views/Profile/edit_content.html.twig</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/vendor/friendsofsymfony/user-bundle/Form/Type/ProfileFormType.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/vendor/friendsofsymfony/user-bundle/Form/Type/RegistrationFormType.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/DefaultController.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/views/layout.html.twig</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/Product/list.html.twig</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Comment.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/web/js/script.js</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/User.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/FOSUserBundle/views/Registration/register_content.html.twig</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Activity.php</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Controller/Partner/ProductController.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Form/RegistrationType.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Form/ProfileType.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/DetailReservation.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/views/product.html.twig</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/FOSUserBundle/views/Profile/show.html.twig</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Product.php</file>
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/User/index.html.twig</file>
+            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Photo.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/Product/detail.html.twig</file>
-<<<<<<< HEAD
-            <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/app/Resources/FOSUserBundle/views/Profile/show_content.html.twig</file>
-=======
-            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/Partner/DetailReservation/list.html.twig</file>
-            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
->>>>>>> cba2cefb53812806a0c7f1a9f8bdc64b09fc391f
         </group>
-=======
-        <group/>
->>>>>>> 33430193e664295d670f39c08d359a8d69e9ff24
-=======
-        <group/>
->>>>>>> 33430193e664295d670f39c08d359a8d69e9ff24
     </open-files>
 </project-private>
