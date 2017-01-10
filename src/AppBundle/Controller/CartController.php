@@ -2,6 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\DetailReservation;
+use AppBundle\Entity\Reservation;
+use DateTime;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,6 +43,7 @@ class CartController extends Controller
             $activity_description = $request->get('activity_description');
             $product_price = $request->get('product_price');
             $product_option = $request->get('product_option');
+            $product_image = $request->get('product_image');
  
                     
          $session = $request->getSession();
@@ -65,7 +69,8 @@ class CartController extends Controller
             'activity_title'        => $activity_title,
             'activity_description'  => $activity_description,
             'product_price'         => $product_price,
-            'product_option'         => $product_option
+            'product_option'        => $product_option,
+            'product_image'         => $product_image   
                 
             ];
  
@@ -82,7 +87,8 @@ class CartController extends Controller
             'activity_title'        => $activity_title,
             'activity_description'  => $activity_description,
             'product_price'         => $product_price,
-            'product_option'         => $product_option
+            'product_option'        => $product_option,
+            'product_image'         => $product_image     
                 
             ));
               $set = $session->set('set','cart non defini, je cree');
@@ -122,11 +128,21 @@ class CartController extends Controller
     }
 
     /**
-     * @Route("/cart/edit")
+     * @Route("/cart/update/{id}")
      */
-    public function editAction()
+    public function updateAction($id, Request $request)
     {
-        return $this->render('AppBundle:Cart:edit.html.twig', array(
+        
+        $cart_items = $request->getSession()->get('cart');
+        
+        for($i=1; i<= count($cart_items); $i++){
+            
+            $product_position = array_search($id,$cart_items[$i]['id_product']);
+            
+            
+            
+        }
+        return $this->render('AppBundle:Cart:update.html.twig', array(
             // ...
         ));
     }
@@ -134,11 +150,34 @@ class CartController extends Controller
     /**
      * @Route("/cart/delete/{id}")
      */
-    public function deleteAction()
+    public function deleteAction($id, Request $request)
     {
-        return $this->render('AppBundle:Cart:delete.html.twig', array(
-            // ...
-        ));
+        
+        $session = $request->getSession();
+        $cart = $session->get('cart');  
+        
+        array_splice($cart, $id, 1);
+        
+//        echo "<pre>";
+//        var_dump($cart);
+//        echo "</pre>";
+        // die();
+        
+//        $product_position = array_search($id, $cart['id_product']);
+//        if($product_position!==FALSE){
+//            array_slice($cart['id_activity'], $product_position, 1);
+//            array_slice($cart['qty'], $product_position, 1);
+//            array_slice($cart['activity_title'], $product_position, 1);
+//            array_slice($cart['activity_description'], $product_position, 1);
+//            array_slice($cart['product_price'], $product_position, 1);
+//            array_slice($cart['product_option'], $product_position, 1);
+//            array_slice($cart['product_image'], $product_position, 1);
+//        }
+        
+        $session->set('cart', $cart);
+        
+        return $this->redirectToRoute('app_cart_cart');
+ 
     }
     
     
@@ -175,10 +214,10 @@ class CartController extends Controller
     public function bookingAction(Request $request) {
         
         $em = $this->getDoctrine()->getManager();
-        $booking = new \AppBundle\Entity\Reservation();
-        $bookingDetail = new \AppBundle\Entity\DetailReservation();
+        $booking = new Reservation();
+        $bookingDetail = new DetailReservation();
         
-        $booking->setDate(new \DateTime());
+        $booking->setDate(new DateTime());
         $booking->setUser($this->getUser());
         $em->persist($booking);
         $em->flush(); 
