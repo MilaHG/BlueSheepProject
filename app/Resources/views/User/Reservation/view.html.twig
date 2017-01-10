@@ -1,7 +1,31 @@
-{% extends "::base.html.twig" %}
+{% extends "layout.html.twig" %}
 
-{% block title %}AppBundle:Reservation:view{% endblock %}
+{% block title %}Mes reservations{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Reservation:view page</h1>
+{% block content %}
+<h1>Mes reservations</h1>
+
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ d_reservation.product.activity.title }}</h3>
+	</div>
+	<div class="panel-body">
+		<div class='row'>
+			<div class='col-sm-6'>
+				{#{ d_reservation.product.activity.photo[0].name }#}
+				<p>Description : {{ d_reservation.product.activity.description }}</p>
+			</div>
+			<div class='col-sm-6'>
+				<p>Proposé par {{ d_reservation.product.activity.partner.company }}</p>
+				<p>Adresse :{{ d_reservation.product.activity.partner.address }}
+					<br>{{ d_reservation.product.activity.partner.zip }} {{ d_reservation.product.activity.partner.city }}</p>
+				<p><a href='{{ path('app_product_detail', {'id' : d_reservation.product.activity.id }) }}'>
+						Voir la fiche produit <span class='glyphicon glyphicon-chevron-right'></span>
+				</a></p>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<a href="{{ path('app_user_reservation_list') }}">Retourner à la liste de vos reservations</a>
 {% endblock %}

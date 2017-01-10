@@ -17,3 +17,15 @@ services:
         class: AppBundle\Form\ProfileType
         tags:
             - { name: form.type, alias: app_user_profile }
+
+    app.form.product_attribute:
+        class: AppBundle\Form\ProductAttributeType
+        tags:
+            - { name: form.type, alias: app_user_profile }
+        arguments:
+            - "@app.form.data_transformer.product"
+            
+    app.form.data_transformer.product:
+        class: AppBundle\Form\DataTransformer\ProductToIntTransformer
+        arguments:
+            - "@doctrine.orm.entity_manager"

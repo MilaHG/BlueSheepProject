@@ -132,7 +132,7 @@ class Reservation {
 	public function getTotalAmount(){
 		$amount=0;
 		foreach ($this->getDetailsReservations() as $d_reservation) {
-			$amount+=$d_reservation->getProduct()->getTotalPrice();
+			$amount+=$d_reservation->getTotalPrice();
 		}
 		return $amount;
 	}

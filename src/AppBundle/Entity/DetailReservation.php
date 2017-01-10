@@ -29,16 +29,15 @@ class DetailReservation {
 	 * @ORM\JoinColumn(name="id_product", referencedColumnName="id")
 	 */
 	private $product;
-        
-        /**
-         * ManyToOne unidirectionnel with product attribute 
-         * 
-         * @ORM\ManyToOne(targetEntity="ProductAttribute")
-         * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
-         */
-        
-        private $product_attribute;
-	
+
+	/**
+	 * ManyToOne unidirectionnel with product attribute 
+	 * 
+	 * @ORM\ManyToOne(targetEntity="ProductAttribute")
+	 * @ORM\JoinColumn(name="id_product_attribute", referencedColumnName="id")
+	 */
+	private $product_attribute;
+
 	/**
 	 * @var int
 	 *
@@ -54,11 +53,17 @@ class DetailReservation {
 	 */
 	private $reservation;
 
+	/**
+	 *
+	 * @var float
+	 */
+	private $totalPrice;
+
 	public function __toString() {
-		return $this->getProduct(). ', quantity :  ' . $this->getQuantity();
+		return $this->getProduct() . ', quantity :  ' . $this->getQuantity();
 	}
 
-		/**
+	/**
 	 * Get id
 	 *
 	 * @return int
@@ -106,7 +111,7 @@ class DetailReservation {
 		$this->reservation = $reservation;
 		return $this;
 	}
-	
+
 	/**
 	 * 
 	 * @return Entity Product
@@ -124,28 +129,44 @@ class DetailReservation {
 		$this->product = $product;
 		return $this;
 	}
-        
-        /**
-         * 
-         * @return Entity DetailReservation
-         */
-        public function getProduct_attribute() {
-            return $this->product_attribute;
-        }
 
-        
-        /**
-         * 
-         * @param type $product_attribute
-         * @return \AppBundle\Entity\DetailReservation
-         */
-        public function setProduct_attribute($product_attribute) {
-            $this->product_attribute = $product_attribute;
-            return $this;
-        }
+	/**
+	 * 
+	 * @return Entity DetailReservation
+	 */
+	public function getProduct_attribute() {
+		return $this->product_attribute;
+	}
 
+	/**
+	 * 
+	 * @param type $product_attribute
+	 * @return \AppBundle\Entity\DetailReservation
+	 */
+	public function setProduct_attribute($product_attribute) {
+		$this->product_attribute = $product_attribute;
+		return $this;
+	}
 
+	/**
+	 * 
+	 * @return float $price
+	 */
+	public function getTotalPrice() {
+		return $this->totalPrice;
+	}
 
-
+	/**
+	 * 
+	 * @return $this
+	 */
+	public function setTotalPrice() {
+		$this->totalPrice = $this->getProduct()->getPrice();
+		if ($this->getProduct_attribute()){
+			$this->totalPrice += $this->getProduct_attribute()->getExtraFee();
+		}
+		$this->totalPrice = round($this->totalPrice * $this->getQuantity(), 2);
+		return $this;
+	}
 
 }

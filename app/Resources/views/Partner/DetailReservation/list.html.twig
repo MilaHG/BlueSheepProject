@@ -7,6 +7,7 @@
 	
 	<table class='table table-striped'>
 		<thead>
+			<tr>
 				<td>Reservation date</td>
 				<td>Activity</td>
 				<td>Activity date</td>
@@ -14,6 +15,7 @@
 				<td>Username</td>
 				<td>Quantity</td>
 				<td>Actions</td>
+			</tr>
 		</thead>
 		<tfoot>
 			<tr>
@@ -23,6 +25,7 @@
 		</tfoot>
 		<tbody>
 	{% for d_reservation in  d_reservations %}
+		<tr>
 			<td>{{ d_reservation.reservation.date|date("d/m/Y") }}</td>
 			<td>{{ d_reservation.product.activity.title }}</td>
 			<td>{{ d_reservation.product.date|date("d/m/Y") }}</td>
@@ -30,7 +33,7 @@
 			<td>{#{ d_reservation.reservation.user.username }#}</td>
 			<td>{{ d_reservation.quantity }}</td>
 			<td>
-				<a href="{{ path('app_partner_reservations_view', {"id" : d_reservation.product.id } ) }}" class="btn btn-primary">
+				<a href="{{ path('app_partner_reservations_view', {"id" : d_reservation.id } ) }}" class="btn btn-primary">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</a>
 				{# 
@@ -43,10 +46,11 @@
 				</a> #}
 			</td>
 			{# TWIG adds tr tags at the start and the end of the loop ! #}
-			</tr><tr>
+			</tr>
 	{% else %}
 		<td colspan='7'>No reservation yet</td>
 	{% endfor %}
+	
 		</tbody>
 	</table>
 {% endblock %}
