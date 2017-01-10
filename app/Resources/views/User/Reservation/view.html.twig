@@ -5,31 +5,27 @@
 {% block content %}
 <h1>Mes reservations</h1>
 
-<div class='well'>
-	{% if  reservations%}
-		<p>Vous avez actuellement {{ reservations|length }} reservations pour un montant total de {{ totalAmount }} €</p>
-	{% else %}
-		<p>Vous n'avez pas de reservation en cours</p>
-	{% endif %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">{{ d_reservation.product.activity.title }}</h3>
+	</div>
+	<div class="panel-body">
+		<div class='row'>
+			<div class='col-sm-6'>
+				{#{ d_reservation.product.activity.photo[0].name }#}
+				<p>Description : {{ d_reservation.product.activity.description }}</p>
+			</div>
+			<div class='col-sm-6'>
+				<p>Proposé par {{ d_reservation.product.activity.partner.company }}</p>
+				<p>Adresse :{{ d_reservation.product.activity.partner.address }}
+					<br>{{ d_reservation.product.activity.partner.zip }} {{ d_reservation.product.activity.partner.city }}</p>
+				<p><a href='{{ path('app_product_detail', {'id' : d_reservation.product.activity.id }) }}'>
+						Voir la fiche produit <span class='glyphicon glyphicon-chevron-right'></span>
+				</a></p>
+			</div>
+		</div>
+	</div>	
 </div>
 
-
-{% for reservation in  reservations %}
-	
-	<div class="well">
-		<p>reservation n°{{ reservation.id }} le {{ reservation.date|format('d/m/Y') }}</p>
-			<ul>
-		{% for detail in  reservation.reservationDetails %}
-			<li>Activité "{{ detail.product.activity.title }}" le {{ detail.product.date|format('d/m/Y') }}, {{detail.product.totalPrice }} € ( quantité : {{detail.quantity}})
-				<a href="{{ path('app_user_reservations_view', {"id" : detail.id } ) }}">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</a>
-			</li>
-		{% else %}
-			<li>Cette reservation est vide, vos activités ont été annulées.</li>
-		{% endfor %}
-			</ul>
-	</div>
-{% endfor %}
 <a href="{{ path('app_user_reservation_list') }}">Retourner à la liste de vos reservations</a>
 {% endblock %}

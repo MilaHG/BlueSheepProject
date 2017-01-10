@@ -18,7 +18,7 @@ class ReservationController extends Controller {
 	 */
 	public function listAction() {
 		
-		$user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
+		$user = $this->getUser();
 		$em=$this->getDoctrine()->getManager();
 		$reservations = $em->getRepository('AppBundle:Reservation')->findByUser($user);
 		
@@ -41,19 +41,29 @@ class ReservationController extends Controller {
 	}
 
 	/**
+	 * @param $id
 	 * @Route("/view/{id}")
 	 */
 	public function viewAction($id) {
 		
-		$user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
+		$user = $this->getUser();
 		$em=$this->getDoctrine()->getManager();
 		
-		$reservation_detail=$em->getRepository('AppBundle:DetailReservation')->findByUserAndId($id,$user);
+		$reservation_detail=$em->getRepository('AppBundle:DetailReservation')->find($id);
 		
+		if (is_null($reservation_detail)){
+			throw $this->createNotFoundException();
+		}
+		
+		
+		if($reservation_detail->getReservation()->getUser()->getId()!==$user->getId()){
+			return $this->redirectToRoute('app_user_reservation_list');
+		}
+
 		return $this->render(
 			'User/Reservation/view.html.twig',
 			[
-			  'reservations'	=>$reservation_detail,
+			  'd_reservation'	=>$reservation_detail,
 			]
 		);
 	}

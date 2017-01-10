@@ -76,12 +76,6 @@ class Product {
 	 */
 	private $detailsReservations;
 	
-	/**
-	 *
-	 * @var float
-	 */
-	private $totalPrice;
-
 	public function __toString() {
 		return $this->getActivity()->getTitle() . ' - ' . $this->getDate()->format('d/m/Y H:i:s') . ' (toString Method)';
 	}
@@ -210,24 +204,5 @@ class Product {
 	}
 
 	
-	/**
-	 * 
-	 * @return float $price
-	 */
-	public function getTotalPrice() {
-		return $this->totalPrice;
-	}
-	
-	/**
-	 * 
-	 * @return $this
-	 */
-	public function setTotalPrice() {
-		$this->totalPrice = $this->getPrice();
-		foreach ($this->getProductAttributes() as $attribute) {
-			$this->totalPrice+=$attribute->getExtraFee();
-		}
-		$this->totalPrice=round($this->totalPrice, 2);
-		return $this;
-	}
+
 }
