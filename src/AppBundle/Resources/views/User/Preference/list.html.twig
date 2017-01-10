@@ -1,4 +1,4 @@
-{% extends "::layout.html.twig" %}
+{% extends "::product.html.twig" %}
 {% block title %}Blue Sheep{% endblock %}
 
 {% block content %}
@@ -6,18 +6,50 @@
 {% block page_title %} <h1>Hobbies</h1>  {% endblock %}
 
 {# bloc displaying messages flash with bootstrap style #}
-{#    {% for label, flashes in app.session.flashbag.all %}#}
-        {#{% for flash in flashes %} {#on re-boucle pour chacun des messages à l'intérieur des types de messages#}
-{#            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}#}
-{#            <div class='alert alert-{{ label }}'>#}
-{#                {{ flash }}#}
-{#            </div>#}
-{#        {% endfor %}#}
-{#    {% endfor %}#}
+{#    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %} 
+            {% if label == 'error' %} {% set label = 'danger' %} {% endif %}
+           <div class='alert alert-{{ label }}'>
+                {{ flash }}
+            </div>
+        {% endfor %}
+    {% endfor %}#}
     
     {#{{ dump(preferences) }}#}
     
     <div class="row">
+        
+        {% if preferences %}
+        <div class="col-sm-9">
+        <div class="row">
+        {% for preference in preferences %}
+            <div class="col-sm-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ preference.category.name }}</h3>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ preference.category.photo }}</p>
+                        {% for i in 1 .. preference.note%}
+                            <span class="fa fa-star fa-lg" aria-hidden="true"></span>
+                        {% endfor %}
+                        <p>
+                            <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Modifier </span>
+                            </a>
+                            <a href='{{ path('app_user_preference_delete', {"id":preference.id}) }}' class='btn btn-danger'>
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Supprimer </span>
+                            </a>
+                            <a></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+        
         <div class="col-sm-3 well well-lg">
         {{ form_start(form, {'action': path('app_user_preference_add'), 'method': 'POST'}) }}
         <h3>Ajouter un hobby</h3>
@@ -35,35 +67,5 @@
         {{ form_end(form) }}
         </div>
     </div>
-
-    {% if preferences %}
-        <div class="col-sm-9"></div>
-        <div class="row">
-        {% for preference in preferences %}
-            <div class="col-sm-4">
-                <div class="panel panel-success">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ preference.category.name }}</h3>
-                    </div>
-                    <div class="panel-body">
-                        <p>{{ preference.category.photo }}</p>
-                        {% for i in 1 .. preference.note%}
-                            <h3><span class="fa fa-star" aria-hidden="true"></span></h3>
-                        {% endfor %}
-                        <p>
-                            <a href='{{ path('app_user_preference_edit', {"id": preference.id}) }}' class='btn btn-warning'>
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true" title="Modifier"> Modifier </span>
-                            </a>
-                            <a href='{{ path('app_user_preference_delete', {"id":preference.id}) }}' class='btn btn-danger'>
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true" title="Supprimer"> Supprimer </span>
-                            </a>
-                            <a></a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-        </div>
-    {% endif %}
 
 {% endblock %}

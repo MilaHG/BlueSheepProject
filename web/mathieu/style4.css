@@ -1,0 +1,18 @@
+.list-group-item-text{
+	color: black;
+	font-size: 13px;
+}
+
+.list-group-item-heading{
+	color: black;
+	font-size: 23px;
+	font-weight: bold;
+}
+
+.logo-left{
+	position: absolute;
+	left: 10px;
+	top: 15px;
+	height: 6em;
+	width: 6em;
+}
