@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
@@ -21,6 +22,30 @@
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Form/RegistrationType.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Entity/Photo.php</file>
             <file>file:/Users/abdouldiarra/Sites/blue-sheep/BlueSheepProject/src/AppBundle/Resources/views/Product/detail.html.twig</file>
+=======
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
+        <file>
+            <url>src/AppBundle/Controller/Partner/ProductController.php</url>
+            <bookmark id="2">
+                <name/>
+                <line>139</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/DetailReservation.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/User/Reservation/list.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/Product.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/ActivityController.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/ProductAttribute.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/User/Reservation/view.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/User/ReservationController.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Repository/DetailReservationRepository.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/Reservation.php</file>
+>>>>>>> 7e4c020cb988d1303040db0fa7926536506cb274
         </group>
     </open-files>
 </project-private>

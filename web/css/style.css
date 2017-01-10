@@ -9,6 +9,21 @@ and open the template in the editor.
 
 */
 
+* {
+    font-family: 'PT Sans Caption', sans-serif;
+}
+
+#blue-sheep-logo-layout{
+    width: 8em;
+    position: absolute;
+    left: 12em;
+    top: 1em;
+}
+
+.fa-star {
+    color: #428bca;
+}
+/*
 .form-control {
     color: black;
 }
@@ -17,14 +32,6 @@ and open the template in the editor.
 .navbar-nav{
 	background-color: white;
 	border: 0px;
-}
-
-
-#blue-sheep-logo-nav{
-	height: 180px;
-	width: 180px;
-	margin-left: 600px;
-
 }
 
 .navbar-static-top{
@@ -63,7 +70,7 @@ and open the template in the editor.
 
 .navbar-inverse .navbar-nav>.active>a{
 	background-color : #D3225B;
-}
+}*/
 /* 
     Created on : 5 janv. 2017, 17:21:02
     Author     : abdouldiarra

@@ -240,6 +240,7 @@ class User extends BaseUser {
 	public function __construct() {
 		# For FOSUserBundle 
 		parent::__construct();
+		 $this->roles = array('ROLE_USER');
 		$this->reservations = new ArrayCollection();
 		$this->hobbies = new ArrayCollection();
 		$this->comments = new ArrayCollection();

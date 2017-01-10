@@ -5,6 +5,7 @@ namespace AppBundle\Controller\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Reservation;
+use AppBundle\Entity\DetailReservation;
 
 /**
  * Reservation controller
@@ -17,14 +18,16 @@ class ReservationController extends Controller {
 	 */
 	public function listAction() {
 		
-		$user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
+		$user = $this->getUser();
 		$em=$this->getDoctrine()->getManager();
 		$reservations = $em->getRepository('AppBundle:Reservation')->findByUser($user);
 		
 		$totalAmount=0;
 		foreach ($reservations as $reservation) {
-			$reservation->getProduct()->setTotalPrice();
-			$totalAmount=$reservation->getTotalAmount();
+			foreach ($reservation->getDetailsReservations() as $d_reservation) {
+				$d_reservation->setTotalPrice();
+				$totalAmount=$reservation->getTotalAmount();
+			}
 		}
 		
 		return $this->render(
@@ -38,17 +41,30 @@ class ReservationController extends Controller {
 	}
 
 	/**
+	 * @param $id
 	 * @Route("/view/{id}")
 	 */
-	public function viewAction() {
+	public function viewAction($id) {
+		
+		$user = $this->getUser();
+		$em=$this->getDoctrine()->getManager();
+		
+		$reservation_detail=$em->getRepository('AppBundle:DetailReservation')->find($id);
+		
+		if (is_null($reservation_detail)){
+			throw $this->createNotFoundException();
+		}
 		
 		
+		if($reservation_detail->getReservation()->getUser()->getId()!==$user->getId()){
+			return $this->redirectToRoute('app_user_reservation_list');
+		}
+
 		return $this->render(
-			'AppBundle:Reservation:view.html.twig',
+			'User/Reservation/view.html.twig',
 			[
-			  
+			  'd_reservation'	=>$reservation_detail,
 			]
 		);
 	}
-
 }
