@@ -123,7 +123,11 @@ class ProfileType extends AbstractType
             ->add('birthdate',
             \Symfony\Component\Form\Extension\Core\Type\DateType::class,
                     array(
-                        'label' => 'Date de naissance'
+                        'label' => 'Date de naissance',
+                        'widget' => 'single_text',
+                        
+                        'html5' => false,
+                        'attr' => ['class' => 'js-datepicker'],
                     ))
             
             ->add('address',

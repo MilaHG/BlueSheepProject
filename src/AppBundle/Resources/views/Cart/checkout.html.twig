@@ -26,7 +26,7 @@
                     <tr>
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
-                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="{{ item.product_image ? asset(item.product_image): asset('http://placehold.it/100x100') }}"  style="width: 100px; height: 100px" alt="{{ item.activity_title }}"> </a>
                             <div class="media-body">
                                 <h4 class="media-heading"><a href="{{ path('app_product_detail', {"id": item.id_product}) }}">{{ item.activity_title }}</a></h4>
                                 <h5 class="media-heading"> {{ item.activity_description }} </h5>
