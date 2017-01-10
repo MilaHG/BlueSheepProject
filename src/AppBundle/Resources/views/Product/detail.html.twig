@@ -116,6 +116,12 @@
                         <td>{{ product.date|date('Y-m-d') }}</td>
                     <form action="{{ path('app_cart_add') }}" method="post"> 
                         <td>
+                            <!-- image  -->
+                           {% if  activity.photos|length > 0 %}
+                                {% for image in activity.photos %}
+                                    <input type="hidden" name="product_image" value ="{{ asset('img/activity/'~ activity.photos[0].name) }}" />
+                            {% endfor %}    
+                            {% endif %}
                             <input type="hidden" name="id_product" value="{{ product.id }}"/>
                             <input type="hidden" name="id_activity" value="{{ activity.id }}"/>
                             <input type="hidden" name="activity_title" value="{{ activity.title }}"/>

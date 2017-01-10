@@ -111,3 +111,27 @@ fos_user:
     profile:
         form:
             type: AppBundle\Form\ProfileType
+            
+            
+#fos_elastica 
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+                activity:
+                    mappings:
+                        title: ~
+                        description: ~
+                        address: ~
+                    persistence:
+                        # the driver can be orm, monodb, phpcr or propel
+                        # listener and finder are not supported by propel an
+                        # and should be removed 
+                        driver: orm
+                        model: AppBundle\Entity\Activity
+                        provider: ~
+                        listener: ~ 
+                        finder: ~ 
+                        
