@@ -3,7 +3,7 @@
 # the options and just define the value of the 'site_name' option.
 
 easy_admin:
-    site_name: 'Blue Sheep : Back Office'
+    site_name: 'Blue Sheep Back Office'
     design:
         form_theme:   'vertical'
         color_scheme: 'dark'

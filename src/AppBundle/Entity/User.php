@@ -214,7 +214,7 @@ class User extends BaseUser {
 	 * A role_partner can publish several activities
 	 * 
 	 * @var ArrayCollection
-	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="user")
+	 * @ORM\OneToMany(targetEntity="Activity", mappedBy="partner")
 	 */
 	private $activities;
         

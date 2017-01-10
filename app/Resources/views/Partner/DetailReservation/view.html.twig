@@ -32,13 +32,12 @@
 
 
 <h2>Contact user about his reservation : </h2>
-	{#{ form_start(form) }}
-	{{ form_row(form.date) }}
-	{{ form_row(form.price) }}
-	{{ form_row(form.stock) }}
+	{{ form_start(form) }}
+	{{ form_row(form.subject) }}
+	{{ form_row(form.body) }}
 	<div class ="form-btn-group pull-right">
-		<button type="submit" class="btn btn-primary">Save</button>
+		<button type="submit" class="btn btn-primary"><span class=" glyphicon glyphicon-envelope"></span> Send </button>
 	</div>
 	<div class="clearfix"></div>
-	{{ form_end(form) }#}
+	{{ form_end(form) }}
 {% endblock %}

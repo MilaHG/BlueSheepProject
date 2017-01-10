@@ -124,5 +124,17 @@ class Reservation {
 		$this->detailsReservations = $detailsReservations;
 		return $this;
 	}
+	
+	/**
+	 * 
+	 * @return float
+	 */
+	public function getTotalAmount(){
+		$amount=0;
+		foreach ($this->getDetailsReservations() as $d_reservation) {
+			$amount+=$d_reservation->getProduct()->getTotalPrice();
+		}
+		return $amount;
+	}
 
 }
