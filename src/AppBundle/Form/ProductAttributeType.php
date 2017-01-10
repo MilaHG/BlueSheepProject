@@ -3,13 +3,21 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class ProductAttributeType extends AbstractType {
 
+	private $transformer;
+
+
+	public function __construct (DataTransformer\ProductToIntTransformer $transformer) {
+		$this->transformer = $transformer;
+	}
+
+	
 	/**
 	 * {@inheritdoc}
 	 */
@@ -40,6 +48,10 @@ class ProductAttributeType extends AbstractType {
 				  'required'	=>false,
 				]
 			)
+			->add(
+				'product',
+				HiddenType::class
+			)
 //			->add(
 //				'product',
 //				EntityType::class,
@@ -50,6 +62,8 @@ class ProductAttributeType extends AbstractType {
 //				]
 //			)
 		;
+		
+		$builder->get('product')->addModelTransformer($this->transformer);
 	}
 
 	/**
@@ -57,7 +71,7 @@ class ProductAttributeType extends AbstractType {
 	 */
 	public function configureOptions(OptionsResolver $resolver) {
 		$resolver->setDefaults(array(
-		  'data_class' => 'AppBundle\Entity\ProductAttribute'
+		  'data_class' => 'AppBundle\Entity\ProductAttribute',
 		));
 	}
 

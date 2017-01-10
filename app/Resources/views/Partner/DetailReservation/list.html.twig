@@ -30,7 +30,7 @@
 			<td>{#{ d_reservation.reservation.user.username }#}</td>
 			<td>{{ d_reservation.quantity }}</td>
 			<td>
-				<a href="{{ path('app_partner_reservations_view', {"id" : d_reservation.product.id } ) }}" class="btn btn-primary">
+				<a href="{{ path('app_partner_reservations_view', {"id" : d_reservation.id } ) }}" class="btn btn-primary">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</a>
 				{# 

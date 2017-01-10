@@ -47,6 +47,7 @@ class ProductController extends Controller{
 		
 		$formsViews=[];
 		$dump_request=0;
+		
 		foreach ($products as $product){
 			
 			//initiating this virtual property wich include the attributes extra fees
@@ -57,6 +58,7 @@ class ProductController extends Controller{
 			
 			//create one product-attribute form for each product, all stocked in an array :
 			$form_att_u = $this->createForm(ProductAttributeType::class, $attribut);
+			
 			$formsViews[$product->getId()]=$form_att_u->createView();	
 				
 			$form_att_u->handleRequest($request);

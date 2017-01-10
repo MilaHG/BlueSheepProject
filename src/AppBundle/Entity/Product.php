@@ -227,6 +227,7 @@ class Product {
 		foreach ($this->getProductAttributes() as $attribute) {
 			$this->totalPrice+=$attribute->getExtraFee();
 		}
+		$this->totalPrice=round($this->totalPrice, 2);
 		return $this;
 	}
 }

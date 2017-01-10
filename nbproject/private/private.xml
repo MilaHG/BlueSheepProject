@@ -5,12 +5,21 @@
             <url>src/AppBundle/Controller/Partner/ProductController.php</url>
             <bookmark id="2">
                 <name/>
-                <line>124</line>
+                <line>137</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/Product.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/Partner/DetailReservation/list.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/Partner/Activity/list.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/app/Resources/views/layout.html.twig</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/DetailReservationController.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/User/ReservationController.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Entity/Reservation.php</file>
+            <file>file:/C:/wamp64/www/blueSheep/blueSheep/src/AppBundle/Controller/Partner/ProductController.php</file>
+        </group>
     </open-files>
 </project-private>

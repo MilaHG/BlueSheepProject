@@ -54,10 +54,9 @@ class DetailReservationController extends Controller {
 			throw $this->createNotFoundException();
 		}
 		
-//		$reservation = $em->getRepository('AppBundle:DetailReservation')->findByReservation($d_reservation);
+		$d_reservation->getProduct()->setTotalPrice();
+		$productAtt=$d_reservation->getProduct_attribute();
 		$reservation = $d_reservation->getReservation();
-		$user=$reservation->getUser();
-		
 		
 		//the partner can only access his data, or he is rederected to his list
 		if ($this->getUser()!==$d_reservation->getProduct()->getActivity()->getPartner()){
@@ -131,7 +130,7 @@ class DetailReservationController extends Controller {
 			[
 			  'd_reservation'	=>$d_reservation,
 			  'reservation'	=>$reservation,
-//			  'user'		=>$user,
+			  'productAtt'	=>$productAtt,
 			  'form' => $form->createView(),
 			]
 		);

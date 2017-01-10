@@ -461,7 +461,18 @@ class Activity {
 	public function getPhotos() {
 		return $this->photos;
 	}
+	
+	public function addPhotos(Photo $photo)
+	{
+		$this->photos[] = $photo;
+		$photo->setActivity($this);
+	}
 
+	public function removePhotos(Photo $photo)
+	{
+		$this->photos->removeElement($photos);
+	}
+	
 	/**
 	 * 
 	 * @return ArrayCollection

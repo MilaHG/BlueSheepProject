@@ -5,6 +5,7 @@ namespace AppBundle\Controller\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Reservation;
+use AppBundle\Entity\DetailReservation;
 
 /**
  * Reservation controller
@@ -23,8 +24,10 @@ class ReservationController extends Controller {
 		
 		$totalAmount=0;
 		foreach ($reservations as $reservation) {
-			$reservation->getProduct()->setTotalPrice();
-			$totalAmount=$reservation->getTotalAmount();
+			foreach ($reservation->getDetailsReservations() as $d_reservation) {
+				$d_reservation->setTotalPrice();
+				$totalAmount=$reservation->getTotalAmount();
+			}
 		}
 		
 		return $this->render(
@@ -40,15 +43,18 @@ class ReservationController extends Controller {
 	/**
 	 * @Route("/view/{id}")
 	 */
-	public function viewAction() {
+	public function viewAction($id) {
 		
+		$user = $this->container->get('security.token_storage')->getToken()->getUser()->getId();
+		$em=$this->getDoctrine()->getManager();
+		
+		$reservation_detail=$em->getRepository('AppBundle:DetailReservation')->findByUserAndId($id,$user);
 		
 		return $this->render(
-			'AppBundle:Reservation:view.html.twig',
+			'User/Reservation/view.html.twig',
 			[
-			  
+			  'reservations'	=>$reservation_detail,
 			]
 		);
 	}
-
 }

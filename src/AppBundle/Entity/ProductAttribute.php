@@ -140,4 +140,8 @@ class ProductAttribute {
 		return $this->getName(). ' : ' . $this->getValue(). ' (extrafee : '.$this->getExtraFee().')';
 	}
 	
+	public function getFullLabel(){
+		return $this->getName(). ' : ' . $this->getValue(). ' (extrafee : '.$this->getExtraFee().')';
+	}
+	
 }

@@ -27,15 +27,26 @@ class DetailReservationRepository extends EntityRepository{
 			->addSelect('res')
 //			->leftJoin('res.user', 'user')
 //			->addSelect('user')
-			->orderBy('res.date', 'DESC')
+			//->orderBy('res.date', 'DESC')
 		;
 		return $qb->getQuery()->getResult();
 	}
 	
-	public function findReservation($id) {
+	/*public function findReservation($id) {
 		$qb = $this->createQueryBuilder('a');
 		$qb				
 			->leftJoin('a.product', 'prod')
+		;
+		return $qb->getQuery()->getResult();
+	}*/
+	
+	public function findByUserAndId($user, $id) {
+		$qb = $this->createQueryBuilder('d');
+		$qb				
+			->leftJoin('d.reservation', 'res')
+			->leftJoin('res.user', 'us')
+			->where('d.id = '.$id)
+			->andWhere('us.id =' .$user  )
 		;
 		return $qb->getQuery()->getResult();
 	}
