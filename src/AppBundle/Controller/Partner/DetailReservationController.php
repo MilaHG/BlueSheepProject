@@ -31,7 +31,7 @@ class DetailReservationController extends Controller {
 		$current_total=0;
 		
 		foreach ($d_reservations as $d_reservation) {
-			$current_total+=$d_reservation->getProduct()->setTotalPrice()->getTotalPrice() * $d_reservation->getQuantity() ;
+			$current_total+=$d_reservation->setTotalPrice()->getTotalPrice() ;
 		}
 		
 		return $this->render('Partner/DetailReservation/list.html.twig', array(
@@ -54,7 +54,7 @@ class DetailReservationController extends Controller {
 			throw $this->createNotFoundException();
 		}
 		
-		$d_reservation->getProduct()->setTotalPrice();
+		$d_reservation->setTotalPrice();
 		$productAtt=$d_reservation->getProduct_attribute();
 		$reservation = $d_reservation->getReservation();
 		

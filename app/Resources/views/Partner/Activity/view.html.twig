@@ -6,7 +6,6 @@
 <div class="container">
 		
 	<h1>Activity details</h1>
-	{{ dump(activity) }}
 	<hr>
 	
 	<a href="{{ path("app_partner_activity_list") }}">Back to the activity list</a>
@@ -18,8 +17,9 @@
 		<div class="panel-body">
 			<div>
 				<div class="col-md-6">
-					<p>category : {{ activity.category.name }}</p>
-					<p>Could be practiced in :</p>
+					<h3>Category : </h3>
+					<p>{{ activity.category.name }}</p>
+					<h3>Could be practiced in :</h3>
 					<ul>
 					{% if activity.participantSolo %}
 						<li>Solo</li>
@@ -68,10 +68,8 @@
 		Average note : {{ average_note?? 'no comment yet' }}
 	</div>
 	
-		{{ dump(activity.comments) }}
 	{% for comment in activity.comments %}
 		
-		{{ dump(comment) }}
 		{#{ comment.user }#}
 		
 		<div class="well">

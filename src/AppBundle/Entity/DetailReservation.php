@@ -168,5 +168,4 @@ class DetailReservation {
 		$this->totalPrice = round($this->totalPrice * $this->getQuantity(), 2);
 		return $this;
 	}
-
 }

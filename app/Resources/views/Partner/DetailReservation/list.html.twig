@@ -3,7 +3,7 @@
 {% block title %}Reservations{% endblock %}
 
 {% block content %}
-	{{ dump(d_reservations) }}
+	{#{ dump(d_reservations) }#}
 	
 	<table class='table table-striped'>
 		<thead>
@@ -29,8 +29,8 @@
 			<td>{{ d_reservation.reservation.date|date("d/m/Y") }}</td>
 			<td>{{ d_reservation.product.activity.title }}</td>
 			<td>{{ d_reservation.product.date|date("d/m/Y") }}</td>
-			<td>{{ d_reservation.product.totalPrice }}</td>
-			<td>{#{ d_reservation.reservation.user.username }#}</td>
+			<td>{{ d_reservation.totalPrice }}</td>
+			<td>{{ d_reservation.reservation.user.username }}</td>
 			<td>{{ d_reservation.quantity }}</td>
 			<td>
 				<a href="{{ path('app_partner_reservations_view', {"id" : d_reservation.id } ) }}" class="btn btn-primary">

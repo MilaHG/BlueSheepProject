@@ -51,7 +51,7 @@ class ProductController extends Controller{
 		foreach ($products as $product){
 			
 			//initiating this virtual property wich include the attributes extra fees
-			$product->setTotalPrice();
+			//$product->setTotalPrice();
 			
 			$attribut=new ProductAttribute;
 			$attribut->setProduct($product);
