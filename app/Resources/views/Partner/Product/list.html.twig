@@ -16,7 +16,7 @@
 	
 	<h1>Products of the activity "{{ activity.title }}"</h1>
 	
-	{{ dump(request) }}
+	{#{ dump(request) }#}
 	
 	<a href="{{ path('app_partner_product_edit', { "id_a" : activity.id} ) }}" class="btn btn-success col-lg-offset-10">
 		New Product <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
@@ -29,7 +29,7 @@
 			<span class="glyphicon glyphicon-scale col-md-offset-1"> Stock : {{ product.stock }}</span>
 			<span class=" glyphicon glyphicon-shopping-cart col-md-offset-1"> Boooked : {{ product.detailsReservations|length }}</span>
 			<hr>
-			{{ dump(product) }}
+			{#{ dump(product) }#}
 			<p>Extras :</p>
 			<ul>
 				{% for prodAttribute in product.productAttributes %}
@@ -41,7 +41,7 @@
 				{% else %}
 				<p>No extras</p>
 				{% endfor %}
-				{{ dump(forms[product.id]) }}
+				{#{ dump(forms[product.id]) }#}
 				{{ form_start( forms[product.id] , {'attr': {'class': 'form-inline'} }) }}
 				{{ form_row(forms[product.id] .name) }}
 				{{ form_row(forms[product.id] .value) }}

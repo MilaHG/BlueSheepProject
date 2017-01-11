@@ -1,49 +1,64 @@
-        <header>
-            <a href="{{ path('homepage')}}">
-            <img id="blue-sheep-logo-layout" src="{{ asset('img/logo.png') }}" alt="blue sheep logo" /></a>
-        </header>
-        {# nav  #}
-            <div class="navbar-wrapper">
-              <div class="container">
+<header>
+	<a href="{{ path('homepage')}}">
+		<img id="blue-sheep-logo-layout" src="{{ asset('img/logo.png') }}" alt="blue sheep logo" /></a>
+</header>
+{# nav  #}
+<div class="navbar-wrapper">
+	<div class="container">
 
-                <nav class="navbar navbar-default navbar-static-top">
-                  <div class="container">
-                    <div class="navbar-header">
-                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                      </button>
-                        <a class="navbar-brand" href="{{ path('homepage')  }}" ></a>
-                    </div>
-                    <div id="navbar" class="navbar-collapse collapse">
-                      <ul class="nav navbar-nav">
-                          <li {% if app.request.get('_route') == 'homepage'  %} class="active" {% endif  %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home" aria-hidden="true" title="Add"></span></a></li>
-                          <li {% if app.request.get('_route') == 'app_product_category'  %} class="active" {% endif  %}><a href="{{ path('app_product_category') }}">Catégories</a></li>
+					</button>
+					<a class="navbar-brand" href="{{ path('homepage')  }}" ></a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+							<li {% if app.request.get('_route') == 'homepage'  %} class="active" {% endif  %}><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home" aria-hidden="true" title="Add"></span></a></li>
+							<li {% if app.request.get('_route') == 'app_product_category'  %} class="active" {% endif  %}><a href="{{ path('app_product_category') }}">Catégories</a></li>
+							<li {% if app.request.get('_route') == 'app_cart_cart' %} class="active" {% endif %} ><a href="{{ path('app_cart_cart') }}">Panier</a>
+							</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						{% if not is_granted('ROLE_USER') %} 
+							<li {% if app.request.get('_route') == 'fos_user_security_login' %} class="active" {% endif %} ><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
+							<li {% if app.request.get('_route') == 'fos_user_registration_register' %} class="active" {% endif %} ><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
+						{% endif %}
+						{% if is_granted('ROLE_PARTNER') %} 
+							<li id="dLabel_part" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<a href="#">Espace annonceur <span class="caret"></span></a>
+							</li>
+							<ul class="dropdown-menu" aria-labelledby="dLabel_part">	
+								<li {% if app.request.get('_route') == 'app_partner_activity_list' %} class="active" {% endif %}><a href="{{ path('app_partner_activity_list') }}"> Mes activités </a>
+								</li>
+								<li {% if app.request.get('_route') == 'app_partner_reservations_list' %} class='active' {% endif %} ><a href="{{ path('app_partner_reservations_list') }}"> Reservations</a>
+								</li>
+							</ul>
+						{% endif %}
+						{% if is_granted('ROLE_ADMIN') %} 
+							<li {% if app.request.get('_route') == 'easyadmin' %} class="active" {% endif %}><a href="{{ path(' easyadmin') }}"> Espace Admin </a>
+							</li>
+						{% endif %}
+						<!-- if user is connected, show profile link  -->
+						{% if is_granted('ROLE_USER') %} 
+							<li {% if app.request.get('_route') == 'fos_user_profile_show' %} class="active" {% endif %}><a href="{{ path('fos_user_profile_show') }}">Mon compte</a>
+							</li>
+							<li {% if app.request.get('_route') == 'app_user_preference_list' %} class='active' {% endif %} ><a href="{{ path('app_user_preference_list') }}">Hobbies</a>
+							</li>
+							<li {% if app.request.get('_route') == 'app_user_reservation_list' %} class='active' {% endif %} ><a href="{{ path('app_user_reservation_list') }}">Mes reservations</a>
+							</li>
+							<li><a href="{{ path('fos_user_security_logout') }}"> Déconnexion </a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</nav>
 
-                          <li {% if app.request.get('_route') == 'fos_user_security_login' %} class="active" {% endif %} ><a href="{{ path('fos_user_security_login') }}">Connexion</a></li>
-                          <li {% if app.request.get('_route') == 'fos_user_registration_register' %} class="active" {% endif %} ><a href="{{ path('fos_user_registration_register') }}">Inscription</a></li>
-                          <li {% if app.request.get('_route') == 'app_cart_cart' %} class="active" {% endif %} ><a href="{{ path('app_cart_cart') }}">Panier</a>
-                          </li>
-                                              
-                    <!-- if user is connected, show profile link  -->
-                    {% if is_granted('ROLE_USER') %} 
-                        <li {% if app.request.get('_route') == 'app_default_useraccount' %} class="active" {% endif %}><a href="{{ path('app_default_useraccount') }}"> Mon espace </a>
-                        </li>
-                        <li {% if app.request.get('_route') == 'app_user_preference_list' %} class='active' {% endif %} ><a href="{{ path('app_user_preference_list') }}">Hobbies</a>
-                        </li>
-                        <li><a href="{{ path('fos_user_security_logout') }}"> Déconnexion </a></li>
-                    {% endif %}
-                          
-                      </ul>
-                      
-
-                      
-                    </div>
-                  </div>
-                </nav>
-
-              </div>
-            </div>
-            {# end nav  #} 
+	</div>
+</div>
+{# end nav  #} 

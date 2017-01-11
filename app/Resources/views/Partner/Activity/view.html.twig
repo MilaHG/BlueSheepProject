@@ -18,8 +18,9 @@
 		<div class="panel-body">
 			<div>
 				<div class="col-md-6">
-					<p>category : {{ activity.category.name }}</p>
-					<p>Could be practiced in :</p>
+					<h3>Category : </h3>
+					<p>{{ activity.category.name }}</p>
+					<h3>Could be practiced in :</h3>
 					<ul>
 					{% if activity.participantSolo %}
 						<li>Solo</li>
