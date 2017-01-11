@@ -11,8 +11,9 @@ imports:
 parameters:
     locale: fr
     path.category_img: web/img/cat
-    path.user_img: %kernel.root_dir%/../web/img/user
-    path.activity_img: %web_path%img/activity
+    path.user_img: "%kernel.root_dir%/../web/img/user"
+    path.activity_img: "%web_path%../bluesheepproject/web/img/activity"
+#    path.activity_img: %kernel.root_dir%/../web/img/activity
 
 framework:
     #esi:             ~
@@ -114,24 +115,24 @@ fos_user:
             
             
 #fos_elastica 
-fos_elastica:
-    clients:
-        default: { host: localhost, port: 9200 }
-    indexes:
-        app:
-            types:
-                activity:
-                    mappings:
-                        title: ~
-                        description: ~
-                        address: ~
-                    persistence:
-                        # the driver can be orm, monodb, phpcr or propel
-                        # listener and finder are not supported by propel an
-                        # and should be removed 
-                        driver: orm
-                        model: AppBundle\Entity\Activity
-                        provider: ~
-                        listener: ~ 
-                        finder: ~ 
+#fos_elastica:
+#    clients:
+#        default: { host: localhost, port: 9200 }
+#    indexes:
+#        app:
+#            types:
+#                activity:
+#                    mappings:
+#                        title: ~
+#                        description: ~
+#                        address: ~
+#                    persistence:
+#                        # the driver can be orm, monodb, phpcr or propel
+#                        # listener and finder are not supported by propel an
+#                        # and should be removed 
+#                        driver: orm
+#                        model: AppBundle\Entity\Activity
+#                        provider: ~
+#                        listener: ~ 
+#                        finder: ~ 
                         

@@ -6,7 +6,7 @@
 <div class="container">
 		
 	<h1>Activity details</h1>
-	{{ dump(activity) }}
+	{#{{ dump(activity) }}#}
 	<hr>
 	
 	<a href="{{ path("app_partner_activity_list") }}">Back to the activity list</a>
@@ -58,7 +58,7 @@
 	<div class="well">
 	{% for photo in  activity.photos %}
 		<img src="{{ vich_uploader_asset(photo, 'imageFile') }}" alt="activity {{ activity.title }}" />
-		<img src="C:/wamp64/www/blueSheep/blueSheep/app/../web/img/activity/587228aa57d01_photo2.jpg" class="img-thumbnail" alt="activity {{ activity.title }}" />
+{#		<img src="C:/wamp64/www/blueSheep/blueSheep/app/../web/img/activity/587228aa57d01_photo2.jpg" class="img-thumbnail" alt="activity {{ activity.title }}" />#}
 	{% endfor %}
 	</div>
 	
@@ -68,10 +68,10 @@
 		Average note : {{ average_note?? 'no comment yet' }}
 	</div>
 	
-		{{ dump(activity.comments) }}
+		{#{{ dump(activity.comments) }}#}
 	{% for comment in activity.comments %}
 		
-		{{ dump(comment) }}
+		{#{{ dump(comment) }}#}
 		{#{ comment.user }#}
 		
 		<div class="well">

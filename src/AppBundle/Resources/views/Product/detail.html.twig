@@ -218,7 +218,7 @@
                 
                  {%  if  activity.photos|length > 0 %}
                     <a href="{{ path('app_product_detail', {"id": activity.id })  }}">
-                        <img class="img-responsive portfolio-item" src="{{ asset('img/activity/'~ activity.photos[0].name) }}" alt="" style="width: 500px; height: 300px;">
+                        <img class="img-responsive portfolio-item" src="{{ asset('img/activity/'~ activity.photos[0].name) }}" alt="">
                     </a>
                   {% else %}
                     <img class="img-responsive" src="http://placehold.it/500x300/d3e4f3/428bca?text=photo+en+vacances+!" />

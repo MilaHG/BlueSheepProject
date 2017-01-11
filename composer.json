@@ -25,8 +25,7 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "javiereguiluz/easyadmin-bundle": "^1.16",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "vich/uploader-bundle": "^1.4",
-        "friendsofsymfony/elastica-bundle": "dev-master"
+        "vich/uploader-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

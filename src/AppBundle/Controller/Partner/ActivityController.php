@@ -99,11 +99,11 @@ class ActivityController extends Controller {
 			
 			if($form->isValid()){
 				
-				//foreach ($activity->getPhotos() as $photo) {
+				foreach ($activity->getPhotos() as $photo) {
 					//if (!is_null($photo->getName())){
-				//		$photo->setActivity($activity);
+						$photo->setActivity($activity);
 					//}
-				//}
+				}
 
 				$em->persist($activity);
 				$em->flush();

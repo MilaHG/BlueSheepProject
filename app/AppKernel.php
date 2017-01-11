@@ -21,7 +21,7 @@ class AppKernel extends Kernel {
 		  new FOS\UserBundle\FOSUserBundle(),
 		  //ajouté par Florent pour le bundle VichUploader (gestion image)
 		  new Vich\UploaderBundle\VichUploaderBundle(),
-                  new FOS\ElasticaBundle\FOSElasticaBundle(),  
+                  //new FOS\ElasticaBundle\FOSElasticaBundle(),  
 		];
 
 		if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
