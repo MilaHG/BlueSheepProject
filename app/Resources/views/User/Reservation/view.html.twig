@@ -19,9 +19,11 @@
 				<p>Proposé par {{ d_reservation.product.activity.partner.company }}</p>
 				<p>Adresse :{{ d_reservation.product.activity.partner.address }}
 					<br>{{ d_reservation.product.activity.partner.zip }} {{ d_reservation.product.activity.partner.city }}</p>
-				<p><a href='{{ path('app_product_detail', {'id' : d_reservation.product.activity.id }) }}'>
+				<p>
+					<a href='{{ path('app_product_detail', {'id' : d_reservation.product.activity.id }) }}'>
 						Voir la fiche produit <span class='glyphicon glyphicon-chevron-right'></span>
-				</a></p>
+					</a>
+				</p>
 			</div>
 		</div>
 	</div>	
